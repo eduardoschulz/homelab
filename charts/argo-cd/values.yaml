@@ -635,10 +635,10 @@ configs:
   ## Creates a secret for each key/value specified below to create repositories
   ## Note: the last example in the list would use a repository credential template, configured under "configs.credentialTemplates".
   repositories:
-      public-git:
+      main:
         url: https://github.com/eduardoschulz/homelab.git
         name: homelab
-        type: git
+        type: git 
     # istio-helm-repo:
     #   url: https://storage.googleapis.com/istio-prerelease/daily-build/master-latest-daily/charts
     #   name: istio.io
