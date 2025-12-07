@@ -1,32 +1,27 @@
-config:
-  spec:
-    projectName: homelab
-    landscape: local
-    destination:
-      server: https://kubernetes.default.svc
-    source:
-      repoURL: https://github.com/argoproj/argocd-example-apps
-      targetRevision: master
+argocd-apps:
+  applications:
+    sealed-secrets:
+      namespace: argocd
+      project: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      source:
+        repoURL: https://github.com/eduardoschulz/homelab.git 
+        targetRevision: master
+        path: charts/sealed-secrets 
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: kube-system
 
-
-sync:
-  automated: true
-  prune: true
-  selfHeal: true
-
-repository:
- main:
-   repository: https://github.com/eduardoschulz/homelab.git
-   revision: master
-
-applications:
- essentials:
-   project: homelab
-   apps:
-     sealed-secrets:
-       enabled: true
-       repository: main
-       namespace: kube-system
-       path: charts/sealed-secrets
-       parameters: []
-
+    # Example for a second app using the same repo:
+    # my-second-app:
+    #   project: homelab
+    #   source:
+    #     repoURL: https://github.com/eduardoschulz/homelab.git 
+    #     targetRevision: master
+    #     path: another-app-directory
+    #   destination:
+    #     server: https://kubernetes.default.svc
+    #     namespace: another-namespace
