@@ -16,12 +16,17 @@ argocd-apps:
         namespace: kube-system
 
     # Example for a second app using the same repo:
-    # my-second-app:
-    #   project: homelab
-    #   source:
-    #     repoURL: https://github.com/eduardoschulz/homelab.git 
-    #     targetRevision: master
-    #     path: another-app-directory
-    #   destination:
-    #     server: https://kubernetes.default.svc
-    #     namespace: another-namespace
+    cert-manager:
+      project: default
+      namespace: cert-manager
+      syncPolicy:
+        syncOptions:
+          - PruneLast=true
+          - CreateNamespace=true
+      source:
+        repoURL: https://github.com/eduardoschulz/homelab.git 
+        targetRevision: master
+        path: charts/cert-manager
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: cert-manager
