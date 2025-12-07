@@ -659,7 +659,7 @@ configs:
   # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/#sensitive-data-and-sso-client-secrets
   secret:
     # -- Create the argocd-secret
-    createSecret: true
+    createSecret: false
     # -- Labels to be added to argocd-secret
     labels: {}
     # -- Annotations to be added to argocd-secret
@@ -4266,3 +4266,7 @@ commitServer:
     # -- Default network policy rules used by commit server
     # @default -- `false` (defaults to global.networkPolicy.create)
     create: false
+
+adminSecret:
+  encryptedPassword: AgBcl7CM9bP+VExkQmbnsMSJGJLUuzpdzuPM1btPODLWI8uVWbGebQWJEBBelNhfvr3BEvoolwSkWY3gjYvQ33UJxGJQ9552LXRYrKPAzROsxpiSA3Nfkn3fH9qJbMTEQ7lC+k6w1usrSSp+47JnK1UzX21uYmHN/sc/cZc8DP9N12WooLCaiad95xwFu7vA9qihqS3AKA7OFE0LYKPMTKwcSxKU+VmjG4smt092y07HyOrws8ewW/pE03AmbJ6ZIPnGZurb+Mz17gfvxref5qErEn3NQlFYwIftZBHSNQgjhU88omZy0UepkC2j1yXng3ZKIUnVV3vcza6FQyHe4bz8EGWnieoT38PWGJLiSdVonVXqR8mLmxa+n9QgCoK1uzvPYEEtH4d6g+q2uAAZQ47pPWQxNcxXPNVamnezdTvk90evNsZNvitnaDVzlKpacLbVK64mRE8tuHi/992yBzPSCZc8HgtXdbZRfKr2sSSra5MguH4FawDNd7GslFnlw0nFoB2tK+7p07zYPrCz1SkWiCBffOTOe5mmQ57GQu0n5QrlJITLDfkRpzoC591tsEoKdaqm2NqyWwkKIQ33PssM6IpHlAV5SIEG8zbftxyKjSzh3nx3edzsyEcIlTTFX4WaqZcY2JhJ4gV7XOdK/r7Vr2H6EKi7xPVssN1g+Ja3yuIVO6OfKgWLui1Vl6XAqKXF/paUyXNAARTYQ3q6kh5mHU2HTGzSTlxoIxA3u8is/B3zFFvd1PRrc9iy3FZrIdXHrRX35qc8OvwVl8g=  
+  encryptedMTime: AgANEmG0pOfICzYlbdKBcsg98VCDkKdzNGYu3toOiDzKQ9TBTqSdBK79losy//27bf/EHJUDohJYr8Odkhc/4KCq6yW11yTjOKVhrod2tcwl+jae7Vjuip5A6AKRX4xBcdWfanimB4vir5pJjnf95GpAoZPgUGN5sYK1/y5isWiBW8KR5rYYPvOpW+/5nufgYuc0fkChoAYU7gkfWS0ffm4xaXaibNphdF4VUQ/08sBeDr7Hk+m+Yiv/OEbtYJITbRnwY0lwgl07aZjU3fxsa6k6DgnN67SgVhateRuOv/wAbYk2gOK/53MEU999U9Kkm5rGD1kjr0lNSlFwVMFRVT3WOHju6HYLQIXhlHGINEigpiTco26SCpgOuv+/sZ/AE7ACbG/9iNoPO6jWS5DD/WaJ166Ptu3/M3z3n+atdtTlof34yybEylkQh0EvcB4cYesW6nWl7t4RNTYF1z3+2W4aWoafQIFJZZEVWPGgCpsHZrwRA4mNmC1I4jsIE30DXd68q9f/KTg29vNYym55WUTAMwspnaRJ+d2AWTpkzt33r1LHz8rChxF5WRj+EQl/9R/Q6yqpCbI8bieP4f6LWAc8XBVYeUlr9+gVrs1sqqhJy8jlyBD/oRR/hzwl/mWyC06suhI04TD1U6hkPccT1zu605fnr/VwobhLn3y333M4u93XCjQSdkueu4+Bp0VKIjKG+UxCk4mu3PnAvqQ9OA2BIn2RR7xJ  
