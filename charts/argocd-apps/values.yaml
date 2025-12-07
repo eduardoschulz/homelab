@@ -1,7 +1,7 @@
 argocd-apps:
   projectName: homelab
   landscape: local
-
+  destination: https://kubernetes.default.svc
   sync:
     automated: true
     prune: true
