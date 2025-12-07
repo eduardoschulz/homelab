@@ -1,6 +1,8 @@
 sealed-secrets:
   metrics: 
+    #To enable those I need to isnstall ServiceMonitor CRD first
     serviceMonitor:
-      enabled: true
+      enabled: false
     dashboards:
-      create: true
+      create: false
+
