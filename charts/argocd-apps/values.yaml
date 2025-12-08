@@ -30,3 +30,17 @@ argocd-apps:
       destination:
         server: https://kubernetes.default.svc
         namespace: cert-manager
+    pihole:
+      project: default
+      namespace: argocd
+      syncPolicy:
+        syncOptions:
+          - PruneLast=true
+          - CreateNamespace=true
+      source:
+        repoURL: https://github.com/eduardoschulz/homelab.git 
+        targetRevision: master
+        path: charts/dns/pihole
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: pihole

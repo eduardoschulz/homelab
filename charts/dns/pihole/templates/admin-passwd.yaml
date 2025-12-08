@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: pihole-admin
+  namespace: pihole
+spec:
+  encryptedData:
+    password: {{ .Values.adminEncryptedPassword }}
+  template:
+    metadata:
+      name: pihole-admin
+      namespace: pihole
+    type: Opaque
