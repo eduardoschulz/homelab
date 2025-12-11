@@ -1,5 +1,25 @@
 # Setup Example
 
+# Terraform Setup on Proxmox 9
+```
+pveum role add TerraformProv -privs "Datastore.AllocateSpace Datastore.AllocateTemplate Datastore.Audit Pool.Allocate Pool.Audit Sys.Audit Sys.Console Sys.Modify VM.Allocate VM.Audit VM.Clone VM.Config.CDROM VM.Config.Cloudinit VM.Config.CPU VM.Config.Disk VM.Config.HWType VM.Config.Memory VM.Config.Network VM.Config.Options VM.Migrate VM.PowerMgmt SDN.Use"
+
+pveum user add terraform-prov@pve --password <password>
+pveum aclmod / -user terraform-prov@pve -role TerraformProv
+```
+
+If for some reason you need to modify the role's permissions:
+```
+pveum role modify TerraformProv -privs "Datastore.AllocateSpace ..."
+```
+## Creating API Token
+```
+pveum user token add terraform-prov@pve mytoken
+```
+
+You can also use the username and password to connect to proxmox, but the API token is a better solution.
+
+
 ## Create a Cloud Init template
 
 #### Downloading a Cloud Init Image
