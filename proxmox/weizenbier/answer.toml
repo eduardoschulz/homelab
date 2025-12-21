@@ -1,0 +1,25 @@
+[global]
+keyboard = "en-us"
+country = "br"
+timezone = "America/Sao_Paulo"
+fqdn = "weizenbier.example.com"             
+mailto = "root@weizenbier.example.com"       
+root-password = "" 
+reboot-on-error = false              
+
+[network]
+source = "from-answer"                    
+cidr = "192.168.0.11/24"             
+gateway = "192.168.0.1"              
+dns = "1.1.1.1"
+filter.ID_NET_NAME_MAC = ""
+
+[network.interface-name-pinning]
+enabled = true
+
+[network.interface-name-pinning.mapping]
+"" = "lan0"
+
+[disk-setup]
+filesystem = "ext4"                  
+filter.ID_SERIAL = ""
