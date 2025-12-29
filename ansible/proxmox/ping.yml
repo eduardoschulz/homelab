@@ -1,0 +1,8 @@
+---
+- name: ping test
+  hosts: all_nodes
+  gather_facts: yes
+  
+  tasks:
+    - name: Ping servers
+      ansible.builtin.ping:
