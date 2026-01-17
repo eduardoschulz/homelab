@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkwiki=globalThis.webpackChunkwiki||[]).push([[1903],{1912(a){a.exports=JSON.parse('{"blogBasePath":"/homelab/blog","blogTitle":"Blog","authorsListPath":"/homelab/blog/authors"}')}}]);
