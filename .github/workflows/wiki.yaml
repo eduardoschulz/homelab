@@ -1,0 +1,49 @@
+name: Deploy Docusaurus to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+    # Optional: Only run if files in the wiki folder change
+    paths:
+      - 'wiki/**'
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'yarn'
+          # This tells the cache where to find the yarn.lock file
+          cache-dependency-path: wiki/yarn.lock
+
+      - name: Install dependencies
+        working-directory: ./wiki
+        run: yarn install --frozen-lockfile
+
+      - name: Build website
+        working-directory: ./wiki
+        run: yarn build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # The build output folder inside your wiki directory
+          publish_dir: ./wiki/build
+          # The branch where the static site will live
+          publish_branch: gh-pages
+          # Keep other files in the gh-pages branch if any (optional)
+          keep_files: false
