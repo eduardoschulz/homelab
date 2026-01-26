@@ -2412,7 +2412,7 @@ server:
 
     # -- Argo CD server hostname
     # @default -- `""` (defaults to global.domain)
-    hostname: "argocd.info"
+    hostname: "argocd.eduardoschulz.com.br"
 
     # -- The path to Argo CD server
     path: /
