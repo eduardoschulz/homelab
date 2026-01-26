@@ -6,7 +6,7 @@ terraform {
     }
   }
 }
-
+#TODO move some hardcoded configs from agent and server tf files to vars.tf
 provider "proxmox" {
   pm_api_url          = var.api_url
   pm_api_token_id     = var.token_id
@@ -20,7 +20,7 @@ locals {
   base_ip_prefix = "192.168.0"
   start_ip_suffix = 60
   ips = [
-    for i in range(5) : 
+    for i in range(6) : 
     "ip=${local.base_ip_prefix}.${local.start_ip_suffix + i}/24,gw=${local.base_ip_prefix}.1"
   ]
 }
@@ -28,12 +28,12 @@ locals {
 module "k3s_servers" {
   source    = "./server"
 
-  count     = 2
+  count     = 3
   instance_index = count.index
 
   ipconfig0 = local.ips[count.index] 
   
-  target_node = "delta-px"
+  target_node = "pilsen"
   ssh_key     = var.ssh_key 
 }
 
@@ -42,10 +42,10 @@ module "k3s_agents" {
   count     = 3
   instance_index = count.index
 
-  ipconfig0 = local.ips[count.index + 2] 
+  ipconfig0 = local.ips[count.index + 3] 
   
   # Pass other required variables
-  target_node = "delta-px"
+  target_node = "pilsen"
   ssh_key     = var.ssh_key 
 }
 

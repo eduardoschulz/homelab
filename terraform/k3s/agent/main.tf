@@ -20,8 +20,9 @@ resource "proxmox_vm_qemu" "k3s_agent" {
   
   target_node = var.target_node
   agent       = 1
-  cores       = 1 
-  memory      = 2048 
+  #TODO fix deprecated core flag
+  cores       = 6 
+  memory      = 16384
   
   boot        = "order=scsi0"
   clone       = "ubuntu-noble-cloudinit" 
@@ -30,7 +31,7 @@ resource "proxmox_vm_qemu" "k3s_agent" {
   automatic_reboot = true
 
   cicustom   = "vendor=local:snippets/qemu-guest-agent.yml" 
-  ciupgrade  = true
+  ciupgrade  = false
   nameserver = "1.1.1.1 8.8.8.8"
   ipconfig0  = var.ipconfig0 
   skip_ipv6  = true
@@ -44,7 +45,7 @@ resource "proxmox_vm_qemu" "k3s_agent" {
     scsi {
       scsi0 {
         disk {
-          storage = "local-lvm"
+          storage = "nfs-truenas"
           size    = "20G" 
         }
       }
@@ -52,7 +53,7 @@ resource "proxmox_vm_qemu" "k3s_agent" {
     ide {
       ide1 {
         cloudinit {
-          storage = "local-lvm" 
+          storage = "nfs-truenas" 
         }
       }
     }

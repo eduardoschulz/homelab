@@ -20,8 +20,8 @@ resource "proxmox_vm_qemu" "k3s_server" {
   
   target_node = var.target_node
   agent       = 1
-  cores       = 1 
-  memory      = 4096 
+  cores       = 10 
+  memory      = 32768
   
   boot        = "order=scsi0" 
   clone       = "ubuntu-noble-cloudinit" 
@@ -30,7 +30,7 @@ resource "proxmox_vm_qemu" "k3s_server" {
   automatic_reboot = true
 
   cicustom   = "vendor=local:snippets/qemu-guest-agent.yml" 
-  ciupgrade  = true
+  ciupgrade  = false #already added this to the snippet
   nameserver = "1.1.1.1 8.8.8.8"
   # Dynamic IP passed from the root module
   ipconfig0  = var.ipconfig0 
@@ -45,7 +45,7 @@ resource "proxmox_vm_qemu" "k3s_server" {
     scsi {
       scsi0 {
         disk {
-          storage = "local-lvm"
+          storage = "nfs-truenas"
           size    = "20G" 
         }
       }
@@ -53,7 +53,7 @@ resource "proxmox_vm_qemu" "k3s_server" {
     ide {
       ide1 {
         cloudinit {
-          storage = "local-lvm"  
+          storage = "nfs-truenas"  
         }
       }
     }
