@@ -8,25 +8,24 @@ immich:
             image:
               repository: ghcr.io/immich-app/immich-server
               pullPolicy: IfNotPresent
+    ingress:
+      main:
+        enabled: false
+        annotations:
+          cert-manager.io/cluster-issuer: cloudflare-issuer
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.tls: "true"
+        hosts:
+          - host: immich.eduardoschulz.com.br
+            paths:
+              - path: "/"
+                service:
+                  identifier: main
+        tls:
+        - secretName: immich-tls-cert
+          hosts:
+            - immich.eduardoschulz.com.br
   immich:
     persistence:
       library:
         existingClaim: "immich-exp-nfs-pvc"
-  ingress:
-    main:
-      enabled: false
-      annotations:
-        cert-manager.io/cluster-issuer: cloudflare-issuer
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        traefik.ingress.kubernetes.io/router.tls: "true"
-      hosts:
-        - host: immich.eduardoschulz.com.br
-          paths:
-            - path: "/"
-              service:
-                identifier: main
-      tls:
-      - secretName: immich-tls-cert
-        hosts:
-          - immich.eduardoschulz.com.br
-
