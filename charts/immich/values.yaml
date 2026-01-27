@@ -22,4 +22,8 @@ immich:
             - path: "/"
               service:
                 identifier: main
-      tls: true
+      tls:
+      - secretName: immich-tls-cert
+        hosts:
+          - immich.eduardoschulz.com.br
+
