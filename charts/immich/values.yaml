@@ -1,0 +1,25 @@
+immich:
+  server:
+    enabled: true
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/immich-app/immich-server
+              pullPolicy: IfNotPresent
+
+  ingress:
+    main:
+      enabled: false
+      annotations:
+        cert-manager.io/cluster-issuer: cloudflare-issuer
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.tls: "true"
+      hosts:
+        - host: immich.eduardoschulz.com.br
+          paths:
+            - path: "/"
+              service:
+                identifier: main
+      tls: true
