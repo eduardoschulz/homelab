@@ -1,14 +1,28 @@
-immich: 
-  immich: 
+immich:
+  immich:
     persistence:
       library:
         existingClaim: "immich-exp-nfs-pvc"
+    configuration:
+      redis:
+        host: "immich-valkey"
+      database:
+        host: "immich-postgresql"
+
+  redis:
+    enabled: true
+
+  postgresql:
+    enabled: true
+    image:
+      repository: tensorchord/pgvecto-rs
+      tag: pg16-v0.2.0
 
   server:
     enabled: true
     ingress:
       main:
-        enabled: true 
+        enabled: true
         annotations:
           cert-manager.io/cluster-issuer: cloudflare-issuer
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
@@ -23,7 +37,6 @@ immich:
           - secretName: immich-tls-cert
             hosts:
               - immich.eduardoschulz.com.br
-
     controllers:
       main:
         containers:
@@ -31,8 +44,6 @@ immich:
             image:
               repository: ghcr.io/immich-app/immich-server
               pullPolicy: IfNotPresent
+
   machine-learning:
     enabled: false
-    ingress:
-      main:
-        enabled: false
