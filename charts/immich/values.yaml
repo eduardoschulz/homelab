@@ -31,3 +31,8 @@ immich:
             image:
               repository: ghcr.io/immich-app/immich-server
               pullPolicy: IfNotPresent
+  machine-learning:
+    enabled: false
+    ingress:
+      main:
+        enabled: false
