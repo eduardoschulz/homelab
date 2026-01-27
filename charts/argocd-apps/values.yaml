@@ -15,6 +15,20 @@ argocd-apps:
         server: https://kubernetes.default.svc
         namespace: kube-system
 
+    immich:
+      namespace: immich
+      project: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      source:
+        repoURL: https://github.com/eduardoschulz/homelab.git 
+        targetRevision: master
+        path: charts/immich
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: immich
     # Example for a second app using the same repo:
     cert-manager:
       project: default
