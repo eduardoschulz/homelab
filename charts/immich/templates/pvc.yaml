@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-exp-nfs-pvc
+  namespace: immich
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: "" # Must be empty string to bind to the manual PV above
+  resources:
+    requests:
+      storage: 500Gi
+  volumeName: immich-exp-pv
+

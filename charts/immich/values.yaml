@@ -8,7 +8,10 @@ immich:
             image:
               repository: ghcr.io/immich-app/immich-server
               pullPolicy: IfNotPresent
-
+  immich:
+    persistence:
+      library:
+        existingClaim: "immich-exp-nfs-pvc"
   ingress:
     main:
       enabled: false
