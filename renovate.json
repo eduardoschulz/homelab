@@ -3,5 +3,7 @@
   "enabledManagers": ["helmv3"],
   "helmv3": {
     "fileMatch": ["^charts/[^/]+/Chart\\.yaml$"]
-  }
+  },
+  "reviewers": ["eduardoschulz"],
+  "labels": ["renovate", "dependencies"]
 }
