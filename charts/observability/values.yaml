@@ -1,0 +1,5 @@
+victoria-metrics-k8s-stack:
+  victoria-metrics-operator:
+    enabled: true
+  # alertmanager:
+  #   enabled: false

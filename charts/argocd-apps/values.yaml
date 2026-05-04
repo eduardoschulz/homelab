@@ -17,6 +17,7 @@ argocd-apps:
       project: default
       syncPolicy:
         automated:
+          enabled: true
           prune: false
           selfHeal: false
       source:
@@ -26,6 +27,22 @@ argocd-apps:
       destination:
         server: https://kubernetes.default.svc
         namespace: argocd
+    observability:
+      project: default
+      syncPolicy:
+        automated:
+          enabled: true
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+      source:
+        repoURL: https://github.com/eduardoschulz/homelab.git 
+        targetRevision: master
+        path: charts/observability
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: observability
     sealed-secrets:
       namespace: argocd
       project: default
@@ -71,6 +88,7 @@ argocd-apps:
         server: https://kubernetes.default.svc
         namespace: cert-manager
     pihole:
+      enabled: false
       project: default
       namespace: argocd
       syncPolicy:
