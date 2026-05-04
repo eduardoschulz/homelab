@@ -1,5 +1,31 @@
 argocd-apps:
   applications:
+    argocd:
+      project: default
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: false
+      source:
+        repoURL: https://github.com/eduardoschulz/homelab.git 
+        targetRevision: master
+        path: charts/argo-cd
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd 
+    argocd-apps:
+      project: default
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: false
+      source:
+        repoURL: https://github.com/eduardoschulz/homelab.git 
+        targetRevision: master
+        path: charts/argocd-apps
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd
     sealed-secrets:
       namespace: argocd
       project: default
