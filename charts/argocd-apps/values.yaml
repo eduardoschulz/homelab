@@ -59,7 +59,6 @@ argocd-apps:
         namespace: kube-system
 
     immich:
-      namespace: immich
       project: default
       syncPolicy:
         automated:
