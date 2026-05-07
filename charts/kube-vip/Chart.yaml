@@ -7,3 +7,9 @@ maintainers:
 name: kube-vip
 type: application
 version: 0.9.9
+
+
+dependencies: 
+  - name: kube-vip
+    version: 0.9.9
+    repository: https://kube-vip.github.io/helm-charts             
