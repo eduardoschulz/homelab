@@ -101,3 +101,17 @@ argocd-apps:
       destination:
         server: https://kubernetes.default.svc
         namespace: pihole
+    kube-vip:
+      project: default
+      syncPolicy:
+        automated:
+          enabled: true
+          prune: true
+          selfHeal: true
+      source:
+        repoURL: https://github.com/eduardoschulz/homelab.git 
+        targetRevision: master
+        path: charts/kube-vip
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: kube-system

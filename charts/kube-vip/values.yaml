@@ -1,0 +1,10 @@
+# Check https://kube-vip.io/docs/installation/flags/
+env:
+  vip_interface: "eth0"
+  vip_arp: "true"
+  lb_enable: "true"
+  cp_enable: "false"
+  svc_enable: "true"
+  svc_election: "true"
+  vip_leaderelection: "false"
+  prometheus_server: ":2112"
