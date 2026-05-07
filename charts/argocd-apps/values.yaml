@@ -109,9 +109,12 @@ argocd-apps:
           prune: true
           selfHeal: true
       source:
-        repoURL: https://github.com/eduardoschulz/homelab.git 
+      - repoURL: https://github.com/eduardoschulz/homelab.git 
         targetRevision: master
         path: charts/kube-vip
+      - repoURL: https://github.com/kube-vip/kube-vip-cloud-provider
+        path: manifest
+        targetRevision: main
       destination:
         server: https://kubernetes.default.svc
         namespace: kube-system
