@@ -2395,7 +2395,7 @@ server:
   # Argo CD server ingress configuration
   ingress:
     # -- Enable an ingress resource for the Argo CD server
-    enabled: true
+    enabled: false
     # -- Specific implementation for ingress controller. One of `generic`, `aws` or `gke`
     ## Additional configuration might be required in related configuration sections
     controller: generic
@@ -2600,7 +2600,7 @@ server:
   # Refer to https://gateway-api.sigs.k8s.io/implementations/ for controller-specific details
   httproute:
     # -- Enable HTTPRoute resource for Argo CD server (Gateway API)
-    enabled: false
+    enabled: true
     # -- Additional HTTPRoute labels
     labels: {}
     # -- Additional HTTPRoute annotations
@@ -2614,7 +2614,8 @@ server:
       #   sectionName: https
     # -- List of hostnames for the HTTPRoute
     # @default -- `[]` (See [values.yaml])
-    hostnames: []
+    hostnames: 
+      - "argocd.eduardoschulz.com.br"
       # - argocd.example.com
     # -- HTTPRoute rules configuration
     # @default -- `[]` (See [values.yaml])
