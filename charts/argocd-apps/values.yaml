@@ -43,6 +43,22 @@ argocd-apps:
       destination:
         server: https://kubernetes.default.svc
         namespace: observability
+    bw-secrets:
+      project: default
+      syncPolicy:
+        automated:
+          enabled: true
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+      source:
+        repoURL: https://github.com/eduardoschulz/homelab.git 
+        targetRevision: master
+        path: charts/secrets
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: secrets
     sealed-secrets:
       namespace: argocd
       project: default
