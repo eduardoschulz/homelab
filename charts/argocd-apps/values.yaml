@@ -19,7 +19,7 @@ argocd-apps:
         automated:
           enabled: true
           prune: false
-          selfHeal: false
+          selfHeal: true
       source:
         repoURL: https://github.com/eduardoschulz/homelab.git 
         targetRevision: master
@@ -147,7 +147,7 @@ argocd-apps:
         path: charts/istio
       destination:
         server: https://kubernetes.default.svc
-        namespace: kube-system
+        namespace: istio-system
     gateway-api-crds:
       project: default
       syncPolicy:
@@ -155,6 +155,8 @@ argocd-apps:
           enabled: true
           prune: false #dont set to true
           selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
       sources:
         - repoURL: https://github.com/kubernetes-sigs/gateway-api
           path: config/crd/standard
