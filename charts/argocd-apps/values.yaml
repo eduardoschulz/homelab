@@ -134,7 +134,6 @@ argocd-apps:
       destination:
         server: https://kubernetes.default.svc
         namespace: kube-system
-  #setup for gateway api + istio
      istio:
        project: default
        syncPolicy:
