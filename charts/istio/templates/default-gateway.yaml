@@ -13,7 +13,7 @@ spec:
   gatewayClassName: istio
   listeners:
   - name: default
-    hostname: "*.example.com"
+    hostname: "*.eduardoschulz.com.br"
     port: 80
     protocol: HTTP
     allowedRoutes:
