@@ -1,0 +1,6 @@
+istiod:
+  meshConfig:
+    accessLogFile: /dev/stdout
+    enableTracing: true 
+base:
+  enableCRDTemplates: true
