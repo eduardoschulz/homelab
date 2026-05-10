@@ -23,6 +23,9 @@ spec:
     protocol: HTTPS
     port: 443
     hostname: "*.eduardoschulz.com.br"
+    allowedRoutes:
+      namespaces:
+        from: All
     tls:
       mode: Terminate
       certificateRefs:
