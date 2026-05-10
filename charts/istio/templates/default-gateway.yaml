@@ -19,3 +19,11 @@ spec:
     allowedRoutes:
       namespaces:
         from: All
+  - name: https
+    protocol: HTTPS
+    port: 443
+    hostname: "*.eduardoschulz.com.br"
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - name: wildcard-cert
