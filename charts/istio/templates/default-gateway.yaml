@@ -12,7 +12,7 @@ metadata:
 spec:
   gatewayClassName: istio
   listeners:
-  - name: default
+  - name: http
     hostname: "*.eduardoschulz.com.br"
     port: 80
     protocol: HTTP
