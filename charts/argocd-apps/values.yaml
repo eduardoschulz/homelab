@@ -51,6 +51,7 @@ argocd-apps:
           prune: true
           selfHeal: true
         syncOptions:
+          - ServerSideApply=true
           - CreateNamespace=true
       source:
         repoURL: https://github.com/eduardoschulz/homelab.git 
