@@ -26,4 +26,4 @@ spec:
     tls:
       mode: Terminate
       certificateRefs:
-      - name: wildcard-cert
+      - name: wildcard-tls #should match secret instead of certname for some reason
