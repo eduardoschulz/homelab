@@ -2611,6 +2611,10 @@ server:
     parentRefs:
       - name: gateway
         namespace: istio-ingress
+        sectionName: https
+      - name: gateway
+        namespace: istio-ingress
+        sectionName: https
       # - name: example-gateway
       #   namespace: example-gateway-namespace
       #   sectionName: https
