@@ -1,0 +1,169 @@
+# =============================================================================
+# Kolla-Ansible inventory — single-node (remote target)
+# Generated from the stock kolla-ansible all-in-one, adapted for remote host.
+#
+# Target: control01 = 192.168.0.10
+# Deployment runs from localhost (the GitOps runner / CI agent).
+# =============================================================================
+
+[control]
+control01 ansible_host=192.168.0.10 ansible_user=ubuntu
+
+[network]
+control01
+
+[compute]
+control01
+
+[storage]
+control01
+
+[monitoring]
+# control01
+
+# ---------------------------------------------------------------------------
+# The deployment host (where kolla-ansible is invoked)
+# ---------------------------------------------------------------------------
+[deployment]
+localhost       ansible_connection=local
+
+# =============================================================================
+# Service-to-host mappings (from stock all-in-one)
+# These are needed to map containerised services to host groups.
+# =============================================================================
+
+[common:children]
+control
+network
+compute
+storage
+monitoring
+
+[baremetal:children]
+control
+
+[tls-backend:children]
+control
+
+[grafana:children]
+monitoring
+
+[etcd:children]
+control
+
+[hacluster:children]
+control
+
+[loadbalancer:children]
+network
+
+[mariadb:children]
+control
+
+[rabbitmq:children]
+control
+
+[keystone:children]
+control
+
+[glance:children]
+control
+
+[nova:children]
+control
+
+[neutron:children]
+network
+
+[openvswitch:children]
+network
+compute
+
+[ovn-controller:children]
+ovn-controller-compute
+ovn-controller-network
+
+[ovn-controller-compute:children]
+compute
+
+[ovn-controller-network:children]
+network
+
+[ovn-database:children]
+control
+
+[ovn-northd:children]
+ovn-database
+
+[ovn-nb-db:children]
+ovn-database
+
+[ovn-sb-db:children]
+ovn-database
+
+[cinder:children]
+control
+
+[memcached:children]
+control
+
+[horizon:children]
+control
+
+[heat:children]
+control
+
+[placement:children]
+control
+
+# Cinder volume runs on storage group (which is control01 in single-node)
+[cinder-volume:children]
+storage
+
+[cinder-api:children]
+cinder
+
+[cinder-scheduler:children]
+cinder
+
+# Nova services
+[nova-api:children]
+nova
+
+[nova-conductor:children]
+nova
+
+[nova-scheduler:children]
+nova
+
+[nova-novncproxy:children]
+nova
+
+[nova-compute-ironic:children]
+nova
+
+# Neutron services with OVN
+[neutron-server:children]
+control
+
+[neutron-ovn-metadata-agent:children]
+compute
+network
+
+# Glance
+[glance-api:children]
+glance
+
+# Placement
+[placement-api:children]
+placement
+
+# Common (runs on all hosts)
+[cron:children]
+common
+
+[fluentd:children]
+common
+
+[kolla-toolbox:children]
+common

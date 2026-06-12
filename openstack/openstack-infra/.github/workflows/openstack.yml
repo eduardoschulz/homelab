@@ -1,0 +1,107 @@
+# =============================================================================
+# GitHub Actions CI/CD — Kolla-Ansible GitOps
+#
+#   PR → run kolla-ansible prechecks (validate config, no touch)
+#   merge to main → rsync repo to target, run deploy.sh
+# =============================================================================
+
+name: OpenStack CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+env:
+  VENV_DIR: /tmp/kolla-venv
+
+jobs:
+  prechecks:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Kolla-Ansible
+        run: |
+          python3 -m venv $VENV_DIR
+          source $VENV_DIR/bin/activate
+          pip install --upgrade pip
+          pip install 'ansible-core>=2.15,<2.16.99'
+          pip install "kolla-ansible==17.0.0"
+          kolla-ansible install-deps
+
+      - name: Set up /etc/kolla
+        run: |
+          sudo mkdir -p /etc/kolla
+          sudo cp etc/kolla/globals.yml /etc/kolla/globals.yml
+          sudo cp -r etc/kolla/config /etc/kolla/config
+
+      - name: Generate dummy passwords for prechecks
+        run: |
+          # prechecks need passwords.yml to exist
+          source $VENV_DIR/bin/activate
+          cp $VENV_DIR/share/kolla-ansible/etc_examples/kolla/passwords.yml /tmp/passwords.yml
+          kolla-genpwd --passwords /tmp/passwords.yml
+          sudo cp /tmp/passwords.yml /etc/kolla/passwords.yml
+
+      - name: Run prechecks
+        run: |
+          source $VENV_DIR/bin/activate
+          kolla-ansible -i inventory/all-in-one prechecks
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    environment: production
+    concurrency:
+      group: openstack-deploy
+      cancel-in-progress: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.OPENSTACK_SSH_KEY }}
+          known_hosts: ${{ secrets.OPENSTACK_KNOWN_HOSTS }}
+
+      - name: Rsync repo to target node
+        run: |
+          rsync -avz --delete \
+            --exclude '.git' \
+            --exclude '.github' \
+            ./ ubuntu@192.168.0.10:/opt/openstack-infra/
+
+      - name: Run deploy on target
+        env:
+          ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
+        run: |
+          ssh ubuntu@192.168.0.10 << 'ENDSSH'
+            set -euo pipefail
+            cd /opt/openstack-infra
+
+            # Decrypt passwords if vault-encrypted
+            if head -1 etc/kolla/passwords.yml 2>/dev/null | grep -q '^\$ANSIBLE_VAULT'; then
+              echo "$ANSIBLE_VAULT_PASSWORD" > /tmp/vault-pass
+              ansible-vault decrypt etc/kolla/passwords.yml \
+                --vault-password-file /tmp/vault-pass
+              rm -f /tmp/vault-pass
+            fi
+
+            bash scripts/deploy.sh --skip-bootstrap
+
+            # Re-encrypt
+            if [ -f etc/kolla/passwords.yml ]; then
+              echo "$ANSIBLE_VAULT_PASSWORD" > /tmp/vault-pass
+              ansible-vault encrypt etc/kolla/passwords.yml \
+                --vault-password-file /tmp/vault-pass
+              rm -f /tmp/vault-pass
+            fi
+          ENDSSH
