@@ -1,0 +1,21 @@
+# Secrets — must never be committed plaintext
+etc/kolla/passwords.yml
+
+# Ansible Vault files (if you choose that route)
+*.vault
+
+# SOPS-encrypted files should be committed, but plaintext intermediates must not
+*.plaintext
+
+# Python virtualenv (created by deploy.sh if local)
+.venv/
+venv/
+
+# Ansible artifacts
+*.retry
+ansible.log
+
+# Terraform state (if mixed repo)
+*.tfstate
+*.tfstate.backup
+.terraform/

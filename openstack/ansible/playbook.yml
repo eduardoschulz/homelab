@@ -1,0 +1,63 @@
+---
+- name: Configure single-node OpenStack (MicroStack)
+  hosts: openstack
+  become: true
+  vars:
+    bridge_interface: "{{ bridge_interface | default('ens18') }}"
+    cinder_vg: "{{ cinder_vg | default('cinder-volumes') }}"
+    microstack_channel: "{{ microstack_channel | default('2024.2/stable') }}"
+
+  tasks:
+    - name: Wait for apt lock to be free
+      shell: while fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 1; done
+      changed_when: false
+
+    - name: Install prerequisites
+      apt:
+        name:
+          - snapd
+          - lvm2
+          - bridge-utils
+        state: present
+        update_cache: true
+
+    - name: Enable and start snapd
+      systemd:
+        name: snapd.socket
+        state: started
+        enabled: true
+
+    - name: Install MicroStack snap
+      snap:
+        name: microstack
+        channel: "{{ microstack_channel }}"
+        classic: true
+
+    - name: Ensure bridge interface is up
+      shell: |
+        ip link set {{ bridge_interface }} up || true
+      changed_when: false
+
+    - name: Initialize MicroStack (auto mode)
+      # --auto initializes all services with defaults
+      # --control sets this node as controller+compute (single-node)
+      # Omit --setup-loop-based-cinder-lvm-backend if you have a real VG
+      shell: |
+        microstack init --auto --control
+      args:
+        creates: /var/snap/microstack/common/etc/microstack-init-done
+      register: microstack_init
+      changed_when: "'already' not in microstack_init.stderr"
+
+    - name: Print admin credentials
+      shell: |
+        echo "=== OpenStack Credentials ==="
+        echo "Dashboard: https://{{ ansible_default_ipv4.address }}"
+        echo "Username:  admin"
+        snap get microstack config.credentials.keystone-password
+      register: credentials
+      changed_when: false
+
+    - name: Display access info
+      debug:
+        msg: "{{ credentials.stdout_lines }}"
