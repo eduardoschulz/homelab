@@ -1,0 +1,116 @@
+name: Helm Chart Test
+
+on:
+  pull_request:
+    paths:
+      - 'charts/**'
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      charts: ${{ steps.changed.outputs.charts }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed charts
+        id: changed
+        run: |
+          is_first_party() {
+            # A chart is "first-party" if it is NOT a dependency subchart.
+            # Dependency subcharts live at charts/<parent>/charts/<child>/
+            # where the grandparent (charts/<parent>/Chart.yaml) exists.
+            local chart_dir="$1"
+            local grandparent
+            grandparent=$(dirname "$(dirname "$chart_dir")")
+            if [ -f "$grandparent/Chart.yaml" ]; then
+              return 1  # it is a subchart dependency, skip it
+            fi
+            return 0
+          }
+
+          CHARTS=$(git diff --diff-filter=ACMR --name-only "origin/${{ github.base_ref }}"...HEAD -- charts/ | \
+            while read -r file; do
+              dir="$file"
+              while [ "$dir" != "charts" ] && [ "$dir" != "." ]; do
+                dir=$(dirname "$dir")
+                if [ -f "$dir/Chart.yaml" ] && is_first_party "$dir"; then
+                  echo "$dir"
+                  break
+                fi
+              done
+            done | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          echo "charts=$CHARTS" >> "$GITHUB_OUTPUT"
+          echo "Changed charts: $CHARTS"
+
+  lint:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.charts != '[]' && needs.detect-changes.outputs.charts != ''
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        chart: ${{ fromJSON(needs.detect-changes.outputs.charts) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.17.3
+
+      - name: Helm dependency update
+        run: |
+          if grep -q "dependencies:" "${{ matrix.chart }}/Chart.yaml" 2>/dev/null; then
+            helm dependency update "${{ matrix.chart }}"
+          fi
+
+      - name: Helm lint
+        run: helm lint "${{ matrix.chart }}"
+
+      - name: Helm template
+        run: helm template test "${{ matrix.chart }}" --debug
+
+  kind-test:
+    needs: [detect-changes, lint]
+    if: needs.detect-changes.outputs.charts != '[]' && needs.detect-changes.outputs.charts != ''
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        chart: ${{ fromJSON(needs.detect-changes.outputs.charts) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.17.3
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1
+        with:
+          wait: 60s
+
+      - name: Helm dependency update
+        run: |
+          if grep -q "dependencies:" "${{ matrix.chart }}/Chart.yaml" 2>/dev/null; then
+            helm dependency update "${{ matrix.chart }}"
+          fi
+
+      - name: Helm install
+        run: |
+          helm install test-release "${{ matrix.chart }}" \
+            --create-namespace \
+            --timeout 5m \
+            --atomic 2>&1 || \
+            echo "::warning file=${{ matrix.chart }}::Install failed — chart may require cluster dependencies (CRDs, secrets, etc.)"
+
+      - name: Helm test
+        if: always()
+        run: |
+          helm test test-release --timeout 5m 2>&1 || \
+            echo "::warning file=${{ matrix.chart }}::Helm tests failed or none defined for this chart"
