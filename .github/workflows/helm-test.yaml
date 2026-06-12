@@ -4,6 +4,12 @@ on:
   pull_request:
     paths:
       - 'charts/**'
+  workflow_dispatch:
+    inputs:
+      chart:
+        description: 'Specific chart to test (e.g. charts/argo-cd). Leave empty to auto-detect.'
+        required: false
+        type: string
 
 jobs:
   detect-changes:
@@ -19,29 +25,41 @@ jobs:
         id: changed
         run: |
           is_first_party() {
-            # A chart is "first-party" if it is NOT a dependency subchart.
-            # Dependency subcharts live at charts/<parent>/charts/<child>/
-            # where the grandparent (charts/<parent>/Chart.yaml) exists.
             local chart_dir="$1"
             local grandparent
             grandparent=$(dirname "$(dirname "$chart_dir")")
             if [ -f "$grandparent/Chart.yaml" ]; then
-              return 1  # it is a subchart dependency, skip it
+              return 1
             fi
             return 0
           }
 
-          CHARTS=$(git diff --diff-filter=ACMR --name-only "origin/${{ github.base_ref }}"...HEAD -- charts/ | \
-            while read -r file; do
-              dir="$file"
-              while [ "$dir" != "charts" ] && [ "$dir" != "." ]; do
-                dir=$(dirname "$dir")
-                if [ -f "$dir/Chart.yaml" ] && is_first_party "$dir"; then
+          # Allow manual override via workflow_dispatch input
+          if [ -n "${{ inputs.chart }}" ]; then
+            CHARTS="[\"${{ inputs.chart }}\"]"
+          elif [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_REF="origin/${{ github.base_ref }}"
+            CHARTS=$(git diff --diff-filter=ACMR --name-only "${BASE_REF}"...HEAD -- charts/ | \
+              while read -r file; do
+                dir="$file"
+                while [ "$dir" != "charts" ] && [ "$dir" != "." ]; do
+                  dir=$(dirname "$dir")
+                  if [ -f "$dir/Chart.yaml" ] && is_first_party "$dir"; then
+                    echo "$dir"
+                    break
+                  fi
+                done
+              done | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          else
+            # workflow_dispatch with no chart specified: test all first-party charts
+            CHARTS=$(find charts -maxdepth 3 -name Chart.yaml | \
+              while read -r cf; do
+                dir=$(dirname "$cf")
+                if is_first_party "$dir"; then
                   echo "$dir"
-                  break
                 fi
-              done
-            done | sort -u | jq -R -s -c 'split("\n")[:-1]')
+              done | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          fi
           echo "charts=$CHARTS" >> "$GITHUB_OUTPUT"
           echo "Changed charts: $CHARTS"
 
