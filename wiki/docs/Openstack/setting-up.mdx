@@ -1,0 +1,181 @@
+---
+sidebar_position: 2
+description: Setting Up OpenStack with Kolla Ansible on a single node setup
+title: Setting Up Openstack with Kolla Ansible
+
+---
+
+## Setting up Kolla Ansible
+This tutorial builds on the [official quickstart guide](https://docs.openstack.org/kolla-ansible/2026.1/user/quickstart.html) with a few additional steps.
+
+## Requirements
+- Hardware:
+  + At least 2 network interfaces, you could create bridge one though
+  + The official guide recommends at least 8 GB of RAM, but I strongly recommend at least 16 GB.
+  + 40GB disk space
+
+- Software:
+  + Using a supported distro, I would recommend Ubuntu 24.04 LTS
+
+## Setting Up Linux and a New User
+
+1. For Ubuntu or Debian, update and upgrade system packages.
+```bash
+sudo apt update -y && sudo apt upgrade -y
+```
+2. Install Python and some dependencies.
+```bash
+sudo apt install python3-dev libffi-dev gcc git libssl-dev libdbus-glib-1-dev python3-venv
+```
+3. Create a dedicated user for Kolla.
+
+```bash
+sudo useradd -m -G wheel kolla
+```
+
+4. Set a password for the kolla user.
+```bash
+sudo passwd kolla
+```
+## Setting Up Python Virtual Environment
+
+0. Log in with the kolla user
+
+```bash
+sudo login kolla
+```
+1. Create a virtual environment and activate it.
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+2. Install a few python packages with pip.
+{/* NOTE: Apart from pip, I added docker and dbus-python because, from experience, they are required for a working deployment. */}
+```bash
+pip install -U pip docker dbus-python
+```
+## Install Kolla Ansible
+1. Install kolla-ansible with its dependencies.
+**Important:** The URL ends with a release tag (`stable/2026.1`). Ensure it is not set to `@master`, which tracks the unstable development branch.
+```bash
+pip install git+https://opendev.org/openstack/kolla-ansible@stable/2026.1
+```
+2. Create the /etc/kolla directory.
+```bash
+sudo mkdir -p /etc/kolla
+sudo chown kolla:kolla /etc/kolla
+```
+
+3. Copy globals.yml and passwords.yml to /etc/kolla .
+
+```bash
+cp -r /path/to/venv/share/kolla-ansible/etc_examples/kolla/* /etc/kolla
+```
+
+4. Copy all-in-one ansible inventory file to the current directory.
+
+```bash
+cp .venv/share/kolla-ansible/ansible/inventory/all-in-one .
+```
+## Install Ansible Galaxy Requirements
+
+1. Install Ansible Galaxy deps
+
+```bash
+kolla-ansible install-deps
+```
+
+## Preparing the Configuration Files
+
+1. **Inventory:** The inventory file defines the hosts where Ansible will deploy Kolla. For a single host, use the `all-in-one` inventory. For multi-node deployments, use the `multinode` inventory (also available at `.venv/share/kolla-ansible/ansible/inventory/multinode`). This tutorial focuses on the all-in-one setup.
+
+2. Generate Kolla passwords:
+  + OpenStack passwords will be stored at `/etc/kolla/passwords.yml`. By default these passwords are blank and you'll need to run a command to populate them. 
+  + You should run `kolla-genpwd`.
+
+3. **Kolla globals.yml:** The main configuration file for Kolla Ansible is `/etc/kolla/globals.yml`. Here you can configure which services to enable and set custom options.
+
+There are a few options that you must change:
+
+#### 3.1 Base distribution
+```yaml
+kolla_base_distro: "ubuntu"
+```
+#### 3.2 Network setup
+  ```yaml
+  network_interface: "eth0"
+  ```
+  ```yaml
+  neutron_external_interface: "eth1"
+  kolla_internal_vip_address: "192.168.0.250"
+  ```
+
+#### 3.3 Cinder backends (optional)
+```yaml 
+network_interface: "eno1"
+neutron_external_interface: "eno2"
+
+# Enable both NFS and LVM backends for Cinder
+  enable_cinder: true
+  enable_cinder_backend_lvm: false
+  enable_cinder_backend_nfs: true
+  cinder_volume_group: "cinder-volumes"
+  ```
+#### 3.4 Octavia (optional)
+  ```yaml
+  octavia_network_interface: "eno3"
+  enable_octavia: true
+  enable_octavia_jobboard: false
+  octavia_amp_network:
+    name: lb-mgmt-net
+    provider_network_type: flat
+    provider_physical_network: physnet2
+    external: false
+    shared: false
+    subnet:
+      name: lb-mgmt-subnet
+      cidr: "10.1.2.0/24"
+      allocation_pool_start: "10.1.2.100"
+      allocation_pool_end: "10.1.2.200"
+      gateway_ip: "10.1.2.1"
+      enable_dhcp: yes 
+
+  octavia_certs_country: BR
+  octavia_certs_state: "Rio Grande do Sul"
+  octavia_certs_organization: "My Org"
+  octavia_certs_organizational_unit: Octavia 
+  ```
+
+## Deployment
+
+1. Bootstrap servers with Kolla deployment dependencies.
+
+```bash
+kolla-ansible bootstrap-servers -i ./all-in-one
+```
+
+2. Running prechecks for the hosts:
+
+```bash
+kolla-ansible prechecks -i ./all-in-one
+```
+3. Deploying OpenStack
+
+```bash
+kolla-ansible deploy -i ./all-in-one
+
+```
+## Post-Deploy Steps
+
+1. Install the OpenStack CLI
+
+```bash
+pip install python-openstackclient -c https://releases.openstack.org/constraints/upper/2026.1
+```
+
+2. The OpenStack CLI requires a `clouds.yaml` file, which stores the admin user's credentials. This file is also used by the OpenStack Terraform provider. To generate this file:
+
+```bash
+kolla-ansible post-deploy
+```

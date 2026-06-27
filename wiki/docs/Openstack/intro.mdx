@@ -1,0 +1,29 @@
+---
+sidebar_position: 1
+description: Introduction to OpenStack
+title: Using OpenStack in My Homelab
+slug: intro
+---
+
+## Short Introduction:
+
+> OpenStack is a cloud operating system that controls large pools of compute, storage, and networking resources throughout a datacenter, all managed and provisioned through APIs with common authentication mechanisms.
+>
+> — [openstack.org/software](https://www.openstack.org/software/)
+
+
+OpenStack is not a monolith, it is actually a suite of projects united by a common controller and API. The OpenStack modular landscape allows who is implementing it to deploy only the set of components it really needs. 
+
+## Core Components
+
+| Component | Service | AWS Equivalent |
+|-----------|---------|----------------|
+| **Keystone** | Identity | IAM |
+| **Nova** | Compute | EC2 |
+| **Neutron** | Networking | VPC |
+| **Glance** | Image | AMI |
+| **Cinder** | Block Storage | EBS |
+| **Swift** | Object Storage | S3 |
+| **Heat** | Orchestration | CloudFormation |
+| **Placement** | Resource Tracking | EC2 Placement / Internal Scheduler |
+| **Horizon** | Dashboard | AWS Management Console |
