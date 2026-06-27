@@ -1,30 +1,226 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Docusaurus custom theme
+ * Typography : Helvetica Neue (system) headings · Inter body · JetBrains Mono code
+ * Palette    : Deep slate surfaces · Crimson accent · Cool off-white light mode
+ * ─────────────────────────────────────────────────────────────────────────────
  */
 
-/* You can override the default Infima variables here. */
-:root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+*,
+*::before,
+*::after {
+  transition: none !important;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* restore card hover */
+.card {
+  transition: box-shadow 0.2s ease, transform 0.2s ease !important;
+}
+
+/* ── 1. TYPOGRAPHY ─────────────────────────────────────────────────────────── */
+
+:root {
+  /* Headings: true Helvetica Neue on macOS/iOS, close system fallbacks elsewhere */
+  --ifm-heading-font-family:
+    'Helvetica Neue', Helvetica, 'Arial Narrow', Arial, sans-serif;
+
+  /* Body: Inter — neutral, technical, excellent screen legibility */
+  --ifm-font-family-base:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Mono: JetBrains Mono — great for code-heavy docs */
+  --ifm-font-family-monospace:
+    'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+
+  --ifm-font-size-base: 16px;
+  --ifm-line-height-base: 1.65;
+  --ifm-code-font-size: 88%;
+
+  --ifm-heading-font-weight: 700;
+  --ifm-font-weight-semibold: 600;
+
+  /* Tighter letter-spacing on headings — Helvetica Neue signature feel */
+  --ifm-h1-font-size: 2.25rem;
+  --ifm-h2-font-size: 1.6rem;
+  --ifm-h3-font-size: 1.25rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.025em;
+  font-feature-settings: 'ss01', 'cv01';  /* optical size hints */
+}
+
+h1 { line-height: 1.12; }
+h2 { line-height: 1.2;  }
+h3 { line-height: 1.28; }
+
+
+/* ── 2. LIGHT MODE PALETTE ─────────────────────────────────────────────────── */
+
+:root {
+  /* Crimson — the accent. Deep and saturated, not fire-engine red. */
+  --ifm-color-primary:          #B91C3C;
+  --ifm-color-primary-dark:     #A61935;
+  --ifm-color-primary-darker:   #9D1830;
+  --ifm-color-primary-darkest:  #7D1327;
+  --ifm-color-primary-light:    #C72041;
+  --ifm-color-primary-lighter:  #CC2446;
+  --ifm-color-primary-lightest: #DE3D5D;
+
+  /* Surfaces — cool off-white, like scientific paper */
+  --ifm-background-color:         #F4F5F7;
+  --ifm-background-surface-color: #FFFFFF;
+  --ifm-navbar-background-color:  #FFFFFF;
+  --ifm-footer-background-color:  #1C1E2A;
+
+  /* Text — dark navy-black instead of pure black, reduces harshness */
+  --ifm-color-content:           #12141F;
+  --ifm-color-content-secondary: #4A4D66;
+  --ifm-font-color-base:         #12141F;
+
+  /* Borders */
+  --ifm-color-emphasis-200: #E3E5EC;
+  --ifm-color-emphasis-300: #D0D3DE;
+  --ifm-toc-border-color:   #E3E5EC;
+
+  /* Navbar */
+  --ifm-navbar-shadow: 0 1px 0 0 #E3E5EC;
+  --ifm-navbar-link-color: #3A3D52;
+  --ifm-navbar-link-active-color: #B91C3C;
+
+  /* Sidebar */
+  --ifm-menu-color:           #3A3D52;
+  --ifm-menu-color-active:    #B91C3C;
+  --ifm-menu-color-background-active:   rgba(185, 28, 60, 0.07);
+  --ifm-menu-color-background-hover:    rgba(185, 28, 60, 0.04);
+
+  /* Code blocks */
+  --ifm-pre-background:         #1C1E2A;
+  --docusaurus-highlighted-code-line-bg: rgba(185, 28, 60, 0.12);
+
+  /* Admonitions — keep crimson for note, let others stay default */
+  --ifm-color-info:    #1E6FA8;
+  --ifm-color-warning: #D97706;
+  --ifm-color-danger:  #B91C3C;
+}
+
+
+/* ── 3. DARK MODE PALETTE ──────────────────────────────────────────────────── */
+
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  /* Crimson is brighter on dark backgrounds to maintain contrast */
+  --ifm-color-primary:          #E54060;
+  --ifm-color-primary-dark:     #E02650;
+  --ifm-color-primary-darker:   #DB1B47;
+  --ifm-color-primary-darkest:  #BC1238;
+  --ifm-color-primary-light:    #E85573;
+  --ifm-color-primary-lighter:  #EA607C;
+  --ifm-color-primary-lightest: #F28498;
+
+  /* Surfaces — deep slate, blue-shifted, not pure black */
+  --ifm-background-color:         #0D0F1A;
+  --ifm-background-surface-color: #14172A;
+  --ifm-navbar-background-color:  #0D0F1A;
+  --ifm-footer-background-color:  #07080F;
+
+  /* Text — cool off-white */
+  --ifm-color-content:           #DCE0F0;
+  --ifm-color-content-secondary: #8A8FAD;
+  --ifm-font-color-base:         #DCE0F0;
+
+  /* Borders */
+  --ifm-color-emphasis-200: #1E2138;
+  --ifm-color-emphasis-300: #282C47;
+  --ifm-toc-border-color:   #1E2138;
+
+  /* Navbar */
+  --ifm-navbar-shadow: 0 1px 0 0 #1E2138;
+  --ifm-navbar-link-color: #9EA3C0;
+  --ifm-navbar-link-active-color: #E54060;
+
+  /* Sidebar */
+  --ifm-menu-color:           #9EA3C0;
+  --ifm-menu-color-active:    #E54060;
+  --ifm-menu-color-background-active: rgba(229, 64, 96, 0.1);
+  --ifm-menu-color-background-hover:  rgba(229, 64, 96, 0.05);
+
+  /* Code blocks — slightly lighter than main bg */
+  --ifm-pre-background:         #090B14;
+  --docusaurus-highlighted-code-line-bg: rgba(229, 64, 96, 0.15);
+}
+
+
+/* ── 4. COMPONENT DETAILS ──────────────────────────────────────────────────── */
+
+/* Navbar logo area breathing room */
+.navbar__brand {
+  margin-right: 1.5rem;
+}
+
+/* Active TOC item */
+.table-of-contents__link--active,
+.table-of-contents__link:hover {
+  color: var(--ifm-color-primary);
+}
+
+/* Inline code — subtle tinted background */
+code {
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  font-size: var(--ifm-code-font-size);
+}
+
+[data-theme='light'] code {
+  background-color: rgba(185, 28, 60, 0.06);
+  color: #9B1A33;
+  border: 1px solid rgba(185, 28, 60, 0.12);
+}
+
+[data-theme='dark'] code {
+  background-color: rgba(229, 64, 96, 0.1);
+  color: #F08498;
+  border: 1px solid rgba(229, 64, 96, 0.15);
+}
+
+/* Code block header */
+.prism-code {
+  border-radius: 8px;
+}
+
+/* Blockquote — left border in crimson */
+blockquote {
+  border-left: 3px solid var(--ifm-color-primary);
+  border-left-color: var(--ifm-color-primary);
+  background: transparent;
+  font-style: normal;
+  color: var(--ifm-color-content-secondary);
+}
+
+/* Footer */
+.footer {
+  color: #8A8FAD;
+}
+
+.footer__link-item:hover {
+  color: var(--ifm-color-primary);
+}
+
+/* Pagination buttons */
+.pagination-nav__link {
+  border-color: var(--ifm-color-emphasis-200);
+  transition: border-color 0.15s;
+}
+
+.pagination-nav__link:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+/* Badges */
+.badge--secondary {
+  background-color: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-content-secondary);
+}
+
+/* Search bar */
+.navbar__search-input {
+  border-radius: 6px;
 }
