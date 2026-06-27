@@ -1,6 +1,0 @@
-# =============================================================================
-# Cinder NFS backend — NFS export list
-# Copied into the cinder-volume container at /etc/cinder/nfs_shares.
-# The container mounts these directly (no host-side pre-mount needed).
-# =============================================================================
-192.168.0.15:/exports/cinder
