@@ -1,0 +1,47 @@
+---
+sidebar_position: 3
+description: Introduction to OpenStack
+title: Infrastructure as Code on OpenStack
+keywords:
+  - iac
+  - terraform
+  - crossplane
+---
+
+## Bootstraping Basic Components in OpenStack
+
+To start using OpenStack we need to create a few components first. If you choose
+to follow OpenStack's docs you might find a `runinit-once` script, this script 
+calls the openstack cli to provision some basic components such as networks, 
+a image, a virtual machine etc... While this is a solution I believe creating through terraform
+could be a cleaner solution and a more reproducible setup.
+
+
+# Terraform with OpenStack
+
+Using the OpenStack Terraform provider to manage cloud resources.
+
+## Authentication
+
+Authentication requires either a clouds.yaml file or openrc environment script:
+
+```bash
+source openrc.sh
+```
+
+## Provider Configuration
+
+```hcl
+terraform {
+  required_providers {
+    openstack = {
+      source  = "terraform-provider-openstack/openstack"
+      version = "~> 2.0"
+    }
+  }
+}
+
+provider "openstack" {
+  # cloud = "openstack"  # references clouds.yaml
+}
+```
