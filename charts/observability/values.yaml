@@ -2,5 +2,11 @@ victoria-metrics-k8s-stack:
   fullnameOverride: "observability"
   victoria-metrics-operator:
     enabled: true
+  grafana:
+    enabled: true
   # alertmanager:
   #   enabled: false
+  #This a fix for the 
+  defaultDashboards:
+    annotations:
+      argocd.argoproj.io/sync-options: ServerSideApply=true
