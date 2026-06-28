@@ -30,10 +30,10 @@ httpRoute:
 
 livenessProbe:
   httpGet:
-    path: /
+    path: /minio/health/live
     port: http
 readinessProbe:
   httpGet:
-    path: /
+    path: /minio/health/live
     port: http
 
