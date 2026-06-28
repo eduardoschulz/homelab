@@ -3,6 +3,9 @@ minio:
   replicas: 1
   persistence:
     size: 10Gi
+  resources:
+    requests:
+      memory: 1Gi #default value is 16Gi (no way)
 
 service:
   port: 9000
