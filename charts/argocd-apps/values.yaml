@@ -43,6 +43,22 @@ argocd-apps:
       destination:
         server: https://kubernetes.default.svc
         namespace: observability
+    minio:
+      project: default
+      syncPolicy:
+        automated:
+          enabled: true
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+      source:
+        repoURL: https://github.com/eduardoschulz/homelab.git 
+        targetRevision: master
+        path: charts/minio
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: minio
     bw-secrets:
       project: default
       syncPolicy:

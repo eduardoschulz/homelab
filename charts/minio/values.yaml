@@ -1,0 +1,30 @@
+service:
+  port: 9000
+
+httpRoute:
+  enabled: true
+  annotations: {}
+  parentRefs:
+  - name: gateway
+    namespace: istio-ingress
+    sectionName: https
+  - name: gateway
+    namespace: istio-ingress
+    sectionName: http
+  hostnames:
+  - minio.eduardoschulz.com.br
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+
