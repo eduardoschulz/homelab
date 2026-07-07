@@ -1,0 +1,13 @@
+network_name        = "public1"
+network_type        = "flat"
+physical_network    = "physnet1"
+subnet_name         = "public1-subnet"
+cidr                = "192.168.0.0/24"
+ip_version          = 4
+enable_dhcp         = true
+gateway_ip          = "192.168.0.1"
+allocation_pool_start = "192.168.0.201"
+allocation_pool_end   = "192.168.0.249"
+admin_state_up      = true
+shared              = true
+external            = true
