@@ -1,0 +1,15 @@
+name        = "main-project"
+description = "Default Project"
+enabled     = true
+tags        = "default"
+
+# quotaset for cinder
+volumes   = 10
+snapshots = 4
+gigabytes = 100
+region    = RegionOne
+
+# quotaset for nova
+instances = 10
+cores     = 10
+ram       = 10240

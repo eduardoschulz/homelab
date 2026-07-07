@@ -2,4 +2,6 @@ user_name = "admin"
 tenant_name = "project_name"
 password = "strongPassword123"
 auth_url = "https://openstack.auth.url"
+enable_main_project = true
+enable_public-network = true
 
