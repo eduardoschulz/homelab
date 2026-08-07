@@ -1,0 +1,130 @@
+name: 🛠️ Infra Implementation Task
+description: Implement, provision, or automate an infrastructure component (Terraform, OpenStack, K8s, etc.)
+title: "[Task]: "
+labels: ["infrastructure", "task"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for implementation work — provisioning resources, writing IaC modules, or automating infra components.
+
+  - type: input
+    id: summary
+    attributes:
+      label: Task summary
+      placeholder: e.g. Implement public network in OpenStack with Terraform
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform / Provider
+      options:
+        - OpenStack
+        - AWS
+        - GCP
+        - Azure
+        - Kubernetes
+        - Bare metal
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tooling
+    attributes:
+      label: Tooling
+      multiple: true
+      options:
+        - Terraform
+        - Ansible
+        - Helm
+        - Pulumi
+        - kubectl / manifests
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: resource-type
+    attributes:
+      label: Resource type
+      description: What kind of resource(s) are being created/changed?
+      options:
+        - Network / Subnet
+        - Security Group / Firewall Rules
+        - Compute Instance / Server
+        - Load Balancer
+        - Storage / Volume
+        - Router / Gateway
+        - IAM / Access
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What needs to be built and why? Include context or link to design doc if relevant.
+      placeholder: |
+        e.g. Create a public network + subnet in OpenStack using Terraform so that
+        the staging environment can assign floating IPs to new instances.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance criteria
+      description: What does "done" look like? Use checkboxes.
+      value: |
+        - [ ] Terraform module created/updated
+        - [ ] `terraform plan` reviewed with no unexpected changes
+        - [ ] Applied to target environment
+        - [ ] Resource verified (e.g. `openstack network show`)
+        - [ ] Documentation / README updated
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Target environment
+      placeholder: e.g. staging, production
+    validations:
+      required: true
+
+  - type: input
+    id: dependencies
+    attributes:
+      label: Dependencies / blockers
+      placeholder: e.g. depends on #123 (router must exist first)
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - P0 - Urgent
+        - P1 - High
+        - P2 - Medium
+        - P3 - Low
+    validations:
+      required: true
+
+  - type: dropdown
+    id: size
+    attributes:
+      label: Estimated size
+      options:
+        - XS (< 1hr)
+        - S (few hours)
+        - M (1 day)
+        - L (2-3 days)
+        - XL (needs breakdown)
+    validations:
+      required: false
