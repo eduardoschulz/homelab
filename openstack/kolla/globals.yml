@@ -27,6 +27,7 @@ enable_cinder_backend_nfs: true
 # octavia loadbalancer
 enable_octavia: true
 octavia_network_type: "tenant"
+enable_valkey: true
 
 # billing 
 enable_gnocchi: true
