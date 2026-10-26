@@ -1,0 +1,181 @@
+$dm-check-on-fill: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5 6.5 12 13 4.5' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E";
+
+@mixin dm-step-marker {
+  content: counter(dm-step);
+  display: grid;
+  flex: none;
+  place-items: center;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--dm-color-border-strong);
+  border-radius: var(--dm-radius-full);
+  background: var(--dm-color-bg-surface) center / 14px no-repeat;
+  color: var(--dm-color-text-secondary);
+  font-size: var(--dm-font-size-200);
+  font-weight: var(--dm-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+@mixin dm-steps {
+  counter-reset: dm-step;
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  &::before,
+  &::after {
+    content: none;
+  }
+
+  > li {
+    float: none;
+    margin: 0;
+    counter-increment: dm-step;
+  }
+
+  > li > a {
+    display: flex;
+    align-items: center;
+    gap: var(--dm-space-200);
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: var(--dm-color-text-secondary);
+    font-size: var(--dm-font-size-300);
+    font-weight: var(--dm-font-weight-medium);
+    line-height: var(--dm-line-height-tight);
+
+    &::before {
+      @include dm-step-marker;
+    }
+
+    &:hover,
+    &:focus {
+      background: none;
+      color: var(--dm-color-text);
+      text-decoration: none;
+    }
+
+    &:focus-visible {
+      outline: none;
+
+      &::before {
+        outline: var(--dm-focus-ring-width) solid var(--dm-color-border-focus);
+        outline-offset: var(--dm-focus-ring-offset);
+      }
+    }
+  }
+
+  > li.active > a,
+  > li.active > a:hover,
+  > li.active > a:focus {
+    background: none;
+    color: var(--dm-color-text);
+
+    &::before {
+      border-color: var(--dm-color-fill-brand);
+      color: var(--dm-color-text-link);
+    }
+  }
+
+  // steps before the current one are complete
+  > li:has(~ li.active) > a {
+    color: var(--dm-color-text);
+
+    &::before {
+      border-color: var(--dm-color-fill-brand);
+      background-color: var(--dm-color-fill-brand);
+      background-image: url($dm-check-on-fill);
+      color: transparent;
+    }
+  }
+
+  > li.error > a,
+  > li.error > a:hover {
+    color: var(--dm-color-text-critical);
+
+    &::before {
+      border-color: var(--dm-color-fill-critical);
+      background-color: var(--dm-color-fill-critical);
+      background-image: none;
+      color: var(--dm-color-text-on-fill);
+    }
+  }
+
+  .hz-icon-required {
+    color: var(--dm-color-text-critical);
+    font-size: inherit;
+  }
+}
+
+.workflow .wizard-tabs {
+  @include dm-steps;
+  display: flex;
+  margin-bottom: var(--dm-space-500);
+
+  > li {
+    display: flex;
+    flex: 1 1 0;
+    min-width: 0;
+
+    &::after {
+      content: "";
+      flex: 1 1 auto;
+      height: 2px;
+      margin: 11px var(--dm-space-200) 0;
+      border-radius: 1px;
+      background: var(--dm-color-border);
+    }
+
+    &:last-child {
+      flex: none;
+
+      &::after {
+        display: none;
+      }
+    }
+
+    &:has(~ li.active)::after {
+      background: var(--dm-color-fill-brand);
+    }
+  }
+}
+
+.ng-wizard .wizard-nav {
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+
+  .nav-stacked {
+    @include dm-steps;
+
+    > li {
+      display: flex;
+      flex-direction: column;
+
+      &::after {
+        content: "";
+        width: 2px;
+        min-height: 20px;
+        margin: var(--dm-space-100) 0 var(--dm-space-100) 11px;
+        border-radius: 1px;
+        background: var(--dm-color-border);
+      }
+
+      &:last-child::after {
+        display: none;
+      }
+
+      &:has(~ li.active)::after {
+        background: var(--dm-color-fill-brand);
+      }
+    }
+
+    > li + li {
+      margin-top: 0;
+    }
+  }
+}

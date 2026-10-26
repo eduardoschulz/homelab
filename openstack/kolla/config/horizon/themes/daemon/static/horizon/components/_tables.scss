@@ -1,0 +1,276 @@
+.table {
+  margin-bottom: 0;
+  background: var(--dm-color-bg-surface);
+  color: var(--dm-color-text);
+  font-size: var(--dm-font-size-300);
+  font-variant-numeric: tabular-nums;
+  line-height: var(--dm-line-height-tight);
+
+  > thead > tr > th,
+  > thead > tr > td,
+  > tbody > tr > th,
+  > tbody > tr > td,
+  > tfoot > tr > td {
+    box-sizing: border-box;
+    height: 40px;
+    padding: var(--dm-space-100) var(--dm-space-300);
+    border-top: 0;
+    border-bottom: var(--dm-border-width) solid var(--dm-color-border-subtle);
+    vertical-align: middle;
+  }
+
+  > thead > tr > th {
+    position: sticky;
+    top: $navbar-height;
+    z-index: 1;
+    border-bottom-color: var(--dm-color-border);
+    background: var(--dm-color-bg-surface);
+    font-weight: var(--dm-font-weight-semibold);
+  }
+
+  > caption {
+    padding: 0 0 var(--dm-space-300);
+    color: var(--dm-color-text);
+    text-align: left;
+  }
+
+  > tbody > tr > td > a:not(.btn) {
+    border-radius: 2px;
+    color: var(--dm-color-text-link);
+    font-weight: var(--dm-font-weight-medium);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  // the header cell rule would otherwise pad the select column wider than its rows
+  > thead > tr > th.multi_select_column,
+  > tbody > tr > td.multi_select_column {
+    width: 36px;
+    padding: 0 var(--dm-space-100) 0 var(--dm-space-300);
+    text-align: left;
+
+    .themable-checkbox label {
+      vertical-align: middle;
+    }
+  }
+
+  .actions_column {
+    width: 1%;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  > tbody > tr.empty > td {
+    height: auto;
+    padding: var(--dm-space-800) var(--dm-space-300);
+    color: var(--dm-color-text-secondary);
+    text-align: center;
+  }
+
+  // the item count belongs under the table only
+  > thead > tr:has(.table_count) {
+    display: none;
+  }
+
+  > tfoot > tr > td {
+    height: auto;
+    padding: var(--dm-space-300) var(--dm-space-300) 0;
+    border-bottom: 0;
+    color: var(--dm-color-text-secondary);
+  }
+}
+
+.table-striped.datatable > tbody {
+  > tr > td,
+  > tr.odd > td,
+  > tr.even > td {
+    background: var(--dm-color-bg-surface);
+  }
+
+  > tr:hover > td,
+  > tr.odd:hover > td,
+  > tr.even:hover > td {
+    background: var(--dm-color-bg-surface-hover);
+  }
+
+  > tr:has(.table-row-multi-select:checked) > td {
+    background: var(--dm-color-bg-surface-selected);
+  }
+
+  > tr.empty:hover > td {
+    background: var(--dm-color-bg-surface);
+  }
+}
+
+.tablesorter-header-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dm-space-100);
+}
+
+.table > thead > tr > th.sortable {
+  cursor: pointer;
+
+  &:hover {
+    color: var(--dm-color-text-link);
+  }
+}
+
+// horizon extends the caret icons onto the indicator, so these need the extra class
+.table .tablesorter-header .table-sort-indicator {
+  @include dm-mask-icon("arrow-up", 12px);
+  opacity: 0;
+  vertical-align: middle;
+
+  &::before {
+    content: none;
+  }
+}
+
+.table th.sortable:hover .table-sort-indicator,
+.table th.sortable:focus-visible .table-sort-indicator {
+  opacity: 0.5;
+}
+
+.table .tablesorter-headerAsc .table-sort-indicator,
+.table .tablesorter-headerDesc .table-sort-indicator {
+  opacity: 1;
+}
+
+.table .tablesorter-header.tablesorter-headerDesc .table-sort-indicator {
+  mask-image: dm-asset("icons/arrow-down.svg");
+  -webkit-mask-image: dm-asset("icons/arrow-down.svg");
+}
+
+.table_actions {
+  display: flex;
+  float: none;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--dm-space-200);
+
+  &::before,
+  &::after {
+    content: none;
+  }
+
+  > * {
+    float: none;
+    margin: 0;
+  }
+
+  .btn[id$="__action_create"],
+  .btn[id*="__action_launch"] {
+    @include dm-button-primary;
+  }
+}
+
+.table_search,
+.table_filter {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--dm-space-200);
+  float: none;
+  margin: 0;
+
+  .form-group {
+    margin: 0;
+  }
+
+  .form-control {
+    width: 100%;
+    max-width: 360px;
+  }
+}
+
+.table_actions_menu {
+  display: inline-flex;
+}
+
+.dm-row-actions {
+  gap: var(--dm-space-100);
+
+  > .btn,
+  > .btn:first-child:not(:last-child):not(.dropdown-toggle),
+  > .btn:last-child:not(:first-child),
+  > .dropdown-toggle:not(:first-child) {
+    border-radius: var(--dm-radius-200);
+  }
+
+  .btn + .btn {
+    margin-left: 0;
+  }
+}
+
+// a scroll container would clip the row menus so only phones get one
+@media (max-width: $screen-xs-max) {
+  .table_wrapper {
+    overflow-x: auto;
+  }
+}
+
+.dm-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--dm-space-200) var(--dm-space-400);
+  color: var(--dm-color-text-secondary);
+  font-size: var(--dm-font-size-300);
+  font-variant-numeric: tabular-nums;
+}
+
+.dm-pagination-pages {
+  display: flex;
+  align-items: center;
+  gap: var(--dm-space-100);
+
+  .btn {
+    min-width: 24px;
+  }
+}
+
+.dm-selection-count,
+.dm-selection-clear {
+  display: none;
+}
+
+.dm-has-selection .table_actions,
+.dm-has-selection .hz-dynamic-table-preamble {
+  box-sizing: border-box;
+  min-height: var(--dm-control-height-lg);
+  padding: var(--dm-space-100) var(--dm-space-300);
+  border: var(--dm-border-width) solid var(--dm-color-border-subtle);
+  border-radius: var(--dm-radius-300);
+  background: var(--dm-color-bg-surface-selected);
+
+  // the bar replaces the toolbar while rows are selected
+  > .table_search,
+  > .table_filter,
+  > .btn:not([data-batch-action]):not(.dm-selection-clear) {
+    display: none;
+  }
+
+  .btn {
+    --_height: var(--dm-control-height-sm);
+    --_padding-inline: var(--dm-space-200);
+    --_font-size: var(--dm-font-size-200);
+    --_icon-size: var(--dm-icon-size-sm);
+  }
+
+  .dm-selection-count {
+    display: inline;
+    margin-right: var(--dm-space-200);
+    font-weight: var(--dm-font-weight-semibold);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .dm-selection-clear {
+    display: inline-flex;
+    margin-left: auto;
+  }
+}

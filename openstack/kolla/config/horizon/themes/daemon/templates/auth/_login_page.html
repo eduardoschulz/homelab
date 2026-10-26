@@ -1,0 +1,27 @@
+{% extends "auth/_login_form.html" %}
+{% load i18n %}
+
+{% block pre_login %}
+  <div class="dm-login">
+    <main class="dm-login-card">
+      {{ block.super }}
+{% endblock %}
+
+{% block login_header %}
+  {% include "auth/_splash.html" %}
+  <h1 class="dm-login-title">{% trans "Sign in" %}</h1>
+  <p class="dm-login-lead">{% trans "Use your OpenStack credentials to continue." %}</p>
+{% endblock %}
+
+{% block login_footer %}
+  <button id="loginBtn" type="submit" class="btn btn-primary btn-lg btn-block">
+    <span>{% trans "Sign In" %}</span>
+  </button>
+  {% include "_login_form_footer.html" %}
+{% endblock %}
+
+{% block post_login %}
+      {{ block.super }}
+    </main>
+  </div>
+{% endblock %}

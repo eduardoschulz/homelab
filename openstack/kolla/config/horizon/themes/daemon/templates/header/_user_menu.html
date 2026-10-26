@@ -1,0 +1,60 @@
+{% load i18n %}
+{% load themes %}
+
+{% with name=request.user.username %}
+<li class="dropdown dm-user-menu">
+  <a data-toggle="dropdown" href="#" class="dropdown-toggle dm-header-button dm-icon-button" role="button" aria-expanded="false" aria-label="{% blocktrans %}Account: {{ name }}{% endblocktrans %}">
+    <span class="dm-avatar dm-avatar-sm" data-name="{{ name }}">{{ name|make_list|first|upper }}</span>
+  </a>
+  <ul id="editor_list" class="dropdown-menu dropdown-menu-right selection-menu">
+    <li class="dm-user-menu-header">
+      <span class="dm-avatar dm-avatar-lg" data-name="{{ name }}">{{ name|make_list|first|upper }}</span>
+      <span>
+        <span class="dm-user-menu-name">{{ name }}</span>
+        {% if request.user.user_domain_name %}
+          <span class="dm-user-menu-detail">{{ request.user.user_domain_name }}</span>
+        {% endif %}
+      </span>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="{% url 'horizon:settings:user:index' %}" target="_self">{% trans "Settings" %}</a>
+    </li>
+    {% if HORIZON_CONFIG.bug_url %}
+      <li><a href="{{ HORIZON_CONFIG.bug_url }}" target="_blank">{% trans "Report Bug" %}</a></li>
+    {% endif %}
+    {% if HORIZON_CONFIG.help_url %}
+      <li><a href="{{ HORIZON_CONFIG.help_url }}" target="_blank">{% trans "Help" %}</a></li>
+    {% endif %}
+    {% for link in USER_MENU_LINKS %}
+      <li>
+        <a href="{% if link.external %}{{ link.url }}{% else %}{% url link.url %}{% endif %}">{{ link.name }}</a>
+      </li>
+    {% endfor %}
+    {% themes as available_themes %}
+    {% if available_themes and available_themes|length > 1 %}
+      <li class="divider"></li>
+      <li>
+        {% include "header/_theme_list.html" %}
+      </li>
+    {% endif %}
+    <li class="divider"></li>
+    <li>
+      <form method="post" action="{{ LOGOUT_URL }}">
+        {% csrf_token %}
+        <button type="submit" class="dm-menu-button">{% trans "Sign Out" %}</button>
+      </form>
+    </li>
+  </ul>
+</li>
+{% endwith %}
+<script>
+  // a stable tone per name
+  document.querySelectorAll('.dm-avatar[data-name]').forEach(function (el) {
+    var hash = 0;
+    for (var ch of el.dataset.name.trim().toLowerCase()) {
+      hash = (hash * 31 + ch.codePointAt(0)) >>> 0;
+    }
+    el.classList.add('dm-avatar-tone-' + (hash % 5 + 1));
+  });
+</script>

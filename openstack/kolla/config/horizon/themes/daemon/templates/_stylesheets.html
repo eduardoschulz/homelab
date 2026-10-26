@@ -1,0 +1,29 @@
+{% load compress %}
+{% load themes %}
+
+{% compress css %}
+<link href="{{ STATIC_URL }}horizon/lib/bootstrap_datepicker/datepicker3.css" type="text/css" media="screen" rel="stylesheet" />
+<link href="{{ STATIC_URL }}horizon/lib/rickshaw/rickshaw.css" type="text/css" media="screen" rel="stylesheet" />
+{% endcompress %}
+
+{% comment %}offline compression supplies THEME, a request only has the cookie{% endcomment %}
+{% current_theme as THEME %}
+
+{% comment %}our themes link their own entry point, so offline compression keeps them apart{% endcomment %}
+{% compress css %}
+{% if THEME == "daemon" or THEME == "daemon-dark" %}
+<link type="text/scss" href="{{ STATIC_URL }}{% theme_dir %}/{{ THEME }}/{{ THEME }}.scss" rel="stylesheet" />
+{% else %}
+<link type="text/scss" href="{{ STATIC_URL }}dashboard/scss/themes.scss" rel="stylesheet" />
+{% endif %}
+{% endcompress %}
+
+{% compress css %}
+{% for file in HORIZON_CONFIG.scss_files %}
+<link type="text/scss" href="{{ STATIC_URL }}{{ file }}" rel="stylesheet" />
+{% endfor %}
+{% endcompress %}
+
+<link rel="shortcut icon" href="{% themable_asset 'img/favicon.ico' %}"/>
+<link rel="apple-touch-icon" sizes="180x180" href="{% themable_asset 'img/apple-touch-icon.png' %}" />
+<link rel="mask-icon" href="{% themable_asset 'img/safari-pinned-tab.svg' %}" color="#5bbad5" />

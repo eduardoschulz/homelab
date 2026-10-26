@@ -1,0 +1,136 @@
+.label,
+.badge {
+  --_bg: var(--dm-color-bg-surface-active);
+  --_fg: var(--dm-color-text-secondary);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dm-space-100);
+  box-sizing: border-box;
+  height: 20px;
+  min-width: 0;
+  padding: 0 var(--dm-space-200);
+  border-radius: var(--dm-radius-full);
+  background: var(--_bg);
+  color: var(--_fg);
+  font-size: var(--dm-font-size-200);
+  font-weight: var(--dm-font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.label-primary,
+.label-info {
+  --_bg: var(--dm-color-bg-info);
+  --_fg: var(--dm-color-text-info);
+}
+
+.label-success {
+  --_bg: var(--dm-color-bg-success);
+  --_fg: var(--dm-color-text-success);
+}
+
+.label-warning {
+  --_bg: var(--dm-color-bg-warning);
+  --_fg: var(--dm-color-text-warning);
+}
+
+.label-danger {
+  --_bg: var(--dm-color-bg-critical);
+  --_fg: var(--dm-color-text-critical);
+}
+
+a.label:hover,
+a.label:focus,
+a.badge:hover,
+a.badge:focus {
+  color: var(--_fg);
+  filter: brightness(0.94);
+  text-decoration: none;
+}
+
+// lifecycle states as badges, toned by the raw state value
+.dm-state {
+  --_bg: var(--dm-color-bg-surface-active);
+  --_fg: var(--dm-color-text-secondary);
+
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 20px;
+  padding: 0 var(--dm-space-200);
+  border-radius: var(--dm-radius-full);
+  background: var(--_bg);
+  color: var(--_fg);
+  font-size: var(--dm-font-size-200);
+  font-weight: var(--dm-font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+// anything still in progress, the "-ing" states included
+.dm-state[data-state$="ing"],
+.dm-state[data-state^="pending"],
+.dm-state[data-state="build"],
+.dm-state[data-state="rebuild"],
+.dm-state[data-state="resize"],
+.dm-state[data-state="verify_resize"],
+.dm-state[data-state="revert_resize"],
+.dm-state[data-state="reboot"],
+.dm-state[data-state="hard_reboot"],
+.dm-state[data-state="password"],
+.dm-state[data-state="queued"],
+.dm-state[data-state="reserved"],
+.dm-state[data-state="awaiting-transfer"] {
+  --_bg: var(--dm-color-bg-info);
+  --_fg: var(--dm-color-text-info);
+}
+
+.dm-state[data-state="active"],
+.dm-state[data-state="available"],
+.dm-state[data-state="in-use"],
+.dm-state[data-state="up"],
+.dm-state[data-state="running"],
+.dm-state[data-state="enabled"] {
+  --_bg: var(--dm-color-bg-success);
+  --_fg: var(--dm-color-text-success);
+}
+
+.dm-state[data-state="rescue"],
+.dm-state[data-state="maintenance"],
+.dm-state[data-state="degraded"] {
+  --_bg: var(--dm-color-bg-warning);
+  --_fg: var(--dm-color-text-warning);
+}
+
+.dm-state[data-state^="error"],
+.dm-state[data-state="killed"],
+.dm-state[data-state="failed"] {
+  --_bg: var(--dm-color-bg-critical);
+  --_fg: var(--dm-color-text-critical);
+}
+
+// other status columns mark failed and transitional cells with a symbol
+.table td.status_down:not(:has(> .dm-state)),
+.table td.warning:not(:has(> .dm-state)) {
+  white-space: nowrap;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: var(--dm-space-150);
+    background: center / 12px no-repeat;
+    vertical-align: -1px;
+  }
+}
+
+.table td.status_down::before {
+  background-image: dm-asset("img/#{$dm-variant}/status/critical.svg");
+}
+
+.table td.warning::before {
+  background-image: dm-asset("img/#{$dm-variant}/status/standby.svg");
+}

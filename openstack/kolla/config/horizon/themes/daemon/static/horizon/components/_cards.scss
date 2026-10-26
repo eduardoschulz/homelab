@@ -1,0 +1,306 @@
+.dm-card,
+.panel {
+  box-sizing: border-box;
+  min-width: 0;
+  margin: 0;
+  overflow: clip;
+  border: var(--dm-border-width) solid var(--dm-color-border-subtle);
+  border-radius: var(--dm-radius-300);
+  background: var(--dm-color-bg-surface);
+  box-shadow: var(--dm-shadow-100);
+  color: var(--dm-color-text);
+  line-height: var(--dm-line-height-base);
+}
+
+.dm-card-header,
+.panel > .panel-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--dm-space-300);
+  box-sizing: border-box;
+  min-height: 48px;
+  padding: var(--dm-space-200) var(--dm-space-400);
+  border-bottom: var(--dm-border-width) solid var(--dm-color-border-subtle);
+  border-radius: 0;
+  background: var(--dm-color-bg-surface);
+  color: var(--dm-color-text);
+}
+
+.dm-card-titles {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.dm-card-heading,
+.panel-title {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: var(--dm-font-size-400);
+  font-weight: var(--dm-font-weight-semibold);
+  line-height: var(--dm-line-height-tight);
+}
+
+.dm-card-description {
+  margin-top: 2px;
+  color: var(--dm-color-text-secondary);
+  font-size: var(--dm-font-size-200);
+}
+
+.dm-card-body,
+.panel > .panel-body {
+  margin: 0;
+  padding: var(--dm-space-400);
+}
+
+.panel > .panel-footer {
+  padding: var(--dm-space-200) var(--dm-space-400);
+  border-top: var(--dm-border-width) solid var(--dm-color-border-subtle);
+  background: var(--dm-color-bg-surface-secondary);
+}
+
+.dm-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  align-items: start;
+  gap: var(--dm-space-400);
+}
+
+.dm-meters {
+  display: grid;
+  gap: var(--dm-space-400);
+}
+
+.dm-meters-row {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  column-gap: var(--dm-space-800);
+}
+
+.dm-meter {
+  --_fill: var(--dm-color-fill-accent);
+
+  line-height: var(--dm-line-height-tight);
+}
+
+.dm-meter-warning {
+  --_fill: var(--dm-color-text-warning);
+}
+
+.dm-meter-critical {
+  --_fill: var(--dm-color-text-critical);
+}
+
+.dm-meter-unlimited {
+  --_fill: var(--dm-color-text-secondary);
+}
+
+.dm-meter-head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--dm-space-300);
+  margin-bottom: var(--dm-space-150);
+}
+
+.dm-meter-label {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--dm-color-text-secondary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dm-meter-value {
+  font-weight: var(--dm-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.dm-meter-track {
+  height: 6px;
+  overflow: hidden;
+  border-radius: var(--dm-radius-full);
+  background: color-mix(in srgb, var(--_fill) 18%, var(--dm-color-bg-surface-secondary));
+}
+
+.dm-meter-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--_fill);
+  transition: width var(--dm-duration-base) var(--dm-easing-standard);
+}
+
+.dm-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--dm-space-400);
+}
+
+.dm-stat {
+  display: grid;
+  gap: var(--dm-space-100);
+  box-sizing: border-box;
+  padding: var(--dm-space-400);
+  border: var(--dm-border-width) solid var(--dm-color-border-subtle);
+  border-radius: var(--dm-radius-300);
+  background: var(--dm-color-bg-surface);
+  line-height: var(--dm-line-height-tight);
+}
+
+.dm-stat-label {
+  color: var(--dm-color-text-secondary);
+  font-size: var(--dm-font-size-200);
+}
+
+.dm-stat-value {
+  font-size: var(--dm-font-size-600);
+  font-weight: var(--dm-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+// a plain page puts cards on the page background instead of a white panel
+.dm-content.dm-plain {
+  gap: var(--dm-space-400);
+  padding-block: var(--dm-space-500);
+  border-bottom: 0;
+  background: none;
+}
+
+.dm-plain .table_wrapper {
+  overflow: clip;
+  border: var(--dm-border-width) solid var(--dm-color-border-subtle);
+  border-radius: var(--dm-radius-300);
+  background: var(--dm-color-bg-surface);
+  box-shadow: var(--dm-shadow-100);
+
+  .table > caption:not(:has(.table-title, .table_actions > *)) {
+    display: none;
+  }
+
+  .table > caption {
+    box-sizing: border-box;
+    min-height: 48px;
+    padding: var(--dm-space-200) var(--dm-space-400);
+    border-bottom: var(--dm-border-width) solid var(--dm-color-border-subtle);
+  }
+
+  .table-title {
+    float: left;
+    margin-right: var(--dm-space-300);
+    font-size: var(--dm-font-size-400);
+    font-weight: var(--dm-font-weight-semibold);
+    line-height: 30px;
+  }
+
+  .table_actions {
+    width: auto;
+    justify-content: flex-end;
+  }
+
+  .table > thead > tr > th,
+  .table > tbody > tr > td {
+    height: 32px;
+  }
+
+  .table > thead > tr > th:first-child,
+  .table > tbody > tr > td:first-child {
+    padding-left: var(--dm-space-400);
+  }
+
+  .table > thead > tr > th:last-child,
+  .table > tbody > tr > td:last-child {
+    padding-right: var(--dm-space-400);
+  }
+
+  .table > tfoot > tr > td {
+    padding: var(--dm-space-200) var(--dm-space-400);
+    background: var(--dm-color-bg-surface-secondary);
+  }
+}
+
+.dm-period {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--dm-space-200);
+
+  .form-group {
+    margin: 0;
+  }
+
+  // the wrappers share the popup's important z-index, which a flex item would apply
+  .datepicker.form-group {
+    display: contents;
+  }
+
+  .datepicker-delimiter {
+    color: var(--dm-color-text-secondary);
+  }
+
+  .input-group {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 148px;
+    height: var(--dm-control-height-md);
+    border: var(--dm-border-width) solid var(--dm-color-border-strong);
+    border-radius: var(--dm-radius-200);
+    background: var(--dm-color-bg-surface);
+
+    &:focus-within {
+      border-color: var(--dm-color-border-focus);
+      box-shadow: 0 0 0 var(--dm-border-width) var(--dm-color-border-focus);
+    }
+
+    // horizon renders the date input without the form-control class
+    > input,
+    > input:focus {
+      flex: 1 1 auto;
+      width: 100%;
+      min-width: 0;
+      height: 100%;
+      padding: 0 var(--dm-space-200);
+      border: 0;
+      outline: none;
+      background: none;
+      box-shadow: none;
+      color: var(--dm-color-text);
+      font-size: var(--dm-font-size-300);
+      font-variant-numeric: tabular-nums;
+    }
+  }
+
+  .input-group-addon {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    width: auto;
+    height: 100%;
+    padding: 0 var(--dm-space-200) 0 0;
+    border: 0;
+    background: none;
+    color: var(--dm-color-text-secondary);
+    line-height: 1;
+  }
+}
+
+.datepicker.dropdown-menu table tr td.day,
+.datepicker.dropdown-menu table tr th {
+  border-radius: var(--dm-radius-100);
+  font-variant-numeric: tabular-nums;
+
+  &:hover {
+    background: var(--dm-color-bg-surface-hover);
+  }
+}
+
+.datepicker.dropdown-menu table tr td.day.active,
+.datepicker.dropdown-menu table tr td.day.active:hover {
+  background: var(--dm-color-fill-brand);
+  color: var(--dm-color-text-on-fill);
+  text-shadow: none;
+}
+
+.datepicker.dropdown-menu table tr td.day.old,
+.datepicker.dropdown-menu table tr td.day.new {
+  color: var(--dm-color-text-disabled);
+}

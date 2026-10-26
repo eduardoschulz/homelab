@@ -1,0 +1,79 @@
+body#splash {
+  min-height: 100vh;
+  background: var(--dm-color-texture-bg) dm-asset("img/#{$dm-variant}/field.svg");
+}
+
+.dm-login {
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: var(--dm-space-600);
+}
+
+.dm-login-card {
+  box-sizing: border-box;
+  width: 400px;
+  max-width: 100%;
+  padding: var(--dm-space-800) var(--dm-space-600) var(--dm-space-600);
+  border: var(--dm-border-width) solid var(--dm-color-border-subtle);
+  border-radius: var(--dm-radius-300);
+  background: var(--dm-color-bg-surface);
+  box-shadow: var(--dm-shadow-200);
+  color: var(--dm-color-text);
+
+  .panel {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  .panel-heading,
+  .panel-body,
+  .panel-footer {
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+
+  // the card styles make panel headings a row, the login heading stacks
+  .panel-heading {
+    display: block;
+    min-height: 0;
+  }
+
+  fieldset .form-group {
+    margin-bottom: var(--dm-space-400);
+  }
+
+  .panel-footer {
+    display: grid;
+    gap: var(--dm-space-400);
+    margin-top: var(--dm-space-100);
+  }
+
+  .dm-splash {
+    justify-content: flex-start;
+    margin-bottom: var(--dm-space-600);
+
+    .dm-brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+    }
+  }
+}
+
+.dm-login-title {
+  margin: 0 0 var(--dm-space-100);
+  font-size: var(--dm-font-size-600);
+  font-weight: var(--dm-font-weight-semibold);
+  line-height: var(--dm-line-height-tight);
+}
+
+.dm-login-lead {
+  margin: 0 0 var(--dm-space-500);
+  color: var(--dm-color-text-secondary);
+}

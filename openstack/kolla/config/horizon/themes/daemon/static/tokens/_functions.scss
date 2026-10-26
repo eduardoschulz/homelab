@@ -1,0 +1,30 @@
+// set by the dark entry point before it imports the light one
+$dm-dark: false !default;
+$dm-variant: if($dm-dark, dark, light);
+
+@function dm-palette($name) {
+  @return map-get($dm-palette, $name);
+}
+
+// a token's static value in this theme, for bootstrap's colour maths
+@function dm($name) {
+  @if map-has-key($dm-scale, $name) {
+    @return map-get($dm-scale, $name);
+  }
+  $value: map-get(if($dm-dark, $dm-tokens-dark, $dm-tokens-light), $name);
+  @if type-of($value) == string and map-has-key($dm-palette, $value) {
+    @return map-get($dm-palette, $value);
+  }
+  @return $value;
+}
+
+// palette references stay variables so a scoped theme can override them
+@mixin dm-declarations($tokens) {
+  @each $name, $value in $tokens {
+    @if type-of($value) == string and map-has-key($dm-palette, $value) {
+      --dm-#{$name}: var(--dm-#{$value});
+    } @else {
+      --dm-#{$name}: #{$value};
+    }
+  }
+}

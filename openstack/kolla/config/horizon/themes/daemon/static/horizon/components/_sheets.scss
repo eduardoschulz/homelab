@@ -1,0 +1,66 @@
+// forms and wizards open as sheets, confirmations stay dialogs
+.modal:has(form, [ng-form]):not(.loading) {
+  .modal-dialog {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: unquote("min(800px, 100vw)");
+    margin: 0;
+  }
+
+  &.fade .modal-dialog {
+    transform: translateX(100%);
+    transition: transform var(--dm-duration-base) var(--dm-easing-standard);
+  }
+
+  &.in .modal-dialog {
+    transform: none;
+  }
+
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  // wrappers between the content and its header, body and footer pass the height on
+  .modal-content form,
+  .modal-content [ng-form],
+  .modal-content > wizard {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .modal-header,
+  .modal-footer {
+    flex: none;
+  }
+
+  .modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding-top: var(--dm-space-300);
+    padding-bottom: var(--dm-space-600);
+    overflow: auto;
+  }
+}
+
+// the wizard's help toggle sits in the header beside the close button
+.modal .ng-wizard .modal-body {
+  position: static;
+}
+
+.modal .ng-wizard .wizard-help {
+  top: var(--dm-space-400);
+  right: 52px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal.fade .modal-dialog {
+    transition: none;
+  }
+}

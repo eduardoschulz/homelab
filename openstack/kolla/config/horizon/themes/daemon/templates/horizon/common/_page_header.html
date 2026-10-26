@@ -1,0 +1,9 @@
+<div class="page-header">
+  <h1>{{ title }}</h1>
+  {% if actions %}
+    <form class="actions_column dm-page-actions" action="{{ url }}" method="POST">
+      {% csrf_token %}
+      {{ actions }}
+    </form>
+  {% endif %}
+</div>

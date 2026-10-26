@@ -1,0 +1,16 @@
+:root {
+  @include dm-declarations($dm-palette);
+  @include dm-declarations($dm-scale);
+  @include dm-declarations(if($dm-dark, $dm-tokens-dark, $dm-tokens-light));
+}
+
+[data-dm-theme="dark"] {
+  @include dm-declarations($dm-tokens-dark);
+}
+
+[data-dm-theme="light"] {
+  @include dm-declarations($dm-tokens-light);
+}
+
+@import "bootstrap/styles";
+@import "horizon/styles";

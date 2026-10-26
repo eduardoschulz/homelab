@@ -1,0 +1,70 @@
+@keyframes dm-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// horizon's page loader and angular's wait spinner, as a card centred in the viewport
+.modal.loading,
+.modal:has(.modal-body > .loader) {
+  .modal-dialog {
+    position: fixed;
+    inset: 0;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+  }
+
+  .modal-content {
+    min-width: 160px;
+  }
+
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--dm-space-300);
+    padding: var(--dm-space-600) var(--dm-space-800);
+  }
+}
+
+.loader.fa-spinner {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: var(--dm-color-fill-brand);
+  mask: dm-asset("icons/spinner.svg") center / contain no-repeat;
+  -webkit-mask: dm-asset("icons/spinner.svg") center / contain no-repeat;
+  animation: dm-spin 700ms linear infinite;
+
+  &::before {
+    content: none;
+  }
+}
+
+.loader-inline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--dm-space-300);
+  padding: var(--dm-space-600) 0;
+
+  .loader.fa-spinner {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.loader-caption {
+  margin: 0;
+  color: var(--dm-color-text-secondary);
+  font-size: var(--dm-font-size-300);
+  font-weight: var(--dm-font-weight-medium);
+  line-height: var(--dm-line-height-tight);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader.fa-spinner {
+    animation-duration: 2s;
+  }
+}

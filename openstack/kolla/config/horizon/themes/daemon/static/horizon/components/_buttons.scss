@@ -1,0 +1,207 @@
+.btn {
+  --_height: var(--dm-control-height-md);
+  --_padding-inline: var(--dm-space-300);
+  --_font-size: var(--dm-font-size-300);
+  --_icon-size: var(--dm-icon-size-md);
+  --_bg: var(--dm-color-bg-surface);
+  --_bg-hover: var(--dm-color-bg-surface-hover);
+  --_bg-active: var(--dm-color-bg-surface-active);
+  --_fg: var(--dm-color-text);
+  --_fg-hover: var(--_fg);
+  --_border: var(--dm-color-border);
+  --_border-hover: var(--_border);
+  --_shadow: var(--dm-shadow-100);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dm-space-100);
+  box-sizing: border-box;
+  height: var(--_height);
+  min-width: var(--_height);
+  padding: 0 var(--_padding-inline);
+  border: var(--dm-border-width) solid var(--_border);
+  border-radius: var(--dm-radius-200);
+  background: var(--_bg);
+  box-shadow: var(--_shadow);
+  color: var(--_fg);
+  font-size: var(--_font-size);
+  font-weight: var(--dm-font-weight-medium);
+  line-height: var(--dm-line-height-tight);
+  white-space: nowrap;
+  text-shadow: none;
+  vertical-align: middle;
+  transition: background-color var(--dm-duration-fast) var(--dm-easing-standard),
+    border-color var(--dm-duration-fast) var(--dm-easing-standard),
+    box-shadow var(--dm-duration-fast) var(--dm-easing-standard);
+
+  .fa {
+    font-size: calc(var(--_icon-size) - 2px);
+  }
+
+  .dm-icon {
+    width: var(--_icon-size);
+    height: var(--_icon-size);
+  }
+}
+
+// repeats bootstrap's state selectors so the variant mixins can't outrank them
+.btn,
+.btn:hover,
+.btn:focus,
+.btn.focus {
+  border-color: var(--_border);
+  color: var(--_fg);
+  text-decoration: none;
+}
+
+.btn:hover,
+.btn:focus,
+.btn.focus {
+  border-color: var(--_border-hover);
+  background: var(--_bg-hover);
+  color: var(--_fg-hover);
+}
+
+.btn:active,
+.btn.active,
+.btn:active:hover,
+.btn:active:focus,
+.btn.active:hover,
+.btn.active:focus,
+.btn.active.focus,
+.open > .btn.dropdown-toggle,
+.open > .btn.dropdown-toggle:hover,
+.open > .btn.dropdown-toggle:focus {
+  border-color: var(--_border-hover);
+  background: var(--_bg-active);
+  box-shadow: var(--dm-shadow-inset-active);
+  color: var(--_fg-hover);
+}
+
+.btn.disabled,
+.btn[disabled],
+fieldset[disabled] .btn,
+.btn.disabled:hover,
+.btn[disabled]:hover,
+fieldset[disabled] .btn:hover,
+.btn.disabled:focus,
+.btn[disabled]:focus,
+fieldset[disabled] .btn:focus,
+.btn.disabled:active,
+.btn[disabled]:active {
+  border-color: transparent;
+  background: var(--dm-color-bg-disabled);
+  box-shadow: none;
+  color: var(--dm-color-text-disabled);
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+@mixin dm-button-primary {
+  --_bg: var(--dm-color-fill-brand);
+  --_bg-hover: var(--dm-color-fill-brand-hover);
+  --_bg-active: var(--dm-color-fill-brand-active);
+  --_fg: var(--dm-color-text-on-fill);
+  --_border: transparent;
+}
+
+@mixin dm-button-tertiary {
+  --_bg: transparent;
+  --_bg-hover: var(--dm-color-fill-transparent-hover);
+  --_bg-active: var(--dm-color-fill-transparent-active);
+  --_border: transparent;
+  --_shadow: none;
+}
+
+.btn-primary {
+  @include dm-button-primary;
+}
+
+// outlined at rest so it is not mistaken for the red primary button
+.btn-danger {
+  --_bg-hover: var(--dm-color-fill-critical-hover);
+  --_bg-active: var(--dm-color-fill-critical-active);
+  --_fg: var(--dm-color-text-critical);
+  --_fg-hover: var(--dm-color-text-on-fill);
+  --_border-hover: transparent;
+}
+
+.btn-link {
+  @include dm-button-tertiary;
+
+  &.disabled,
+  &[disabled] {
+    background: transparent;
+  }
+}
+
+.btn-sm,
+.btn-xs,
+.btn-group-sm > .btn,
+.btn-group-xs > .btn {
+  --_height: var(--dm-control-height-sm);
+  --_padding-inline: var(--dm-space-200);
+  --_font-size: var(--dm-font-size-200);
+  --_icon-size: var(--dm-icon-size-sm);
+
+  border-radius: var(--dm-radius-200);
+}
+
+.btn-lg,
+.btn-group-lg > .btn {
+  --_height: var(--dm-control-height-lg);
+  --_padding-inline: var(--dm-space-400);
+
+  border-radius: var(--dm-radius-200);
+}
+
+.btn-block {
+  display: flex;
+  width: 100%;
+}
+
+.btn-group {
+  display: inline-flex;
+  vertical-align: middle;
+
+  > .btn {
+    float: none;
+  }
+}
+
+.btn-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dm-space-200);
+  margin: 0;
+
+  > .btn,
+  > .btn-group {
+    margin: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+}
+
+.dm-btn-icon {
+  width: var(--_height);
+  padding: 0;
+}
+
+// bootstrap's responsive toggles stay hidden on a desktop
+@media (min-width: $screen-sm-min) {
+  .btn.navbar-toggle {
+    display: none;
+  }
+}
+
+// unmapped icon classes on a button keep font awesome's solid weight
+.btn.fa::before {
+  font-family: var(--fa-style-family, "Font Awesome 6 Free");
+  font-weight: var(--fa-style, 900);
+}

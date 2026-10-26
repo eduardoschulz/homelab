@@ -1,0 +1,10 @@
+// relative to the entry point, so each theme serves its own copy
+@function dm-asset($path) {
+  @return url($path);
+}
+
+$sidebar-width: 240px;
+$border-color: dm("color-border");
+$table-bg-even: dm("color-bg-surface");
+$magic-search-border-color: dm("color-border-strong");
+$magic-search-border-radius: dm("radius-200");

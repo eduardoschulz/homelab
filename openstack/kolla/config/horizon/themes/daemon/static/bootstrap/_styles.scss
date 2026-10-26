@@ -1,0 +1,53 @@
+// token sizes are rem against the browser default where bootstrap sets 10px
+html {
+  color-scheme: var(--dm-color-scheme);
+  font-size: 100%;
+}
+
+html,
+body:not(#splash) {
+  height: auto;
+}
+
+body {
+  background: var(--dm-color-bg);
+  color: var(--dm-color-text);
+  font-family: var(--dm-font-family-sans);
+  font-size: var(--dm-font-size-300);
+  line-height: var(--dm-line-height-base);
+  -webkit-font-smoothing: antialiased;
+}
+
+a,
+a:hover,
+a:focus {
+  color: var(--dm-color-text-link);
+}
+
+// bootstrap draws a focus ring on every click, this theme only for keyboard focus
+a:focus,
+button:focus,
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus {
+  outline: 0;
+}
+
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+[tabindex]:focus-visible {
+  outline: var(--dm-focus-ring-width) solid var(--dm-color-border-focus);
+  outline-offset: var(--dm-focus-ring-offset);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--dm-font-weight-semibold);
+  line-height: var(--dm-line-height-tight);
+}

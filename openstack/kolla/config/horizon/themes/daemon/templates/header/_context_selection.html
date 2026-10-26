@@ -1,0 +1,31 @@
+{% load context_selection %}
+
+<li class="dropdown dm-context">
+  <a class="dropdown-toggle dm-header-button" role="button" aria-expanded="false" data-toggle="dropdown" href="#">
+    {% show_overview %}
+    <span class="dm-icon dm-icon-chevron-down" aria-hidden="true"></span>
+  </a>
+  <ul class="dropdown-menu context-selection selection-menu">
+    {% is_multidomain as domain_supported %}
+    {% if domain_supported %}
+      <li>
+        {% show_domain_list %}
+      </li>
+    {% endif %}
+    <li>
+      {% show_project_list %}
+    </li>
+    {% is_multi_region as multi_region %}
+    {% if multi_region %}
+      <li>
+        {% show_region_list %}
+      </li>
+    {% endif %}
+    {% show_systems as system_scope_enabled %}
+    {% if system_scope_enabled %}
+      <li>
+        {% show_system_list %}
+      </li>
+    {% endif %}
+  </ul>
+</li>

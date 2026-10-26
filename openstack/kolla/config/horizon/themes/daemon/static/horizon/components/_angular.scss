@@ -1,0 +1,306 @@
+// angular panels draw their title inside the content, so the band follows it there
+.dm-page-header:has(~ .dm-ng) {
+  padding-bottom: var(--dm-space-200);
+}
+
+.dm-content.dm-ng {
+  gap: 0;
+  padding: 0;
+  border-bottom: 0;
+  background: none;
+}
+
+.dm-ng .page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--dm-space-200) var(--dm-space-400);
+  margin: 0;
+  padding: 0 var(--dm-space-600) var(--dm-space-400);
+  border: 0;
+
+  h1,
+  .h1 {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    overflow-wrap: anywhere;
+    font-size: var(--dm-font-size-600);
+    font-weight: var(--dm-font-weight-semibold);
+    line-height: var(--dm-line-height-tight);
+  }
+
+  > p {
+    flex-basis: 100%;
+    margin: 0;
+    color: var(--dm-color-text-secondary);
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  > .breadcrumb {
+    flex-basis: 100%;
+  }
+
+  > .row {
+    display: flex;
+    flex: 1 1 100%;
+    align-items: flex-end;
+    gap: var(--dm-space-400);
+    margin: 0;
+
+    &::before,
+    &::after {
+      content: none;
+    }
+
+    > [class*="col-"] {
+      float: none;
+      width: auto;
+      padding: 0;
+    }
+
+    > :first-child {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+  }
+}
+
+.dm-ng hz-resource-panel > div > ng-transclude,
+.dm-ng hz-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dm-space-300);
+  padding: 0 var(--dm-space-600) var(--dm-space-400);
+  border-bottom: var(--dm-border-width) solid var(--dm-color-border-subtle);
+  background: var(--dm-color-bg-surface);
+
+  &::before {
+    content: "";
+    flex: none;
+    height: 16px;
+    margin: 0 calc(var(--dm-space-600) * -1) var(--dm-space-100);
+    background: var(--dm-color-texture-band-bg) dm-asset("img/#{$dm-variant}/band.svg") repeat-x left top;
+  }
+}
+
+.hz-magic-search-context > .row {
+  margin: 0;
+}
+
+.hz-dynamic-table-preamble {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--dm-space-200);
+  float: none;
+  width: 100%;
+  margin-bottom: var(--dm-space-300);
+  padding: 0;
+
+  &::before,
+  &::after {
+    content: none;
+  }
+
+  > hz-magic-search-bar {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  > actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--dm-space-200);
+    margin-left: auto;
+  }
+
+  action-list.btn-group > .btn,
+  action-list.btn-group > * > .btn {
+    border-radius: var(--dm-radius-200);
+  }
+}
+
+.magic-search-bar {
+  margin: 0;
+
+  .input-group {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: var(--dm-control-height-md);
+    border: var(--dm-border-width) solid var(--dm-color-border-strong);
+    border-radius: var(--dm-radius-200);
+    background: var(--dm-color-bg-surface);
+    transition: border-color var(--dm-duration-fast) var(--dm-easing-standard);
+
+    &:focus-within {
+      border-color: var(--dm-color-border-focus);
+      box-shadow: 0 0 0 var(--dm-border-width) var(--dm-color-border-focus);
+    }
+  }
+
+  .input-group-addon {
+    width: auto;
+    padding: 0 0 0 var(--dm-space-200);
+    border: 0;
+    background: none;
+    color: var(--dm-color-text-secondary);
+  }
+
+  .form-control,
+  .form-control:focus {
+    height: 100%;
+    border: 0;
+    background: none;
+    box-shadow: none;
+  }
+}
+
+action-list.btn-group {
+  gap: var(--dm-space-100);
+
+  > .btn,
+  > .btn:first-child:not(:last-child):not(.dropdown-toggle),
+  > .btn:last-child:not(:first-child),
+  > .dropdown-toggle:not(:first-child) {
+    margin-left: 0;
+    border-radius: var(--dm-radius-200);
+  }
+
+  > .split-caret {
+    @include dm-button-tertiary;
+    width: var(--_height);
+    padding: 0;
+
+    .fa-caret-down {
+      mask-image: dm-asset("icons/more-horizontal.svg");
+      -webkit-mask-image: dm-asset("icons/more-horizontal.svg");
+    }
+  }
+}
+
+.table action-list.btn-group > .btn {
+  --_height: var(--dm-control-height-sm);
+  --_padding-inline: var(--dm-space-200);
+  --_font-size: var(--dm-font-size-200);
+  --_icon-size: var(--dm-icon-size-sm);
+}
+
+.fa-undefined {
+  display: none;
+}
+
+.table > thead > tr:has(> td[hz-table-footer]) {
+  display: none;
+}
+
+.table > tbody > tr.st-selected > td {
+  background: var(--dm-color-bg-surface-selected);
+}
+
+// horizon's detail table drops the row borders and draws a dark one under the last row
+.table-rsp.table-detail > tbody {
+  > tr:not(.detail-row):not(.expanded) > td,
+  > tr.expanded + tr.detail-row > td {
+    border-bottom: var(--dm-border-width) solid var(--dm-color-border-subtle);
+  }
+
+  > tr.expanded > td {
+    border-bottom: 0;
+  }
+}
+
+.table st-pagination {
+  display: inline-block;
+  margin-left: var(--dm-space-400);
+  vertical-align: middle;
+}
+
+.pagination {
+  display: inline-flex;
+  gap: var(--dm-space-100);
+  margin: 0;
+  padding: 0;
+
+  > li > a,
+  > li > span {
+    display: inline-grid;
+    place-items: center;
+    float: none;
+    box-sizing: border-box;
+    min-width: 24px;
+    height: var(--dm-control-height-sm);
+    margin: 0;
+    padding: 0 var(--dm-space-200);
+    border: var(--dm-border-width) solid transparent;
+    border-radius: var(--dm-radius-200);
+    background: transparent;
+    color: var(--dm-color-text);
+    font-size: var(--dm-font-size-200);
+    font-weight: var(--dm-font-weight-medium);
+    line-height: 1;
+
+    &:hover,
+    &:focus {
+      border-color: transparent;
+      background: var(--dm-color-fill-transparent-hover);
+      color: var(--dm-color-text);
+    }
+  }
+
+  > li:first-child > a,
+  > li:first-child > span,
+  > li:last-child > a,
+  > li:last-child > span {
+    border-radius: var(--dm-radius-200);
+  }
+
+  > .active > a,
+  > .active > span,
+  > .active > a:hover,
+  > .active > span:hover {
+    border-color: var(--dm-color-border);
+    background: var(--dm-color-bg-surface);
+    box-shadow: var(--dm-shadow-100);
+    color: var(--dm-color-text);
+  }
+
+  > .disabled > a,
+  > .disabled > span {
+    background: none;
+    color: var(--dm-color-text-disabled);
+  }
+}
+
+.dm-has-selection .hz-dynamic-table-preamble {
+  > hz-magic-search-bar,
+  action-list > .btn {
+    display: none;
+  }
+
+  > actions {
+    margin-left: 0;
+  }
+}
+
+// angular tables ask for the old font awesome family, which is not loaded
+.table [st-sort]::after {
+  @include dm-mask-icon("arrow-up", 12px);
+  content: "";
+  margin-left: var(--dm-space-100);
+  vertical-align: -1px;
+}
+
+.table [st-sort]:hover {
+  color: var(--dm-color-text-link);
+}
+
+.table .st-sort-descent::after {
+  mask-image: dm-asset("icons/arrow-down.svg");
+  -webkit-mask-image: dm-asset("icons/arrow-down.svg");
+}

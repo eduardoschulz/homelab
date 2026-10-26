@@ -1,0 +1,166 @@
+// launch instance quotas as a progress bar in place of the pie charts
+.dm-quota {
+  --_usage: var(--dm-color-fill-accent);
+  --_added: var(--dm-color-text-success);
+
+  text-align: left;
+  line-height: var(--dm-line-height-tight);
+}
+
+.dm-quota-over {
+  --_added: var(--dm-color-text-critical);
+
+  .dm-meter-value {
+    color: var(--dm-color-text-critical);
+  }
+}
+
+.dm-quota-track {
+  display: flex;
+  gap: 2px;
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--dm-radius-full);
+  background: var(--dm-color-bg-surface-active);
+}
+
+.dm-quota-segment {
+  flex: 0 0 auto;
+  height: 100%;
+  transition: flex-basis var(--dm-duration-base) var(--dm-easing-standard);
+
+  &:first-child {
+    border-radius: var(--dm-radius-full) 0 0 var(--dm-radius-full);
+  }
+}
+
+.dm-quota-segment.usage,
+.dm-quota-key.usage {
+  background: var(--_usage);
+}
+
+.dm-quota-segment.added,
+.dm-quota-key.added {
+  background: var(--_added);
+}
+
+.dm-quota-key.remaining {
+  background: var(--dm-color-bg-surface-active);
+}
+
+.dm-quota-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dm-space-100) var(--dm-space-400);
+  margin: var(--dm-space-200) 0 0;
+  padding: 0;
+  color: var(--dm-color-text-secondary);
+  font-size: var(--dm-font-size-200);
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: var(--dm-space-150);
+  }
+
+  b {
+    color: var(--dm-color-text);
+    font-weight: var(--dm-font-weight-semibold);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.dm-quota-key {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+// django quota bars, bootstrap progress as the theme's progress track
+.progress {
+  display: flex;
+  gap: 2px;
+  height: 8px;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--dm-radius-full);
+  background: var(--dm-color-bg-surface-active);
+  box-shadow: none;
+}
+
+.progress-bar {
+  flex: none;
+  float: none;
+  height: 100%;
+  background: var(--dm-color-fill-accent);
+  box-shadow: none;
+  transition: width var(--dm-duration-base) var(--dm-easing-standard);
+
+  &:first-child {
+    border-radius: var(--dm-radius-full) 0 0 var(--dm-radius-full);
+  }
+
+  &[aria-valuenow="0"] {
+    display: none;
+  }
+
+  // horizon forces min-width to 0, padding keeps tiny requests visible
+  &:not([aria-valuenow="0"]) {
+    box-sizing: border-box;
+    padding-left: 6px;
+  }
+}
+
+.progress-bar-success {
+  background: var(--dm-color-text-success);
+}
+
+.progress-bar-info {
+  background: var(--dm-color-text-info);
+}
+
+.progress-bar-warning {
+  background: var(--dm-color-text-warning);
+}
+
+.progress-bar-danger {
+  background: var(--dm-color-text-critical);
+}
+
+.quota_title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--dm-space-300);
+  margin: var(--dm-space-400) 0 var(--dm-space-150);
+  font-size: var(--dm-font-size-300);
+  line-height: var(--dm-line-height-tight);
+
+  &::before,
+  &::after {
+    content: none;
+  }
+
+  > .pull-left,
+  > .pull-right {
+    float: none;
+  }
+
+  > .pull-left {
+    min-width: 0;
+    color: var(--dm-color-text-secondary);
+
+    strong {
+      font-weight: var(--dm-font-weight-regular);
+    }
+  }
+
+  > .pull-right {
+    flex: none;
+    color: var(--dm-color-text);
+    font-size: inherit;
+    font-weight: var(--dm-font-weight-semibold);
+    font-variant-numeric: tabular-nums;
+  }
+}

@@ -1,0 +1,21 @@
+<div class="pie-chart dm-quota" ng-class="{ 'dm-quota-over': chartData.overMax }">
+  <div class="dm-meter-head">
+    <span class="dm-meter-label">{$ ::chartData.title $}</span>
+    <span class="dm-meter-value">{$ chartData.showChart ? chartData.label : model.totalLabel $}</span>
+  </div>
+  <div class="dm-quota-track" ng-show="chartData.showChart">
+    <div ng-repeat="slice in chartData.data"
+      ng-if="slice.colorClass !== 'remaining' && slice.value > 0"
+      class="dm-quota-segment"
+      ng-class="slice.colorClass"
+      ng-style="{ 'flex-basis': (slice.value * 100 / chartData.maxLimit) + '%' }"></div>
+  </div>
+  <ul ng-if="::model.settings.showLegend" class="dm-quota-legend">
+    <li ng-repeat="slice in chartData.data | showKeyFilter">
+      <span class="dm-quota-key" ng-class="slice.colorClass" ng-if="chartData.showChart"></span>
+      <b>{$ slice.value $}</b> {$ slice.label $}
+    </li>
+  </ul>
+  <!-- the directive still draws its d3 slices, out of sight -->
+  <svg class="svg-pie-chart" hidden><g class="chart"><g class="slices"></g></g></svg>
+</div>

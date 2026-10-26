@@ -1,0 +1,9 @@
+{% load i18n %}
+
+<span class="dm-context-label">{% if system_scoped %}{% trans "Scope" %}{% else %}{% trans "Project" %}{% endif %}</span>
+<span class="dm-context-value">
+  {% if domain_supported %}{{ domain_name }} / {% endif %}
+  {% if project_name %}{{ project_name }}{% endif %}
+  {% if system_scoped %}{% trans "system" %}{% endif %}
+  {% if multi_region %} &middot; {{ region_name }}{% endif %}
+</span>

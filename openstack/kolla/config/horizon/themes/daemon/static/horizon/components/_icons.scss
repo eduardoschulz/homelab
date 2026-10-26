@@ -1,0 +1,124 @@
+$dm-icons: (
+  alert, arrow-down, arrow-up, bell, bolt, bug, calendar, camera, check,
+  check-circle, chevron-down, chevron-left, chevron-right, chevron-up,
+  chevrons-left, chevrons-right, clock, cloud, cloud-upload, cog, columns, copy,
+  desktop, download, exchange, external, eye, eye-off, filter, folder, grid,
+  grid-large, help, home, info, key, link, lock, log-out, menu, minus,
+  more-horizontal, pause, pencil, plus, refresh, save, search, server, shelve,
+  spinner, stats, trash, unlink, unlock, upload, user, users, x
+);
+
+// font awesome classes horizon renders and the theme icon drawn for each
+$dm-fa-icons: (
+  "angle-left": chevron-left,
+  "angle-right": chevron-right,
+  "arrow-down": arrow-down,
+  "arrow-up": arrow-up,
+  "bars": menu,
+  "bolt": bolt,
+  "bug": bug,
+  "calendar": calendar,
+  "camera": camera,
+  "caret-down": chevron-down,
+  "caret-up": arrow-up,
+  "check": check,
+  "chevron-down": chevron-down,
+  "chevron-left": chevron-left,
+  "chevron-right": chevron-right,
+  "close": x,
+  "cloud-upload": cloud-upload,
+  "cog": cog,
+  "desktop": desktop,
+  "download": download,
+  "exchange": exchange,
+  "exclamation": alert,
+  "exclamation-triangle": alert,
+  "eye": eye,
+  "eye-slash": eye-off,
+  "group": users,
+  "home": home,
+  "info-circle": info,
+  "key": key,
+  "link": link,
+  "lock": lock,
+  "minus": minus,
+  "pause": pause,
+  "pencil": pencil,
+  "plus": plus,
+  "question-circle": help,
+  "refresh": refresh,
+  "save": save,
+  "search": search,
+  "server": server,
+  "share-square-o": external,
+  "shelve": shelve,
+  "sign-out": log-out,
+  "spinner": spinner,
+  "stats": stats,
+  "th": grid,
+  "th-large": grid-large,
+  "times": x,
+  "trash": trash,
+  "unlink": unlink,
+  "unlock": unlock,
+  "upload": upload,
+  "user": user
+);
+
+@mixin dm-mask-icon($name, $size) {
+  display: inline-block;
+  flex: none;
+  width: $size;
+  height: $size;
+  background-color: currentColor;
+  mask: dm-asset("icons/#{$name}.svg") center / $size no-repeat;
+  -webkit-mask: dm-asset("icons/#{$name}.svg") center / $size no-repeat;
+}
+
+.dm-icon {
+  display: inline-block;
+  flex: none;
+  width: var(--dm-icon-size-md);
+  height: var(--dm-icon-size-md);
+  background-color: currentColor;
+  mask: var(--_icon) center / contain no-repeat;
+  -webkit-mask: var(--_icon) center / contain no-repeat;
+  vertical-align: middle;
+}
+
+@each $name in $dm-icons {
+  .dm-icon-#{$name} {
+    --_icon: #{dm-asset("icons/#{$name}.svg")};
+  }
+}
+
+@each $fa, $icon in $dm-fa-icons {
+  .fa-#{$fa}:not(.btn) {
+    width: 1.15em;
+    height: 1.15em;
+    background-color: currentColor;
+    mask: dm-asset("icons/#{$icon}.svg") center / contain no-repeat;
+    -webkit-mask: dm-asset("icons/#{$icon}.svg") center / contain no-repeat;
+    vertical-align: -0.2em;
+
+    &::before {
+      content: none;
+    }
+  }
+
+  // some buttons carry the icon classes themselves, so the icon goes in a pseudo element
+  .btn.fa-#{$fa} {
+    font-family: inherit;
+
+    &::before {
+      @include dm-mask-icon($icon, var(--_icon-size));
+      content: "";
+    }
+  }
+}
+
+.fa-asterisk::before {
+  content: "*";
+  font-family: var(--dm-font-family-sans);
+  font-weight: var(--dm-font-weight-semibold);
+}

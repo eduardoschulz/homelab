@@ -1,0 +1,132 @@
+.modal-backdrop {
+  background: #000;
+
+  &.in {
+    opacity: 0.45;
+  }
+}
+
+.modal.fade .modal-dialog {
+  transform: translateY(8px) scale(0.98);
+  transition: transform var(--dm-duration-base) var(--dm-easing-standard);
+}
+
+.modal.in .modal-dialog {
+  transform: none;
+}
+
+.modal-content {
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--dm-radius-300);
+  background: var(--dm-color-bg-surface);
+  box-shadow: var(--dm-shadow-200);
+  color: var(--dm-color-text);
+  color-scheme: var(--dm-color-scheme);
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--dm-space-300);
+  padding: var(--dm-space-500) var(--dm-space-500) var(--dm-space-300);
+  border-bottom: 0;
+
+  &::before,
+  &::after {
+    content: none;
+  }
+
+  .close {
+    order: 2;
+    margin: -4px -6px 0 auto;
+  }
+}
+
+.modal-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: var(--dm-font-size-500);
+  font-weight: var(--dm-font-weight-semibold);
+  line-height: var(--dm-line-height-tight);
+}
+
+.modal-body {
+  padding: var(--dm-space-100) var(--dm-space-500) var(--dm-space-500);
+}
+
+.modal-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--dm-space-200);
+  padding: var(--dm-space-300) var(--dm-space-500);
+  border-top: var(--dm-border-width) solid var(--dm-color-border-subtle);
+  background: var(--dm-color-bg-surface-secondary);
+
+  &::before,
+  &::after {
+    content: none;
+  }
+
+  .btn + .btn {
+    margin-left: 0;
+  }
+
+  .pull-left {
+    float: none;
+    margin-right: auto;
+  }
+
+  // the workflow footer wraps its buttons in a grid row
+  > .row {
+    flex: 1 1 auto;
+    margin: 0;
+
+    > [class*="col-"] {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: var(--dm-space-200);
+      padding: 0;
+    }
+  }
+
+  .cancel {
+    @include dm-button-tertiary;
+  }
+}
+
+.close {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  float: none;
+  width: var(--dm-control-height-sm);
+  height: var(--dm-control-height-sm);
+  padding: 0;
+  border: 0;
+  border-radius: var(--dm-radius-200);
+  background: none;
+  color: var(--dm-color-text);
+  font-size: var(--dm-font-size-300);
+  opacity: 1;
+  text-shadow: none;
+
+  &:hover,
+  &:focus {
+    background: var(--dm-color-fill-transparent-hover);
+    color: var(--dm-color-text);
+    opacity: 1;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal.fade .modal-dialog {
+    transition: none;
+  }
+}

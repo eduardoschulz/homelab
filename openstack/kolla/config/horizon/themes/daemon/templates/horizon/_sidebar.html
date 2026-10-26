@@ -1,0 +1,38 @@
+{% load horizon i18n %}
+
+<div id="dm-nav" class="dm-nav">
+  {% for dashboard, panel_info in components %}
+    {% if user|has_permissions:dashboard %}
+      <div class="panel dm-nav-section">
+        <a class="dm-nav-heading{% if current.slug != dashboard.slug %} collapsed{% endif %}"
+           data-toggle="collapse" data-parent="#dm-nav"
+           href="#dm-nav-{{ dashboard.slug }}"
+           aria-controls="dm-nav-{{ dashboard.slug }}"
+           aria-expanded="{% if current.slug == dashboard.slug %}true{% else %}false{% endif %}">
+          <span>{{ dashboard.name }}</span>
+          <span class="dm-icon dm-icon-chevron-down dm-nav-chevron" aria-hidden="true"></span>
+        </a>
+        <div id="dm-nav-{{ dashboard.slug }}" class="collapse{% if current.slug == dashboard.slug %} in{% endif %}">
+          <div class="dm-nav-items">
+            {% for group, panels in panel_info.items %}
+              {% with panels|has_permissions_on_list:user as filtered_panels %}
+                {% if filtered_panels %}
+                  {% if group.name %}
+                    <div class="dm-nav-group">{{ group.name }}</div>
+                  {% endif %}
+                  {% for panel in filtered_panels %}
+                    {% if current.slug == dashboard.slug and current_panel == panel.slug %}
+                      <a class="dm-nav-item openstack-spin current" href="{{ panel.get_absolute_url }}" target="_self" aria-current="page">{{ panel.name }}</a>
+                    {% else %}
+                      <a class="dm-nav-item openstack-spin" href="{{ panel.get_absolute_url }}" target="_self">{{ panel.name }}</a>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>

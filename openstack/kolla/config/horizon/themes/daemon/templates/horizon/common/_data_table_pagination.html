@@ -1,0 +1,24 @@
+{% load i18n %}
+<tr>
+  <td colspan="{{ columns|length }}">
+    <div class="dm-pagination">
+      {% if table.has_prev_data or table.has_more_data %}
+        <nav class="dm-pagination-pages" aria-label="{% trans "Pagination" %}">
+          {% if table.has_prev_data %}
+            <a class="btn btn-default btn-sm dm-btn-icon" href="?{{ table.get_prev_pagination_string }}" aria-label="{% trans "Previous page" %}"><span class="dm-icon dm-icon-chevron-left" aria-hidden="true"></span></a>
+          {% else %}
+            <span class="btn btn-default btn-sm dm-btn-icon disabled" aria-hidden="true"><span class="dm-icon dm-icon-chevron-left" aria-hidden="true"></span></span>
+          {% endif %}
+          {% if table.has_more_data %}
+            <a class="btn btn-default btn-sm dm-btn-icon" href="?{{ table.get_pagination_string }}" aria-label="{% trans "Next page" %}"><span class="dm-icon dm-icon-chevron-right" aria-hidden="true"></span></a>
+          {% else %}
+            <span class="btn btn-default btn-sm dm-btn-icon disabled" aria-hidden="true"><span class="dm-icon dm-icon-chevron-right" aria-hidden="true"></span></span>
+          {% endif %}
+        </nav>
+      {% endif %}
+      <span class="table_count">{% blocktrans count counter=rows|length trimmed %}
+        Displaying {{ counter }} item{% plural %}
+        Displaying {{ counter }} items{% endblocktrans %}</span>
+    </div>
+  </td>
+</tr>

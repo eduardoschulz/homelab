@@ -1,0 +1,30 @@
+{% load i18n horizon %}
+
+<div class="dm-cards limit-summary">
+  {% for section in charts %}
+    <section class="dm-card">
+      <header class="dm-card-header">
+        <div class="dm-card-titles">
+          <h2 class="dm-card-heading">{{ section.title }}</h2>
+          <div class="dm-card-description">{% trans "Limit Summary" %}</div>
+        </div>
+      </header>
+      <div class="dm-card-body dm-meters">
+        {% for chart in section.charts %}
+          {% if chart.quota|quotainf != '-1' %}
+            {% quotapercent chart.used chart.quota as pct %}
+            {% blocktrans trimmed with usedphrase=chart.text used=chart.used_display available=chart.quota_display asvar value %}
+              {{ usedphrase }} {{ used }} of {{ available }}
+            {% endblocktrans %}
+            {% include "horizon/common/_meter.html" with label=chart.name percent=pct %}
+          {% else %}
+            {% blocktrans trimmed with usedphrase=chart.text used=chart.used_display asvar value %}
+              {{ usedphrase }} {{ used }} (No Limit)
+            {% endblocktrans %}
+            {% include "horizon/common/_meter.html" with label=chart.name percent=0 unlimited=True %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+  {% endfor %}
+</div>

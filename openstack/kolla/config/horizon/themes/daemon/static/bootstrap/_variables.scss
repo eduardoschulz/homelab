@@ -1,0 +1,130 @@
+$gray-darker: if($dm-dark, dm-palette("gray-100"), dm-palette("gray-900"));
+$gray-dark: if($dm-dark, dm-palette("gray-200"), dm-palette("gray-800"));
+$gray: if($dm-dark, dm-palette("gray-400"), dm-palette("gray-600"));
+$gray-light: if($dm-dark, dm-palette("gray-600"), dm-palette("gray-400"));
+$gray-lighter: if($dm-dark, dm-palette("gray-800"), dm-palette("gray-150"));
+
+$brand-primary: dm("color-fill-brand");
+$brand-success: dm-palette("green-600");
+$brand-info: dm-palette("blue-700");
+$brand-warning: dm-palette("amber-600");
+$brand-danger: dm("color-fill-critical");
+
+$body-bg: dm("color-bg");
+$text-color: dm("color-text");
+$text-muted: dm("color-text-secondary");
+$link-color: dm("color-text-link");
+$link-hover-color: dm("color-text-link");
+$link-hover-decoration: underline;
+
+$font-family-sans-serif: dm("font-family-sans");
+$font-family-monospace: dm("font-family-mono");
+$font-size-base: 13px;
+$font-size-large: 14px;
+$font-size-small: 12px;
+$font-size-h1: 20px;
+$font-size-h2: 16px;
+$font-size-h3: 14px;
+$font-size-h4: 13px;
+$font-size-h5: 13px;
+$font-size-h6: 12px;
+$line-height-base: 1.4;
+$headings-font-weight: dm("font-weight-semibold");
+$headings-line-height: dm("line-height-tight");
+
+$border-radius-base: dm("radius-200");
+$border-radius-large: dm("radius-300");
+$border-radius-small: dm("radius-200");
+
+$padding-base-vertical: 4px;
+$padding-base-horizontal: 12px;
+$padding-small-vertical: 2px;
+$padding-small-horizontal: 8px;
+$padding-large-vertical: 6px;
+$padding-large-horizontal: 16px;
+$input-height-base: dm("control-height-md");
+$input-height-small: dm("control-height-sm");
+$input-height-large: dm("control-height-lg");
+
+$input-bg: dm("color-bg-surface");
+$input-bg-disabled: dm("color-bg-disabled");
+$input-color: dm("color-text");
+$input-border: dm("color-border-strong");
+$input-border-focus: dm("color-border-focus");
+$input-color-placeholder: dm("color-text-secondary");
+
+$btn-font-weight: dm("font-weight-medium");
+$btn-default-color: dm("color-text");
+$btn-default-bg: dm("color-bg-surface");
+$btn-default-border: dm("color-border");
+$btn-primary-border: transparent;
+$btn-danger-border: transparent;
+
+$table-cell-padding: 4px 12px;
+$table-condensed-cell-padding: 4px 12px;
+$table-bg: dm("color-bg-surface");
+$table-bg-accent: dm("color-bg-surface");
+$table-bg-hover: dm("color-bg-surface-hover");
+$table-bg-active: dm("color-bg-surface-selected");
+$table-border-color: dm("color-border-subtle");
+
+$navbar-height: 48px;
+
+$dropdown-bg: dm("color-bg-surface");
+$dropdown-border: dm("color-border-subtle");
+$dropdown-link-color: dm("color-text");
+$dropdown-link-hover-color: dm("color-text");
+$dropdown-link-hover-bg: dm("color-bg-surface-hover");
+$dropdown-link-active-color: dm("color-text");
+$dropdown-link-active-bg: dm("color-bg-surface-selected");
+$dropdown-header-color: dm("color-text-secondary");
+$dropdown-divider-bg: dm("color-border-subtle");
+
+$state-success-text: dm("color-text-success");
+$state-success-bg: dm("color-bg-success");
+$state-success-border: if($dm-dark, dm-palette("green-800"), dm-palette("green-200"));
+$state-info-text: dm("color-text-info");
+$state-info-bg: dm("color-bg-info");
+$state-info-border: if($dm-dark, dm-palette("blue-800"), dm-palette("blue-200"));
+$state-warning-text: dm("color-text-warning");
+$state-warning-bg: dm("color-bg-warning");
+$state-warning-border: if($dm-dark, dm-palette("amber-800"), dm-palette("amber-200"));
+$state-danger-text: dm("color-text-critical");
+$state-danger-bg: dm("color-bg-critical");
+$state-danger-border: if($dm-dark, dm-palette("red-800"), dm-palette("red-200"));
+
+$panel-bg: dm("color-bg-surface");
+$panel-default-border: dm("color-border-subtle");
+$panel-default-heading-bg: dm("color-bg-surface");
+$well-bg: dm("color-bg-surface-secondary");
+$well-border: dm("color-border-subtle");
+
+$modal-content-border-color: dm("color-border");
+$modal-header-border-color: dm("color-border-subtle");
+$modal-backdrop-opacity: 0.45;
+
+$breadcrumb-bg: transparent;
+$breadcrumb-color: dm("color-text-secondary");
+$breadcrumb-active-color: dm("color-text");
+
+$nav-tabs-border-color: dm("color-border");
+$nav-tabs-active-link-hover-border-color: dm("color-border");
+$pagination-border: dm("color-border");
+$pagination-hover-bg: dm("color-bg-surface-hover");
+$list-group-border: dm("color-border");
+$hr-border: dm("color-border-subtle");
+
+$code-color: dm("color-text");
+$code-bg: dm("color-bg-surface-secondary");
+$kbd-color: dm("color-text-on-fill");
+$kbd-bg: if($dm-dark, dm-palette("gray-700"), dm-palette("gray-800"));
+$pre-bg: dm("color-bg-surface-secondary");
+$pre-color: dm("color-text");
+$pre-border-color: dm("color-border-subtle");
+
+$icon-font-path: "../../bootstrap/fonts/bootstrap/";
+$nav-link-padding: 0.8em 1.2em;
+$modal-lg: 960px;
+$modal-md: 732px;
+$modal-sm: 300px;
+$line-height-large: 1.33;

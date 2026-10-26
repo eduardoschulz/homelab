@@ -1,0 +1,15 @@
+{% with pct=percent|add:"0" %}
+<div class="dm-meter{% if unlimited %} dm-meter-unlimited{% elif pct >= 100 %} dm-meter-critical{% elif pct >= 80 %} dm-meter-warning{% endif %}">
+  <div class="dm-meter-head">
+    <span class="dm-meter-label" title="{{ label }}">{{ label }}</span>
+    <span class="dm-meter-value">{{ value }}</span>
+  </div>
+  {% if unlimited %}
+    <div class="dm-meter-track"></div>
+  {% else %}
+    <div class="dm-meter-track" role="meter" aria-label="{{ label }}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ pct }}">
+      <div class="dm-meter-fill" style="width: {{ pct }}%"></div>
+    </div>
+  {% endif %}
+</div>
+{% endwith %}

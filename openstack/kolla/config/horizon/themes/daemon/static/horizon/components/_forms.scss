@@ -1,0 +1,304 @@
+.form-control {
+  box-sizing: border-box;
+  height: var(--dm-control-height-md);
+  padding: 0 var(--dm-space-200);
+  border: var(--dm-border-width) solid var(--dm-color-border-strong);
+  border-radius: var(--dm-radius-200);
+  background: var(--dm-color-bg-surface);
+  box-shadow: none;
+  color: var(--dm-color-text);
+  font-size: var(--dm-font-size-300);
+  line-height: var(--dm-line-height-tight);
+  transition: border-color var(--dm-duration-fast) var(--dm-easing-standard);
+
+  &::placeholder {
+    color: var(--dm-color-text-secondary);
+    opacity: 1;
+  }
+
+  &:focus {
+    border-color: var(--dm-color-border-focus);
+    outline: none;
+    box-shadow: 0 0 0 var(--dm-border-width) var(--dm-color-border-focus);
+  }
+
+  &[disabled],
+  &[readonly],
+  fieldset[disabled] & {
+    border-color: var(--dm-color-border);
+    background: var(--dm-color-bg-disabled);
+    color: var(--dm-color-text-disabled);
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    cursor: not-allowed;
+  }
+}
+
+// the icon mapping shrinks bootstrap's feedback box, which must span the control
+.has-feedback .fa.form-control-feedback {
+  width: var(--dm-control-height-md);
+  height: var(--dm-control-height-md);
+  mask-size: var(--dm-icon-size-md);
+  -webkit-mask-size: var(--dm-icon-size-md);
+  color: var(--dm-color-text-secondary);
+  pointer-events: none;
+}
+
+.has-feedback .input-sm ~ .fa.form-control-feedback {
+  width: var(--dm-control-height-sm);
+  height: var(--dm-control-height-sm);
+  mask-size: var(--dm-icon-size-sm);
+  -webkit-mask-size: var(--dm-icon-size-sm);
+}
+
+textarea.form-control {
+  height: auto;
+  padding: var(--dm-space-150) var(--dm-space-200);
+  line-height: var(--dm-line-height-base);
+  resize: vertical;
+}
+
+select.form-control {
+  padding-right: calc(var(--dm-space-200) + 20px);
+  background: var(--dm-color-bg-surface) dm-asset("icons/chevron-down.svg")
+    no-repeat right var(--dm-space-200) center / 14px;
+  appearance: none;
+}
+
+.input-sm,
+.form-group-sm .form-control {
+  height: var(--dm-control-height-sm);
+  border-radius: var(--dm-radius-200);
+  font-size: var(--dm-font-size-200);
+}
+
+.input-lg,
+.form-group-lg .form-control {
+  height: var(--dm-control-height-lg);
+  border-radius: var(--dm-radius-200);
+  font-size: var(--dm-font-size-300);
+}
+
+.control-label,
+.form-group > label {
+  margin-bottom: var(--dm-space-100);
+  color: var(--dm-color-text);
+  font-weight: var(--dm-font-weight-medium);
+}
+
+.help-block {
+  margin: var(--dm-space-100) 0 0;
+  color: var(--dm-color-text-secondary);
+  font-size: var(--dm-font-size-200);
+  line-height: var(--dm-line-height-base);
+}
+
+.has-error {
+  .form-control,
+  .form-control:focus {
+    border-color: var(--dm-color-border-critical);
+  }
+
+  .form-control:focus {
+    box-shadow: 0 0 0 var(--dm-border-width) var(--dm-color-border-critical);
+  }
+
+  .help-block,
+  .control-label,
+  .error {
+    color: var(--dm-color-text-critical);
+  }
+}
+
+.themable-checkbox input[type="checkbox"] + label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dm-space-200);
+  margin: 0;
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    box-sizing: border-box;
+    flex: none;
+    width: 16px;
+    height: 16px;
+    border: var(--dm-border-width) solid var(--dm-color-border-strong);
+    border-radius: var(--dm-radius-100);
+    background: var(--dm-color-bg-surface) center / 16px no-repeat;
+    transition: background-color var(--dm-duration-fast) var(--dm-easing-standard),
+      border-color var(--dm-duration-fast) var(--dm-easing-standard);
+  }
+}
+
+.themable-checkbox input[type="checkbox"]:checked + label::before {
+  content: "";
+  border-color: var(--dm-color-fill-brand);
+  background-color: var(--dm-color-fill-brand);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5 6.8 11 12 5.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.themable-checkbox input[type="checkbox"]:indeterminate + label::before {
+  content: "";
+  border-color: var(--dm-color-fill-brand);
+  background-color: var(--dm-color-fill-brand);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8h7' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.themable-checkbox input[type="checkbox"]:disabled + label {
+  color: var(--dm-color-text-disabled);
+  cursor: not-allowed;
+
+  &::before {
+    border-color: var(--dm-color-border);
+    background-color: var(--dm-color-bg-disabled);
+  }
+}
+
+.hz-icon-required,
+.form-group:not(.has-error):not(.has-warning):not(.has-success) .hz-icon-required,
+.active > a > .hz-icon-required {
+  margin-left: 2px;
+  color: var(--dm-color-text-critical);
+  font-size: var(--dm-font-size-300);
+  vertical-align: baseline;
+}
+
+// labels sit above their controls, never beside them
+.form-horizontal {
+  .form-group {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .control-label {
+    float: none;
+    width: auto;
+    margin-bottom: var(--dm-space-100);
+    padding: 0;
+    text-align: left;
+  }
+
+  .form-group > [class*="col-"] {
+    float: none;
+    width: auto;
+    margin-left: 0;
+    padding: 0;
+  }
+}
+
+// number spinners with the steppers inside the box
+.themable-spinner {
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--dm-control-height-md);
+  padding-right: 2px;
+  border: var(--dm-border-width) solid var(--dm-color-border-strong);
+  border-radius: var(--dm-radius-200);
+  background: var(--dm-color-bg-surface);
+  transition: border-color var(--dm-duration-fast) var(--dm-easing-standard);
+
+  &:focus-within {
+    border-color: var(--dm-color-border-focus);
+    box-shadow: 0 0 0 var(--dm-border-width) var(--dm-color-border-focus);
+  }
+
+  > .form-control,
+  > .form-control:focus {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 100%;
+    border: 0;
+    border-radius: var(--dm-radius-200);
+    background: none;
+    box-shadow: none;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .input-group-btn-vertical,
+  .input-group-btn-vertical-container {
+    display: flex;
+    flex: none;
+    width: auto;
+    height: auto;
+  }
+
+  .input-group-btn-vertical-container {
+    flex-direction: row-reverse;
+    gap: 2px;
+  }
+
+  .input-group-btn-vertical .btn,
+  .input-group-btn-vertical .btn[disabled] {
+    @include dm-button-tertiary;
+
+    width: calc(var(--dm-control-height-md) - 8px);
+    min-width: 0;
+    height: calc(var(--dm-control-height-md) - 8px);
+    margin: 0;
+    padding: 0;
+    border-radius: var(--dm-radius-100);
+    background: none;
+    color: var(--dm-color-text-secondary);
+  }
+
+  .input-group-btn-vertical .btn:hover:not([disabled]) {
+    background: var(--dm-color-fill-transparent-hover);
+    color: var(--dm-color-text);
+  }
+
+  .input-group-btn-vertical .btn[disabled] {
+    color: var(--dm-color-text-disabled);
+  }
+
+  .hz-spinner-icon-up {
+    @include dm-mask-icon("plus", 14px);
+  }
+
+  .hz-spinner-icon-down {
+    @include dm-mask-icon("minus", 14px);
+  }
+}
+
+.themable-radio input[type="radio"] + label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dm-space-200);
+  margin: 0;
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    box-sizing: border-box;
+    flex: none;
+    width: 16px;
+    height: 16px;
+    border: var(--dm-border-width) solid var(--dm-color-border-strong);
+    border-radius: var(--dm-radius-full);
+    background: var(--dm-color-bg-surface);
+    transition: border-color var(--dm-duration-fast) var(--dm-easing-standard),
+      border-width var(--dm-duration-fast) var(--dm-easing-standard);
+  }
+
+  > span {
+    padding-left: 0;
+  }
+}
+
+.themable-radio input[type="radio"]:checked + label::before {
+  content: "";
+  border: 5px solid var(--dm-color-fill-brand);
+}
+
+.themable-radio input[type="radio"]:disabled + label {
+  color: var(--dm-color-text-disabled);
+  cursor: not-allowed;
+
+  &::before {
+    border-color: var(--dm-color-border);
+    background: var(--dm-color-bg-disabled);
+  }
+}

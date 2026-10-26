@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block page_band %}
+{% endblock %}
+
+{% block content_class %}dm-ng{% endblock %}
+
+{% block ng_route_base %}
+  <base href="{{ WEBROOT }}">
+{% endblock %}
+
+{% block main %}
+{% if csrf_http %}
+  {% csrf_token %}
+{% endif %}
+  <div ng-view></div>
+  <ngdetails routed-by-django="{{ routed_by_django }}">
+{% endblock %}

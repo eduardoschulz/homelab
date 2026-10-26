@@ -1,0 +1,64 @@
+dl.dl-horizontal {
+  display: grid;
+  grid-template-columns: unquote("max(120px, min(35%, 240px)) minmax(0, 1fr)");
+  column-gap: var(--dm-space-300);
+  margin: 0;
+  line-height: var(--dm-line-height-base);
+
+  &::before,
+  &::after {
+    content: none;
+  }
+
+  // angular wraps each pair, the pairs have to reach the grid themselves
+  > div,
+  > div > hz-resource-property {
+    display: contents;
+  }
+
+  dt {
+    grid-column: 1;
+    float: none;
+    width: auto;
+    padding: var(--dm-space-150) 0;
+    overflow: visible;
+    color: var(--dm-color-text-secondary);
+    font-weight: var(--dm-font-weight-regular);
+    text-align: left;
+    text-overflow: clip;
+    white-space: normal;
+  }
+
+  dd {
+    grid-column: 2;
+    margin: 0;
+    padding: var(--dm-space-150) 0;
+    overflow-wrap: anywhere;
+  }
+
+  dd + dd {
+    padding-top: 0;
+  }
+
+  code {
+    font-family: var(--dm-font-family-mono);
+    font-size: var(--dm-font-size-200);
+  }
+}
+
+.detail {
+  h4 {
+    margin: var(--dm-space-600) 0 var(--dm-space-200);
+    font-size: var(--dm-font-size-400);
+    font-weight: var(--dm-font-weight-semibold);
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  hr {
+    margin: var(--dm-space-200) 0;
+    border-top-color: var(--dm-color-border-subtle);
+  }
+}

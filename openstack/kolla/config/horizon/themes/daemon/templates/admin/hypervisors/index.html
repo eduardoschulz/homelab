@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load i18n horizon humanize sizeformat %}
+
+{% block title %}{% trans "Hypervisors" %}{% endblock %}
+
+{% block content_class %}dm-plain{% endblock %}
+
+{% block main %}
+<section class="dm-card">
+  <header class="dm-card-header">
+    <h2 class="dm-card-heading">{% trans "Hypervisor Summary" %}</h2>
+  </header>
+  <div class="dm-card-body dm-meters dm-meters-row">
+    {% widthratio stats.memory_mb_used stats.memory_mb 100 as pct %}
+    {% blocktrans with used=stats.memory_mb_used|mb_float_format available=stats.memory_mb|mb_float_format asvar value %}Used <span> {{ used }} </span> of <span> {{ available }} </span>{% endblocktrans %}
+    {% trans "Memory Usage" as label %}
+    {% include "horizon/common/_meter.html" with percent=pct %}
+
+    {% widthratio stats.local_gb_used stats.local_gb 100 as pct %}
+    {% blocktrans with used=stats.local_gb_used|diskgbformat available=stats.local_gb|diskgbformat asvar value %}Used <span> {{ used }} </span> of <span> {{ available }} </span>{% endblocktrans %}
+    {% trans "Local Disk Usage" as label %}
+    {% include "horizon/common/_meter.html" with percent=pct %}
+  </div>
+</section>
+
+{{ tab_group.render }}
+{% endblock %}

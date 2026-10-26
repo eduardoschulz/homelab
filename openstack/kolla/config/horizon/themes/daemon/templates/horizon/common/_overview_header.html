@@ -1,0 +1,10 @@
+<div class="page-header">
+  <h1>{{ page_title }}</h1>
+  {% if simple_tenant_usage_enabled %}
+    <div class="dm-page-actions">
+      {% with start=form.start end=form.end datepicker_id='date_form' %}
+        {% include 'horizon/common/_datepicker_form.html' %}
+      {% endwith %}
+    </div>
+  {% endif %}
+</div>

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Overview" %}{% endblock %}
+
+{% block content_class %}dm-plain{% endblock %}
+
+{% block page_header %}
+  {% include "horizon/common/_overview_header.html" %}
+{% endblock %}
+
+{% block main %}
+  {% if simple_tenant_usage_enabled %}
+    {% include "horizon/common/_usage_summary.html" with sb_period_in_header=1 %}
+  {% endif %}
+  {% include "horizon/common/_limit_summary.html" %}
+  {% if simple_tenant_usage_enabled %}
+    {{ table.render }}
+  {% endif %}
+{% endblock %}

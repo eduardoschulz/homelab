@@ -1,0 +1,225 @@
+// the membership widget as two list boxes, each with a header strip
+.membership {
+  min-height: 0;
+
+  .help_text {
+    margin-bottom: var(--dm-space-400);
+    color: var(--dm-color-text-secondary);
+    font-size: var(--dm-font-size-300);
+
+    > p:empty {
+      display: none;
+    }
+  }
+
+  .fake_table_header {
+    display: flex;
+    align-items: center;
+    gap: var(--dm-space-200);
+    box-sizing: border-box;
+    min-height: 40px;
+    padding: var(--dm-space-200) var(--dm-space-300);
+    overflow: visible;
+    border: var(--dm-border-width) solid var(--dm-color-border-subtle);
+    border-bottom: 0;
+    border-radius: var(--dm-radius-300) var(--dm-radius-300) 0 0;
+    background: var(--dm-color-bg-surface-secondary);
+
+    // the right pane puts its title in a grid column and makes the filter another
+    > [class*="col-"]:not(.form-group) {
+      display: contents;
+    }
+
+    .form-group {
+      flex: none;
+      float: none;
+      width: 140px;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .members_title {
+    flex: 1 1 auto;
+    min-width: 0;
+    float: none;
+    padding: 0;
+    overflow: hidden;
+    color: var(--dm-color-text);
+    font-size: var(--dm-font-size-300);
+    font-weight: var(--dm-font-weight-semibold);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  input.filter {
+    width: 100%;
+    float: none;
+  }
+
+  .filterable {
+    height: auto;
+    overflow: visible;
+
+    > .fake_table {
+      max-height: 360px;
+      overflow-y: auto;
+      border: var(--dm-border-width) solid var(--dm-color-border-subtle);
+      border-radius: 0 0 var(--dm-radius-300) var(--dm-radius-300);
+      background: var(--dm-color-bg-surface);
+    }
+  }
+
+  .members,
+  .available_members {
+    margin: 0;
+    padding: 0;
+
+    > ul.btn-group {
+      display: flex;
+      align-items: center;
+      gap: var(--dm-space-200);
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 36px;
+      margin: 0;
+      padding: var(--dm-space-100) var(--dm-space-200) var(--dm-space-100) var(--dm-space-300);
+      border: 0;
+      border-bottom: var(--dm-border-width) solid var(--dm-color-border-subtle);
+      background: none;
+
+      &.light_stripe,
+      &.dark_stripe {
+        background: none;
+      }
+
+      &:hover {
+        background: var(--dm-color-bg-surface-hover);
+      }
+
+      &:last-child,
+      &.last_stripe {
+        border-bottom: 0;
+      }
+
+      > li {
+        float: none;
+        margin: 0;
+      }
+
+      // the role menu sits before the remove button
+      > li.active {
+        order: 2;
+      }
+
+      > li.role_options {
+        order: 1;
+      }
+
+      > li.member {
+        flex: 1 1 auto;
+        min-width: 0;
+        max-width: none;
+        padding: 0;
+        overflow: hidden;
+        color: var(--dm-color-text);
+        font-size: var(--dm-font-size-300);
+        line-height: var(--dm-line-height-tight);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      // the add and remove button draws its sign as an icon
+      > li.active > a {
+        @include dm-button-tertiary;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--dm-control-height-sm);
+        height: var(--dm-control-height-sm);
+        padding: 0;
+        border: 0;
+        border-radius: var(--dm-radius-200);
+        background: var(--_bg);
+        box-shadow: none;
+        font-size: 0;
+
+        &::before {
+          @include dm-mask-icon("plus", var(--dm-icon-size-sm));
+          content: "";
+          background-color: var(--dm-color-text-secondary);
+        }
+
+        &:hover,
+        &:focus {
+          background: var(--_bg-hover);
+
+          &::before {
+            background-color: var(--dm-color-text);
+          }
+        }
+
+        &:active {
+          background: var(--_bg-active);
+        }
+      }
+
+      > li.role_options > a.dropdown-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--dm-space-100);
+        box-sizing: border-box;
+        height: var(--dm-control-height-sm);
+        padding: 0 var(--dm-space-200);
+        border: var(--dm-border-width) solid var(--dm-color-border);
+        border-radius: var(--dm-radius-200);
+        background: var(--dm-color-bg-surface);
+        color: var(--dm-color-text);
+        font-size: var(--dm-font-size-200);
+        line-height: var(--dm-line-height-tight);
+
+        &:hover,
+        &:focus {
+          border-color: var(--dm-color-border);
+          background: var(--dm-color-bg-surface-hover);
+          color: var(--dm-color-text);
+        }
+
+        .roles_display {
+          max-width: 120px;
+          padding: 0;
+          overflow: hidden;
+          line-height: inherit;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      > li.role_options.open > a.dropdown-toggle {
+        border-color: var(--dm-color-border);
+        background: var(--dm-color-bg-surface-active);
+      }
+    }
+  }
+
+  .members > ul.btn-group > li.active > a::before {
+    mask-image: dm-asset("icons/minus.svg");
+    -webkit-mask-image: dm-asset("icons/minus.svg");
+  }
+
+  .no_results {
+    margin: 0;
+    padding: var(--dm-space-600) var(--dm-space-300);
+    border: 0;
+    color: var(--dm-color-text-secondary);
+    font-size: var(--dm-font-size-300);
+    text-align: center;
+    opacity: 1;
+
+    > li {
+      display: block;
+      float: none;
+    }
+  }
+}

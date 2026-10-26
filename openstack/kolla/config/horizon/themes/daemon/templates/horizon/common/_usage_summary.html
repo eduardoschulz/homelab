@@ -1,0 +1,31 @@
+{% load i18n sizeformat %}
+
+<div class="dm-stats">
+  <div class="dm-stat">
+    <span class="dm-stat-label">{% trans "Active Instances:" as label %}{{ label|cut:":" }}</span>
+    <span class="dm-stat-value">{{ usage.summary.instances|default:'0' }}</span>
+  </div>
+  <div class="dm-stat">
+    <span class="dm-stat-label">{% trans "Active RAM:" as label %}{{ label|cut:":" }}</span>
+    <span class="dm-stat-value">{{ usage.summary.memory_mb|mb_float_format|default:'0' }}</span>
+  </div>
+  <div class="dm-stat">
+    <span class="dm-stat-label">{% trans "This Period's vCPU-Hours:" as label %}{{ label|cut:":" }}</span>
+    <span class="dm-stat-value">{{ usage.summary.vcpu_hours|floatformat:2|default:'0' }}</span>
+  </div>
+  <div class="dm-stat">
+    <span class="dm-stat-label">{% trans "This Period's GB-Hours:" as label %}{{ label|cut:":" }}</span>
+    <span class="dm-stat-value">{{ usage.summary.disk_gb_hours|floatformat:2|default:'0' }}</span>
+  </div>
+  <div class="dm-stat">
+    <span class="dm-stat-label">{% trans "This Period's RAM-Hours:" as label %}{{ label|cut:":" }}</span>
+    <span class="dm-stat-value">{{ usage.summary.memory_mb_hours|floatformat:2|default:'0' }}</span>
+  </div>
+</div>
+{% if not sb_period_in_header %}
+  <div class="usage_info_wrapper">
+    {% with start=form.start end=form.end datepicker_id='date_form' %}
+      {% include 'horizon/common/_datepicker_form.html' %}
+    {% endwith %}
+  </div>
+{% endif %}

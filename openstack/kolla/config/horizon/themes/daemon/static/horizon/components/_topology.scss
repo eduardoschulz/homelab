@@ -1,0 +1,194 @@
+$dm-topology-ink: if($dm-dark, "gray-600", "gray-800");
+
+// the topology canvas on the theme surface, drawn from tokens so both themes read
+#topologyCanvasContainer,
+#flatTopologyCanvasContainer {
+  position: relative;
+  border: var(--dm-border-width) solid var(--dm-color-border-subtle);
+  border-radius: var(--dm-radius-300);
+  background: var(--dm-color-bg-surface);
+  color: var(--dm-color-text);
+}
+
+#topology_canvas {
+  --_ink: var(--dm-#{$dm-topology-ink});
+
+  font-family: var(--dm-font-family-sans);
+
+  .network-name {
+    fill: var(--dm-color-text-on-fill);
+  }
+
+  .network-cidr,
+  .port_text {
+    fill: var(--dm-color-text-secondary);
+  }
+
+  .base_bg_normal,
+  .instance_bg,
+  .icon polygon {
+    fill: var(--_ink);
+  }
+
+  .base_bg_small,
+  .loading_bg_small {
+    fill: var(--dm-color-bg-surface);
+  }
+
+  .instance_small .frame,
+  .router_small .frame {
+    stroke: var(--_ink);
+  }
+
+  .router_normal,
+  .instance_normal {
+    .frame,
+    .icon_bg {
+      fill: var(--dm-color-bg-surface);
+      stroke: var(--_ink);
+    }
+
+    .texts .name {
+      fill: var(--dm-color-text);
+    }
+
+    .texts .type {
+      fill: var(--dm-color-text-on-fill);
+    }
+  }
+}
+
+// the graph view sets its colours and icon font inline, so only important rules reach them
+#topologyCanvasContainer {
+  svg rect[fill="white"] {
+    fill: var(--dm-color-bg-surface);
+  }
+
+  g.node,
+  g.node circle.frame {
+    fill: var(--dm-color-bg-surface) !important;
+  }
+
+  g.node circle.frame {
+    stroke: var(--dm-color-text) !important;
+  }
+
+  g.node > text,
+  g.node path.svgpath {
+    fill: var(--dm-color-text) !important;
+  }
+
+  g.node > text:not(.nodeLabel):not(.vmCount) {
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+  }
+
+  line.link {
+    stroke: var(--dm-color-border-strong) !important;
+  }
+}
+
+// balloons as theme popovers
+.topologyBalloon {
+  min-width: 220px;
+  border: var(--dm-border-width) solid var(--dm-color-border-subtle);
+  border-radius: var(--dm-radius-300);
+  background: var(--dm-color-bg-surface);
+  box-shadow: var(--dm-shadow-200);
+  color: var(--dm-color-text);
+  color-scheme: var(--dm-color-scheme);
+  font-size: var(--dm-font-size-200);
+  line-height: var(--dm-line-height-base);
+
+  .closeTopologyBalloon {
+    display: grid;
+    place-items: center;
+    top: var(--dm-space-200);
+    right: var(--dm-space-200);
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border-radius: var(--dm-radius-100);
+    color: var(--dm-color-text-secondary);
+    font-weight: var(--dm-font-weight-regular);
+
+    &:hover,
+    &:focus {
+      background: var(--dm-color-fill-transparent-hover);
+      color: var(--dm-color-text);
+    }
+  }
+
+  .contentBody {
+    padding: var(--dm-space-300) var(--dm-space-300) var(--dm-space-100);
+  }
+
+  table.detailInfoTable {
+    background: transparent;
+
+    caption {
+      padding: 0 var(--dm-space-600) var(--dm-space-150) 0;
+      color: var(--dm-color-text);
+      font-size: var(--dm-font-size-300);
+      font-weight: var(--dm-font-weight-semibold);
+    }
+
+    th {
+      color: var(--dm-color-text-secondary);
+      font-weight: var(--dm-font-weight-regular);
+    }
+
+    td {
+      color: var(--dm-color-text);
+      font-variant-numeric: tabular-nums;
+    }
+  }
+
+  .portTableHeader {
+    border-top-color: var(--dm-color-border-subtle);
+
+    .title {
+      font-weight: var(--dm-font-weight-semibold);
+    }
+  }
+
+  span.active::before {
+    background: var(--dm-color-text-success);
+  }
+
+  span.down::before {
+    background: var(--dm-color-text-critical);
+  }
+
+  .footer {
+    padding: var(--dm-space-200) var(--dm-space-300);
+    border-top: var(--dm-border-width) solid var(--dm-color-border-subtle);
+    border-radius: 0 0 var(--dm-radius-300) var(--dm-radius-300);
+    background: var(--dm-color-bg-surface-secondary);
+
+    .link {
+      font-size: var(--dm-font-size-200);
+    }
+
+    .link a {
+      color: var(--dm-color-text-link);
+      font-weight: var(--dm-font-weight-medium);
+    }
+  }
+
+  &::before {
+    border-right-color: var(--dm-color-border-subtle);
+  }
+
+  &::after {
+    border-right-color: var(--dm-color-bg-surface);
+  }
+
+  &.leftPosition::before {
+    border-left-color: var(--dm-color-border-subtle);
+  }
+
+  &.leftPosition::after {
+    border-left-color: var(--dm-color-bg-surface);
+  }
+}

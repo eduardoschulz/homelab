@@ -1,0 +1,111 @@
+.alert {
+  --_accent: var(--dm-color-text-secondary);
+  --_bg: var(--dm-color-bg-surface-secondary);
+  --_icon: #{dm-asset("icons/info.svg")};
+
+  display: flex;
+  align-items: flex-start;
+  gap: var(--dm-space-200);
+  margin-bottom: var(--dm-space-400);
+  padding: var(--dm-space-300);
+  border: var(--dm-border-width) solid color-mix(in srgb, var(--_accent) 25%, transparent);
+  border-radius: var(--dm-radius-300);
+  background: var(--_bg);
+  color: var(--dm-color-text);
+  font-size: var(--dm-font-size-300);
+  line-height: var(--dm-line-height-base);
+
+  &::before {
+    content: "";
+    flex: none;
+    width: var(--dm-icon-size-md);
+    height: var(--dm-icon-size-md);
+    margin-top: 1px;
+    background: var(--_accent);
+    mask: var(--_icon) center / 16px no-repeat;
+    -webkit-mask: var(--_icon) center / 16px no-repeat;
+  }
+
+  > p,
+  > div,
+  > ul {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+  }
+
+  > p + p {
+    margin-top: var(--dm-space-100);
+  }
+
+  strong {
+    font-weight: var(--dm-font-weight-semibold);
+  }
+
+  a:not(.close):not(.btn) {
+    color: var(--dm-color-text-link);
+    font-weight: var(--dm-font-weight-regular);
+  }
+
+  .close {
+    position: static;
+    order: 2;
+    margin: -4px -6px -4px 0;
+  }
+}
+
+.alert-dismissable,
+.alert-dismissible {
+  padding-right: var(--dm-space-300);
+}
+
+.alert-info {
+  --_accent: var(--dm-color-text-info);
+  --_bg: var(--dm-color-bg-info);
+}
+
+.alert-success {
+  --_accent: var(--dm-color-text-success);
+  --_bg: var(--dm-color-bg-success);
+  --_icon: #{dm-asset("icons/check-circle.svg")};
+}
+
+.alert-warning {
+  --_accent: var(--dm-color-text-warning);
+  --_bg: var(--dm-color-bg-warning);
+  --_icon: #{dm-asset("icons/alert.svg")};
+}
+
+.alert-danger {
+  --_accent: var(--dm-color-text-critical);
+  --_bg: var(--dm-color-bg-critical);
+  --_icon: #{dm-asset("icons/alert.svg")};
+}
+
+.alert.help-block {
+  color: var(--dm-color-text);
+  font-size: var(--dm-font-size-300);
+}
+
+@keyframes dm-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+// messages render as toasts in the bottom right stack
+.messages .alert {
+  box-sizing: border-box;
+  border-color: var(--dm-color-border-subtle);
+  background: var(--dm-color-bg-surface);
+  box-shadow: var(--dm-shadow-200);
+  overflow-wrap: anywhere;
+  animation: dm-toast-in var(--dm-duration-base) var(--dm-easing-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .messages .alert {
+    animation: none;
+  }
+}
