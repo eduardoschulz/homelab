@@ -1,0 +1,222 @@
+// Charts: usage/overview line charts (d3 + Rickshaw), legacy pie and bar
+// charts, and the Angular `pie-chart` widget.
+//
+// NOTE: series colours for d3 line charts are assigned by
+// `horizon.d3linechart.js` through `d3.scale.category10()`, i.e. as inline
+// attributes. CSS cannot recolour individual series; theme-mode.js swaps the
+// category10 palette for the PatternFly one as a best effort (see
+// docs/LIMITATIONS.md). Everything that CSS *can* reach is themed here.
+
+.chart {
+  .detail {
+    color: var(--hz-text);
+
+    .item {
+      color: var(--hz-text);
+    }
+
+    .date {
+      color: var(--hz-text-subtle);
+    }
+  }
+
+  .tooltip_detail {
+    color: var(--hz-text-on-inverse);
+    background-color: var(--hz-bg-inverse);
+    border: var(--hz-border-width) solid var(--hz-border);
+    border-radius: var(--hz-radius-small);
+    font-family: var(--hz-font-family-body);
+
+    &::before {
+      color: var(--hz-bg-inverse);
+    }
+  }
+
+  // Axis lines, ticks and gridlines drawn by Rickshaw/d3
+  svg {
+    .axis path,
+    .axis line,
+    .x_grid_d3 .tick,
+    .y_grid_d3 .tick,
+    .y_grid .tick,
+    .x_grid .tick {
+      stroke: var(--hz-chart-axis);
+    }
+
+    .axis text,
+    .x_ticks_d3 text,
+    .y_ticks_d3 text,
+    .y_ticks text,
+    .x_ticks text {
+      fill: var(--hz-chart-label);
+    }
+
+    .grid,
+    .x_grid_d3 .tick,
+    .y_grid_d3 .tick {
+      stroke: var(--hz-chart-grid);
+    }
+  }
+}
+
+.chart_container .chart .modal-backdrop,
+.legend_container .modal-backdrop {
+  background-color: var(--hz-bg-page);
+}
+
+// Rickshaw legend (right of the usage charts)
+.legend_container {
+  color: var(--hz-text);
+
+  .label,
+  .action {
+    color: var(--hz-text);
+  }
+}
+
+.rickshaw_legend {
+  color: var(--hz-text);
+  background-color: transparent;
+
+  .action {
+    color: var(--hz-text);
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: var(--hz-text-link);
+      text-decoration: underline;
+    }
+  }
+
+  .line {
+    border-radius: 2px;
+  }
+}
+
+// --------------------------------------------------------- Angular pie chart
+// `hz-pie-chart` sets a class on each slice; the colour comes from CSS.
+.pie-chart {
+  .svg-pie-chart .slice {
+    cursor: pointer;
+
+    &.usage { fill: var(--hz-color-brand); }
+    &.added { fill: var(--hz-chart-3); }
+    &.remaining { fill: var(--hz-bg-subtle); }
+    &.danger { fill: var(--hz-color-danger); }
+  }
+
+  .pie-chart-label {
+    fill: var(--hz-text);
+    font-family: var(--hz-font-family-heading);
+  }
+
+  .chart-tooltip {
+    color: var(--hz-text-on-inverse);
+    background-color: var(--hz-bg-inverse);
+    border-radius: var(--hz-radius-small);
+
+    .tooltip-key,
+    .tooltip-value {
+      color: var(--hz-text-on-inverse);
+    }
+
+    span.fa {
+      fill: none;
+
+      &.usage { color: var(--hz-color-brand); }
+      &.added { color: var(--hz-chart-3); }
+      &.remaining { color: var(--hz-border-strong); }
+      &.danger { color: var(--hz-color-danger); }
+    }
+  }
+}
+
+// ------------------------------------------------------- legacy pie charts
+.legacy-pie-chart .arc {
+  fill: var(--hz-border);
+  stroke-width: 1;
+}
+
+.pie-chart-usage {
+  .arc {
+    stroke: var(--hz-border);
+  }
+
+  .arc.inner {
+    fill: var(--hz-color-brand);
+
+    &.FULL { fill: var(--hz-color-danger); }
+    &.NEARLY_FULL { fill: var(--hz-color-warning); }
+  }
+}
+
+.pie-chart-distribution {
+  .legend { color: var(--hz-text); }
+  .legend-symbol { color: var(--hz-color-brand); }
+  .legend-key { color: var(--hz-text); }
+  .legend-value { color: var(--hz-text-subtle); }
+}
+
+.chart-numbers {
+  fill: var(--hz-text);
+  font-size: var(--pf-t--global--font--size--heading--h3);
+}
+
+// -------------------------------------------------------- legacy bar charts
+.legacy-bar-chart {
+  fill: var(--hz-bg-subtle);
+
+  .average_component {
+    stroke: var(--hz-text-subtle);
+  }
+
+  .used_component_label {
+    fill: var(--hz-text);
+    font-size: var(--hz-font-size-md);
+  }
+
+  .used_component_label_arrow {
+    stroke: var(--hz-text);
+  }
+
+  .legacy-bar-chart-section {
+    fill: var(--hz-color-brand);
+  }
+
+  .danger_component { fill: var(--hz-color-danger); }
+  .success_component { fill: var(--hz-color-success); }
+  .warning_component { fill: var(--hz-color-warning); }
+  .info_component { fill: var(--hz-color-info); }
+  .unused_component { fill: transparent; }
+}
+
+// ------------------------------------------------------------ usage summary
+// `hz-usage-summary` renders quota bars under the overview panel.
+.usage-summary,
+hz-usage-summary {
+  color: var(--hz-text);
+
+  .usage-summary-item {
+    padding: var(--hz-space-xs) 0;
+  }
+
+  .usage-summary-label {
+    color: var(--hz-text-subtle);
+    font-size: var(--hz-font-size-sm);
+  }
+
+  .usage-summary-value {
+    color: var(--hz-text);
+    font-weight: var(--hz-font-weight-bold);
+  }
+}
+
+// Network topology / resource topology legend text
+.topology-legend,
+.network-topology-legend {
+  color: var(--hz-text);
+  background-color: var(--hz-bg-raised);
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-radius: var(--hz-radius-control);
+}

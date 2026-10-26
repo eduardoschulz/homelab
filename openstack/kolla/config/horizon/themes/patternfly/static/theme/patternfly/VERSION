@@ -1,0 +1,29 @@
+PatternFly 6 theme for OpenStack Horizon
+========================================
+
+  patternfly: 6.7.0
+  source:     https://www.npmjs.com/package/@patternfly/patternfly (tarball
+              https://registry.npmjs.org/@patternfly/patternfly/-/patternfly-6.7.0.tgz)
+  vendored:   2026-10-26
+  license:    MIT (PatternFly), SIL OFL 1.1 (Red Hat Text/Display/Mono fonts),
+              CC-BY-4.0 (PatternFly icons)
+
+Files vendored from the npm tarball, byte for byte:
+
+  patternfly-base-no-globals.css   <- package/patternfly-base-no-globals.css
+  patternfly-charts.css            <- package/patternfly-charts.css
+  assets/fonts/RedHatText/*.woff2
+  assets/fonts/RedHatDisplay/*.woff2
+  assets/fonts/RedHatMono/*.woff2
+  assets/fonts/webfonts/fa-solid-900.woff2
+  assets/pficon/pf-v6-pficon.woff2
+  assets/images/{Felt,PF}-Bkg-Generic-{Light,Dark}.svg
+
+Deliberately NOT vendored: patternfly.css / patternfly.min.css (the ~1.8 MB
+component stylesheet). Horizon renders Bootstrap 3 markup; shipping PF component
+CSS would only add ~1.5 MB of rules that never match and would fight Bootstrap's
+own component styles. Only the token + font + reset layer and the chart colour
+tokens are needed. See docs/ASSETS.md for how to add components later.
+
+No file in this directory has been modified. Do not hand-edit them: update by
+re-running the procedure in docs/ASSETS.md so the checksums stay meaningful.

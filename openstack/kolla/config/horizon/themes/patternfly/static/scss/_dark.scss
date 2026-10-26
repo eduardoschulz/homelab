@@ -1,0 +1,94 @@
+// Dark-mode and accessibility extras.
+//
+// The theme is token-driven, so `html.pf-v6-theme-dark` normally needs nothing
+// from us: every --hz-* alias resolves through a PF token that PF redefines for
+// dark mode. This file only contains the cases where that is not enough:
+//
+//   1. raster/SVG assets that embed their own colours (brand logos),
+//   2. `::selection` and native widget colours that PF does not expose,
+//   3. elevation/border tweaks needed to keep Horizon's dense layout legible,
+//   4. prefers-reduced-motion handling.
+//
+// No hex values are introduced here; anything mode-specific is expressed as a
+// --hz-* / --pf-t--* token reference.
+
+html.pf-v6-theme-dark {
+  // Horizon's logo files are dark grey on transparent. Inverting keeps a single
+  // asset in the tree instead of shipping a dark variant (and works for
+  // operator-supplied logos only if they are single-colour; see
+  // docs/LIMITATIONS.md).
+  .navbar-brand img.openstack-logo,
+  #splash .splash-logo {
+    filter: invert(1) brightness(1.6);
+  }
+
+  // PF dark surfaces are flat; a 1px border instead of a shadow keeps the
+  // table header readable against the page.
+  .table > thead > tr > th {
+    border-bottom-color: var(--hz-border-strong);
+  }
+
+  // Form controls need a visible edge on dark: PF's control background is the
+  // same value as the page background.
+  .form-control,
+  .themable-select .dropdown-toggle,
+  .contenteditable {
+    background-color: var(--pf-t--global--background--color--200);
+  }
+
+  // Native select option lists are painted by the OS; color-scheme (set in
+  // _tokens.scss) asks for the dark variant, these two declarations cover
+  // browsers that ignore it.
+  option,
+  optgroup {
+    color: var(--hz-text);
+    background-color: var(--hz-bg-raised);
+  }
+
+  // Hover on table rows is the only "selected-ish" feedback in dark mode, so it
+  // needs to be a little stronger than the PF default.
+  .table > tbody > tr:hover > td,
+  .table > tbody > tr:hover > th {
+    background-color: var(--pf-t--global--background--color--200);
+  }
+}
+
+// Text selection: PF does not expose a token for the selection background, so
+// the brand token is used with the on-brand text token.
+::selection {
+  color: var(--hz-text-on-brand);
+  background-color: var(--hz-color-brand);
+}
+
+// ------------------------------------------------------- prefers-reduced-motion
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  #sidebar .openstack-toggle.fa {
+    transition: none;
+  }
+}
+
+// ---------------------------------------------------------- forced colours
+// Windows High Contrast / forced-colors mode: make sure borders survive.
+@media (forced-colors: active) {
+  .btn,
+  .form-control,
+  .panel,
+  .modal-content,
+  .label,
+  .alert {
+    border: 1px solid CanvasText;
+  }
+
+  .navbar-default .navbar-nav > .open > a {
+    box-shadow: none;
+  }
+}

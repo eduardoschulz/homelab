@@ -1,0 +1,198 @@
+// Right-to-left support.
+//
+// Horizon itself does not emit `dir="rtl"` on <html>, so the theme's base.html
+// sets it from LANGUAGE_BIDI before first paint (see
+// templates/base.html). These rules flip the layout constructs that Bootstrap 3
+// hard-codes to the left.
+
+[dir="rtl"] {
+  // Sidebar sits on the right, content flows from the right.
+  #sidebar {
+    float: right;
+    left: auto;
+    right: 0;
+    border-right: 0;
+    border-left: var(--hz-border-width) solid var(--hz-border);
+  }
+
+  @media (min-width: 768px) {
+    #content_body {
+      padding-left: 0;
+      padding-right: var(--hz-sidebar-width);
+    }
+  }
+
+  @media (max-width: 767px) {
+    #sidebar {
+      left: auto;
+      right: calc(-1 * var(--hz-sidebar-width));
+
+      &.on-screen {
+        left: auto;
+        right: 0;
+      }
+    }
+  }
+
+  // Sidebar text alignment is inverted by Horizon's own styles.
+  #sidebar-accordion {
+    direction: rtl;
+
+    .openstack-toggle.fa {
+      margin-left: 0;
+      margin-right: auto;
+    }
+
+    .collapsed > .openstack-toggle.fa {
+      transform: rotate(90deg);
+    }
+
+    .list-group-item.active {
+      box-shadow: inset -3px 0 0 var(--pf-t--global--color--brand--clicked);
+    }
+  }
+
+  // Navbar / dropdowns
+  .navbar-brand {
+    float: right;
+  }
+
+  .navbar-nav {
+    float: right;
+
+    &.navbar-right {
+      float: left !important;
+      margin-right: 0;
+      margin-left: calc(var(--hz-space-md) * -1);
+    }
+  }
+
+  .dropdown-menu {
+    right: 0;
+    left: auto;
+    text-align: right;
+
+    &.dropdown-menu-right {
+      right: auto;
+      left: 0;
+    }
+  }
+
+  .user-menu .btn-link,
+  .theme-mode-item,
+  #sidebar-accordion .openstack-panel,
+  #sidebar-accordion .openstack-panel-group > a,
+  #sidebar-accordion > li > a {
+    text-align: right;
+  }
+
+  // Tables and pagination
+  th,
+  td {
+    text-align: right;
+  }
+
+  .table .multi_select_column,
+  .table .actions_column {
+    text-align: center;
+  }
+
+  .pagination > li > a,
+  .pagination > li > span {
+    // keep the sequence readable: numbers stay left-to-right
+    direction: ltr;
+  }
+
+  // Breadcrumbs
+  .breadcrumb > li + li::before {
+    content: "\005C";
+    padding: 0 var(--hz-space-sm);
+  }
+
+  // Forms
+  .checkbox,
+  .radio {
+    padding-left: 0;
+    padding-right: 20px;
+
+    label {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      margin-left: 0;
+      margin-right: -20px;
+    }
+  }
+
+  .input-group .form-control:not(:first-child) {
+    border-radius: 0 var(--hz-radius-control) var(--hz-radius-control) 0;
+  }
+
+  .input-group .form-control:not(:last-child) {
+    border-radius: var(--hz-radius-control) 0 0 var(--hz-radius-control);
+  }
+
+  .input-group .input-group-addon:first-child {
+    border-left: 0;
+    border-right: var(--hz-border-width) solid var(--hz-border-control);
+    border-radius: 0 var(--hz-radius-control) var(--hz-radius-control) 0;
+  }
+
+  .input-group .input-group-addon:last-child {
+    border-right: 0;
+    border-left: var(--hz-border-width) solid var(--hz-border-control);
+    border-radius: var(--hz-radius-control) 0 0 var(--hz-radius-control);
+  }
+
+  .input-group .btn {
+    border-radius: var(--hz-radius-control) 0 0 var(--hz-radius-control);
+  }
+
+  .help-block,
+  .control-label {
+    text-align: right;
+  }
+
+  // Alerts keep the accent on the leading (right) edge.
+  .alert {
+    border-left-width: var(--hz-border-width);
+    border-right-width: 3px;
+  }
+
+  .alert-success { border-right-color: var(--hz-border-success); }
+  .alert-info { border-right-color: var(--hz-border-info); }
+  .alert-warning { border-right-color: var(--hz-border-warning); }
+  .alert-danger { border-right-color: var(--hz-border-danger); }
+  .alert-default { border-right-color: var(--hz-border-strong); }
+
+  // Modals keep the close button on the trailing edge.
+  .modal-header .close {
+    float: left;
+    margin-left: 0;
+  }
+
+  .modal-footer {
+    text-align: left;
+
+    .btn {
+      margin: 0 var(--hz-space-sm) 0 0;
+    }
+
+    .row .btn:first-child {
+      margin-right: 0;
+    }
+  }
+
+  // Wizard step list
+  .workflow .modal-body > .nav-pills,
+  .ng-wizard .wizard-navigation {
+    direction: rtl;
+  }
+
+  // Bootstrap's direction helper classes follow the document direction.
+  .text-left { text-align: right; }
+  .text-right { text-align: left; }
+}

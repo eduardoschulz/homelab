@@ -1,0 +1,241 @@
+// Buttons: PatternFly 6 pill buttons on Bootstrap 3 `.btn` markup.
+
+.btn {
+  --hz-btn-padding-block: var(--hz-space-xs);
+  --hz-btn-padding-inline: var(--hz-space-md);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--hz-space-sm);
+  padding: var(--hz-btn-padding-block) var(--hz-btn-padding-inline);
+  font-family: var(--hz-font-family-body);
+  font-size: var(--hz-font-size-md);
+  font-weight: var(--hz-font-weight-bold);
+  line-height: var(--hz-line-height-body);
+  color: var(--hz-text);
+  background-color: transparent;
+  border: var(--hz-border-width-strong) solid transparent;
+  border-radius: var(--hz-radius-pill);
+  box-shadow: none;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+  white-space: nowrap;
+
+  &:focus,
+  &:focus-visible {
+    outline: var(--pf-t--global--border--width--200) solid var(--pf-t--global--border--color--clicked);
+    outline-offset: 1px;
+    box-shadow: none;
+  }
+
+  &:active,
+  &.active {
+    box-shadow: none;
+  }
+
+  &[disabled],
+  &.disabled,
+  fieldset[disabled] & {
+    color: var(--hz-text-disabled);
+    background-color: var(--hz-bg-disabled);
+    border-color: var(--hz-border-disabled);
+    opacity: 1;
+  }
+
+  .fa, .glyphicon { line-height: inherit; }
+}
+
+// Primary: filled brand
+.btn-primary {
+  color: var(--hz-text-on-brand);
+  background-color: var(--hz-color-brand);
+  border-color: var(--hz-color-brand);
+
+  &:hover,
+  &:focus {
+    color: var(--hz-text-on-brand);
+    background-color: var(--hz-color-brand-hover);
+    border-color: var(--hz-color-brand-hover);
+  }
+
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: var(--hz-text-on-brand);
+    background-color: var(--hz-color-brand-clicked);
+    border-color: var(--hz-color-brand-clicked);
+  }
+}
+
+// Secondary (Bootstrap "default"): outlined control button
+.btn-default {
+  color: var(--hz-text);
+  background-color: transparent;
+  border-color: var(--hz-border-control);
+
+  &:hover,
+  &:focus {
+    color: var(--hz-text);
+    background-color: var(--hz-bg-hover);
+    border-color: var(--hz-border-strong);
+  }
+
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: var(--hz-text);
+    background-color: var(--hz-bg-clicked);
+    border-color: var(--hz-border-strong);
+  }
+}
+
+// Tertiary ("link" style in Horizon toolbars)
+.btn-link {
+  padding-inline: var(--hz-space-xs);
+  color: var(--hz-text-link);
+  font-weight: var(--hz-font-weight-normal);
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: var(--hz-radius-control);
+
+  &:hover,
+  &:focus {
+    color: var(--hz-text-link-hover);
+    background-color: var(--hz-bg-hover);
+    text-decoration: underline;
+  }
+}
+
+.btn-success {
+  color: var(--hz-text-on-brand);
+  background-color: var(--hz-color-success);
+  border-color: var(--hz-color-success);
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    color: var(--hz-text-on-brand);
+    background-color: var(--pf-t--global--color--status--success--hover);
+    border-color: var(--pf-t--global--color--status--success--hover);
+  }
+}
+
+.btn-info {
+  color: var(--hz-text-on-brand);
+  background-color: var(--hz-color-info);
+  border-color: var(--hz-color-info);
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    color: var(--hz-text-on-brand);
+    background-color: var(--pf-t--global--color--status--info--hover);
+    border-color: var(--pf-t--global--color--status--info--hover);
+  }
+}
+
+.btn-warning {
+  color: var(--hz-on-warning);
+  background-color: var(--hz-color-warning);
+  border-color: var(--hz-color-warning);
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    color: var(--hz-on-warning);
+    background-color: var(--pf-t--global--color--status--warning--hover);
+    border-color: var(--pf-t--global--color--status--warning--hover);
+  }
+}
+
+.btn-danger {
+  color: var(--hz-text-on-brand);
+  background-color: var(--hz-color-danger);
+  border-color: var(--hz-color-danger);
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    color: var(--hz-text-on-brand);
+    background-color: var(--pf-t--global--color--status--danger--hover);
+    border-color: var(--pf-t--global--color--status--danger--hover);
+  }
+}
+
+// Danger actions inside a modal footer ("Delete") use the outline variant so a
+// destructive action does not dominate the primary action next to it.
+.modal-footer .btn-danger:not(.btn-primary) {
+  color: var(--hz-text-danger);
+  background-color: transparent;
+  border-color: var(--hz-border-danger);
+
+  &:hover,
+  &:focus {
+    color: var(--hz-text-on-brand);
+    background-color: var(--hz-color-danger);
+    border-color: var(--hz-color-danger);
+  }
+}
+
+// ------------------------------------------------------------------- sizes
+.btn-lg {
+  --hz-btn-padding-block: var(--hz-space-sm);
+  --hz-btn-padding-inline: var(--hz-space-lg);
+  font-size: var(--hz-font-size-lg);
+}
+
+.btn-sm,
+.btn-xs {
+  --hz-btn-padding-block: 2px;
+  --hz-btn-padding-inline: var(--hz-space-sm);
+  font-size: var(--hz-font-size-sm);
+}
+
+// ------------------------------------------------------------- button groups
+// Pill radii must only apply to the outer ends of a group, otherwise the
+// individual buttons overlap their neighbours.
+.btn-group {
+  > .btn {
+    border-radius: 0;
+    margin: 0;
+  }
+
+  > .btn:first-child:not(:last-child) {
+    border-top-left-radius: var(--hz-radius-pill);
+    border-bottom-left-radius: var(--hz-radius-pill);
+  }
+
+  > .btn:last-child:not(:first-child) {
+    border-top-right-radius: var(--hz-radius-pill);
+    border-bottom-right-radius: var(--hz-radius-pill);
+  }
+
+  > .btn:first-child:last-child {
+    border-radius: var(--hz-radius-pill);
+  }
+
+  &.btn-group-vertical {
+    > .btn:first-child:not(:last-child) {
+      border-radius: var(--hz-radius-pill) var(--hz-radius-pill) 0 0;
+    }
+
+    > .btn:last-child:not(:first-child) {
+      border-radius: 0 0 var(--hz-radius-pill) var(--hz-radius-pill);
+    }
+  }
+}
+
+// Dropdown split buttons ("Actions" menus) keep the pill on both halves.
+.btn-group > .dropdown-toggle:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+// Horizon's small inline action links rendered as buttons.
+.btn-addon {
+  --hz-btn-padding-inline: var(--hz-space-sm);
+}

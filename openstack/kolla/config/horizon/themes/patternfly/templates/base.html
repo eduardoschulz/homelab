@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% comment %} PatternFly 6 theme: document shell ---------------------------------------
+
+This template overrides Horizon's `base.html` and extends it again, which is
+the documented way for a theme to add <head> content (ThemeTemplateLoader
+prepends the theme directory, and Django's `skip` history in `{% extends %}`
+makes the second lookup fall through to Horizon's own base.html).
+
+It adds, in this order:
+  1. `color-scheme` meta so the browser paints native widgets correctly,
+  2. an inline, render-blocking script that resolves the light/dark mode from
+     (a) cookie, (b) localStorage, (c) prefers-color-scheme, and applies
+     `pf-v6-theme-dark` on <html> *before* the first paint (no flash),
+  3. `dir` on <html> for RTL languages,
+  4. the theme toggle script (deferred).
+
+Keep in sync with the upstream `openstack_dashboard/templates/base.html` block
+names when upgrading Horizon: see docs/INSTALL.md.
+{% endcomment %}
+{% load static %}
+
+{% block custom_metadata %}
+  <meta name="color-scheme" content="light dark">
+  {% include "horizon/_custom_meta.html" %}
+
+  {% comment %} Resolve the colour mode before first paint. Must stay inline: an external
+     script would be fetched after the browser has already painted the page. {% endcomment %}
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var cookieName = 'patternfly_theme_mode';
+      var storageKey = 'patternfly-theme-mode';
+      var mode = 'system';
+
+      try {
+        var match = document.cookie.match(
+          new RegExp('(?:^|;\\s*)' + cookieName + '=([^;]+)'));
+        if (match) {
+          mode = decodeURIComponent(match[1]);
+        } else if (window.localStorage) {
+          mode = window.localStorage.getItem(storageKey) || 'system';
+        }
+      } catch (e) {
+        mode = 'system';
+      }
+
+      if (mode !== 'light' && mode !== 'dark') {
+        mode = 'system';
+      }
+
+      var prefersDark = false;
+      try {
+        prefersDark = !!(window.matchMedia &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches);
+      } catch (e) {
+        prefersDark = false;
+      }
+
+      var resolved = (mode === 'system') ? (prefersDark ? 'dark' : 'light') : mode;
+
+      root.setAttribute('data-theme-mode', mode);
+      root.setAttribute('data-theme-resolved', resolved);
+      root.setAttribute('dir', '{{ LANGUAGE_BIDI|yesno:"rtl,ltr" }}');
+      if (resolved === 'dark') {
+        root.classList.add('pf-v6-theme-dark');
+      } else {
+        root.classList.remove('pf-v6-theme-dark');
+      }
+    }());
+  </script>
+{% endblock %}
+
+{% block custom_head_js %}
+  <script defer src="{% static 'themes/patternfly/theme/patternfly/js/theme-mode.js' %}"></script>
+  {% include "horizon/_custom_head_js.html" %}
+{% endblock %}

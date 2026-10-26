@@ -1,0 +1,264 @@
+// Base typography and shared element styling (PatternFly 6 look on Bootstrap 3 markup)
+
+html {
+  font-size: 100%;
+  background-color: var(--hz-bg-page);
+}
+
+body {
+  font-family: var(--hz-font-family-body);
+  font-size: var(--hz-font-size-md);
+  line-height: var(--hz-line-height-body);
+  color: var(--hz-text);
+  background-color: var(--hz-bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--hz-font-family-heading);
+  font-weight: var(--hz-font-weight-heading);
+  line-height: var(--hz-line-height-heading);
+  color: var(--hz-text);
+}
+
+h1, .h1 { font-size: var(--pf-t--global--font--size--heading--h1); }
+h2, .h2 { font-size: var(--pf-t--global--font--size--heading--h2); }
+h3, .h3 { font-size: var(--pf-t--global--font--size--heading--h3); }
+h4, .h4 { font-size: var(--pf-t--global--font--size--heading--h4); }
+h5, .h5 { font-size: var(--pf-t--global--font--size--heading--h5); }
+h6, .h6 { font-size: var(--pf-t--global--font--size--heading--h6); }
+
+h1 small, h2 small, h3 small,
+.h1 small, .h2 small, .h3 small {
+  font-size: 65%;
+  color: var(--hz-text-subtle);
+}
+
+a {
+  color: var(--hz-text-link);
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: var(--hz-text-link-hover);
+    text-decoration: underline;
+  }
+
+  &:visited {
+    color: var(--hz-text-link-visited);
+  }
+}
+
+// PatternFly focus indicator: 2px brand outline with a 2px offset. Bootstrap 3
+// relies on box-shadow for `.form-control`/`.btn`, which is already handled in
+// their own partials; this is the fallback for links, nav items and tables.
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.nav a:focus-visible,
+.dropdown-menu > li > a:focus-visible,
+.list-group-item:focus-visible {
+  outline: var(--pf-t--global--border--width--200) solid var(--pf-t--global--border--color--clicked);
+  outline-offset: 2px;
+}
+
+hr {
+  border: 0;
+  border-top: var(--hz-border-width) solid var(--hz-border);
+}
+
+small, .small { font-size: var(--hz-font-size-sm); }
+strong, b { font-weight: var(--hz-font-weight-bold); }
+
+.text-muted { color: var(--hz-text-subtle); }
+.text-primary { color: var(--hz-text-link); }
+.text-success { color: var(--hz-text-success); }
+.text-info { color: var(--hz-text-info); }
+.text-warning { color: var(--hz-text-warning); }
+.text-danger { color: var(--hz-text-danger); }
+
+.help-block {
+  font-size: var(--hz-font-size-sm);
+  color: var(--hz-text-subtle);
+}
+
+blockquote {
+  border-left: 3px solid var(--hz-border);
+  color: var(--hz-text-subtle);
+}
+
+code, kbd, pre, samp {
+  font-family: var(--hz-font-family-mono);
+}
+
+code {
+  padding: 2px var(--hz-space-xs);
+  color: var(--hz-text-danger);
+  background-color: var(--hz-bg-code);
+  border-radius: var(--hz-radius-small);
+}
+
+kbd {
+  padding: 2px var(--hz-space-xs);
+  color: var(--hz-text-on-inverse);
+  background-color: var(--hz-bg-inverse);
+  border-radius: var(--hz-radius-small);
+  box-shadow: none;
+}
+
+pre {
+  padding: var(--hz-space-md);
+  color: var(--hz-text);
+  background-color: var(--hz-bg-code);
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-radius: var(--hz-radius-control);
+
+  code {
+    padding: 0;
+    color: inherit;
+    background: transparent;
+  }
+}
+
+.well {
+  background-color: var(--hz-bg-subtle);
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-radius: var(--hz-radius-control);
+  box-shadow: none;
+}
+
+.jumbotron {
+  color: var(--hz-text);
+  background-color: var(--hz-bg-subtle);
+  border-radius: var(--hz-radius-medium);
+}
+
+.page-header {
+  border-bottom: var(--hz-border-width) solid var(--hz-border);
+
+  h1, h2, h3 { margin-top: 0; }
+}
+
+// Bootstrap's inline help icons are Font Awesome in Horizon; keep them in the
+// subtle icon colour so they do not compete with the label text.
+.fa.text-muted, .help-icon, .hz-icon-required {
+  color: var(--hz-icon-subtle);
+}
+
+// ----------------------------------------------------------------- status UI
+// Horizon assigns `.label .label-<state>` classes from panel code, so the
+// mapping has to be done by class, not by markup.
+//
+// Status labels are drawn as outlined chips (status text + status border) rather
+// than filled chips: PF6 exposes dark-aware *text/border* status tokens, but no
+// dark-aware tinted status background, so a filled chip would need white text on
+// a light green/blue in dark mode and fail WCAG AA. Outlined chips keep 4.5:1 in
+// both modes (see docs/DARK-MODE.md).
+
+.label {
+  display: inline-block;
+  font-size: var(--hz-font-size-sm);
+  font-weight: var(--hz-font-weight-bold);
+  line-height: 1.4;
+  padding: 1px var(--hz-space-sm);
+  color: var(--hz-text);
+  background-color: transparent;
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-radius: var(--hz-radius-pill);
+  white-space: nowrap;
+}
+
+.label-default {
+  color: var(--hz-text-subtle);
+  border-color: var(--hz-border);
+}
+
+// The only filled chip: brand + on-brand flips together with the theme.
+.label-primary {
+  color: var(--hz-text-on-brand);
+  background-color: var(--hz-color-brand);
+  border-color: var(--hz-color-brand);
+}
+
+.label-success {
+  color: var(--hz-text-success);
+  border-color: var(--hz-border-success);
+}
+
+.label-info {
+  color: var(--hz-text-info);
+  border-color: var(--hz-border-info);
+}
+
+.label-warning {
+  color: var(--hz-text-warning);
+  border-color: var(--hz-border-warning);
+}
+
+.label-danger {
+  color: var(--hz-text-danger);
+  border-color: var(--hz-border-danger);
+}
+
+// Instance / volume / image states that do not map onto a Bootstrap class.
+.label-active,
+.label-available,
+.label-running,
+.label-installed,
+.label-created {
+  color: var(--hz-text-success);
+  border-color: var(--hz-border-success);
+}
+
+.label-shutoff,
+.label-stopped,
+.label-offline,
+.label-disabled {
+  color: var(--hz-text-subtle);
+  border-color: var(--hz-border);
+}
+
+.label-suspended,
+.label-paused,
+.label-degraded,
+.label-warning-state {
+  color: var(--hz-text-warning);
+  border-color: var(--hz-border-warning);
+}
+
+.label-error,
+.label-deleted,
+.label-failed,
+.label-crashed {
+  color: var(--hz-text-danger);
+  border-color: var(--hz-border-danger);
+}
+
+.label-rebooting,
+.label-rebuild,
+.label-migrating,
+.label-resizing {
+  color: var(--hz-text-info);
+  border-color: var(--hz-border-info);
+}
+
+.badge {
+  font-size: var(--hz-font-size-sm);
+  font-weight: var(--hz-font-weight-bold);
+  color: var(--hz-text-on-brand);
+  background-color: var(--hz-color-brand);
+  border-radius: var(--hz-radius-pill);
+}
+
+.text-muted-label {
+  color: var(--hz-text-subtle);
+}
+
+// ---------------------------------------------------------------- utilities
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  color: var(--hz-text);
+  background-color: var(--hz-bg-raised);
+}

@@ -1,0 +1,277 @@
+// Forms: inputs, selects, checkbox/radio, help text, validation, input groups
+
+label,
+.control-label,
+.form-label {
+  font-weight: var(--hz-font-weight-bold);
+  color: var(--hz-text);
+
+  &.control-label-required::after {
+    content: " *";
+    color: var(--hz-text-danger);
+  }
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: var(--hz-space-xs) var(--hz-space-sm);
+  font-family: var(--hz-font-family-body);
+  font-size: var(--hz-font-size-md);
+  line-height: var(--hz-line-height-body);
+  color: var(--hz-text);
+  background-color: var(--hz-bg-control);
+  background-image: none;
+  border: var(--hz-border-width) solid var(--hz-border-control);
+  border-radius: var(--hz-radius-control);
+  box-shadow: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+
+  &::placeholder {
+    color: var(--hz-text-subtle);
+    opacity: 1;
+  }
+
+  &:hover:not([disabled]):not([readonly]) {
+    border-color: var(--hz-border-strong);
+  }
+
+  &:focus {
+    color: var(--hz-text);
+    background-color: var(--hz-bg-control);
+    border-color: var(--hz-border-brand);
+    outline: 0;
+    box-shadow: 0 0 0 1px var(--hz-border-brand);
+  }
+
+  &[disabled],
+  &[readonly],
+  fieldset[disabled] & {
+    color: var(--hz-text-disabled);
+    background-color: var(--hz-bg-control-readonly);
+    border-color: var(--hz-border-disabled);
+    cursor: not-allowed;
+  }
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 5em;
+}
+
+select.form-control {
+  // Bootstrap 3 keeps the native arrow; PF6 uses a 1px chevron. Native markup
+  // is kept so keyboard/RTL behaviour and accessibility do not regress.
+  padding-right: var(--hz-space-lg);
+}
+
+// Bootstrap 3 lays the input group out with `display: table`; that behaviour is
+// kept because it handles addon widths and nested button groups correctly. Only
+// the visual parts are re-themed here.
+.input-group {
+  // `.input-group-btn` wraps its buttons in `font-size: 0` markup; do not make
+  // it a flex container or the buttons lose their baseline alignment.
+  .input-group-addon,
+  .input-group-btn {
+    font-size: var(--hz-font-size-md);
+    color: var(--hz-text-subtle);
+    background-color: var(--hz-bg-subtle);
+    border-color: var(--hz-border-control);
+  }
+
+  .input-group-addon:first-child {
+    border-right: 0;
+    border-radius: var(--hz-radius-control) 0 0 var(--hz-radius-control);
+  }
+
+  .input-group-addon:last-child {
+    border-left: 0;
+    border-radius: 0 var(--hz-radius-control) var(--hz-radius-control) 0;
+  }
+
+  .form-control:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .form-control:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .btn {
+    border-radius: 0 var(--hz-radius-control) var(--hz-radius-control) 0;
+  }
+}
+
+// ---------------------------------------------------------- checkbox / radio
+.checkbox,
+.radio,
+.checkbox-inline,
+.radio-inline {
+  color: var(--hz-text);
+
+  label {
+    font-weight: var(--hz-font-weight-normal);
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    accent-color: var(--hz-color-brand);
+    margin-top: .35em;
+  }
+}
+
+.radio input[type="radio"],
+.radio-inline input[type="radio"],
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"] {
+  accent-color: var(--hz-color-brand);
+}
+
+// Angular Horizon renders some switches as buttons with a checked class.
+.btn-checkbox.active,
+label.active > input[type="checkbox"] + span {
+  color: var(--hz-text-on-brand);
+  background-color: var(--hz-color-brand);
+}
+
+// ------------------------------------------------------- validation / help
+.has-error {
+  .form-control,
+  .form-control:focus {
+    border-color: var(--hz-border-danger);
+    box-shadow: none;
+  }
+
+  .control-label,
+  .help-block,
+  .radio,
+  .checkbox,
+  .radio-inline,
+  .checkbox-inline {
+    color: var(--hz-text-danger);
+  }
+}
+
+.has-warning {
+  .form-control,
+  .form-control:focus {
+    border-color: var(--hz-border-warning);
+    box-shadow: none;
+  }
+
+  .control-label,
+  .help-block {
+    color: var(--hz-text-warning);
+  }
+}
+
+.has-success {
+  .form-control,
+  .form-control:focus {
+    border-color: var(--hz-border-success);
+    box-shadow: none;
+  }
+
+  .control-label,
+  .help-block {
+    color: var(--hz-text-success);
+  }
+}
+
+.help-block,
+.help-inline,
+.help_text {
+  font-size: var(--hz-font-size-sm);
+  color: var(--hz-text-subtle);
+}
+
+.form-group.required .control-label::after,
+.required > .control-label::after {
+  content: " *";
+  color: var(--hz-text-danger);
+}
+
+ul.errorlist {
+  padding-left: var(--hz-space-md);
+  margin: var(--hz-space-xs) 0 0;
+  color: var(--hz-text-danger);
+  list-style: none;
+
+  li { font-size: var(--hz-font-size-sm); }
+}
+
+// ------------------------------------------------- Horizon select widget
+// `hz-select` / `.themable-select` renders a Bootstrap button that opens a
+// dropdown; it has to look like a form control, not like an action button.
+.themable-select {
+  display: inline-block;
+  width: 100%;
+
+  > .dropdown,
+  > .btn-group,
+  > .dropdown-toggle {
+    width: 100%;
+  }
+
+  .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--hz-space-xs) var(--hz-space-sm);
+    font-weight: var(--hz-font-weight-normal);
+    color: var(--hz-text);
+    background-color: var(--hz-bg-control);
+    border: var(--hz-border-width) solid var(--hz-border-control);
+    border-radius: var(--hz-radius-control);
+    text-align: left;
+
+    &:hover,
+    &:focus {
+      color: var(--hz-text);
+      background-color: var(--hz-bg-control);
+      border-color: var(--hz-border-strong);
+    }
+  }
+
+  .dropdown-menu {
+    width: 100%;
+    max-height: 20em;
+    overflow-y: auto;
+  }
+}
+
+.form-group .themable-select {
+  display: block;
+}
+
+.form-inline .themable-select {
+  display: inline-block;
+  width: auto;
+  min-width: 12em;
+}
+
+// File upload buttons (image create/update panels)
+.form-group .file-upload,
+.file-upload {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--hz-space-sm);
+}
+
+// Horizon's inline edit pencil inside table cells
+.inline-edit .btn,
+td .inline-edit .fa {
+  color: var(--hz-icon-subtle);
+
+  &:hover { color: var(--hz-icon); }
+}
+
+// Form sets rendered as tables (Horizon `formset_table`)
+.formset-table,
+table.formset {
+  .form-control { min-width: 6em; }
+}

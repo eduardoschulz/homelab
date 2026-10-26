@@ -1,0 +1,37 @@
+// PatternFly 6 theme for Horizon -- entrypoint
+//
+// This file is imported by `dashboard/scss/themes.scss` *after* Bootstrap 3 and
+// Horizon's own styles, so plain declarations here override them without
+// `!important` (except where Bootstrap uses inline styles).
+//
+// Rules:
+//   * component partials only reference var(--hz-*) / var(--pf-t--global--*),
+//   * no hex colours, no SCSS colour functions (they cannot see custom
+//     properties, and they would break dark mode),
+//   * SCSS variables are used for layout maths only.
+//
+// Load order note: `theme/patternfly/patternfly-base-no-globals.css` is linked
+// from templates/_stylesheets.html *before* this stylesheet, which is where the
+// PatternFly tokens (and the Red Hat fonts) come from.
+
+@import "scss/tokens";
+@import "scss/base";
+@import "scss/navbar";
+@import "scss/sidebar";
+@import "scss/navigation";
+@import "scss/panels";
+@import "scss/tables";
+@import "scss/buttons";
+@import "scss/forms";
+@import "scss/modals";
+@import "scss/wizard";
+@import "scss/alerts";
+@import "scss/progress";
+@import "scss/charts";
+@import "scss/widgets";
+@import "scss/login";
+
+// Mode- and direction-specific overrides last, so they can beat everything
+// above.
+@import "scss/dark";
+@import "scss/rtl";

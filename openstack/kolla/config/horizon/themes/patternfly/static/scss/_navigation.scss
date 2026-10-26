@@ -1,0 +1,252 @@
+// Tabs, breadcrumbs, dropdown menus, nav lists
+
+// ------------------------------------------------------------------ tabs
+.nav-tabs {
+  border-bottom: var(--hz-border-width) solid var(--hz-border);
+
+  > li {
+    margin-bottom: -1px;
+
+    > a {
+      margin-right: 0;
+      padding: var(--hz-space-sm) var(--hz-space-md);
+      color: var(--hz-text-subtle);
+      font-weight: var(--hz-font-weight-bold);
+      background-color: transparent;
+      border: 0;
+      border-bottom: 3px solid transparent;
+      border-radius: 0;
+
+      &:hover,
+      &:focus {
+        color: var(--hz-text);
+        background-color: var(--hz-bg-hover);
+        border-bottom-color: var(--hz-border-strong);
+      }
+    }
+
+    &.active > a,
+    &.active > a:hover,
+    &.active > a:focus {
+      color: var(--hz-text);
+      background-color: transparent;
+      border-bottom-color: var(--hz-color-brand);
+      cursor: default;
+    }
+
+    &.disabled > a {
+      color: var(--hz-text-disabled);
+    }
+  }
+
+  // Detail tabs inside a page ("Overview / Log / Console" on an instance)
+  &.nav-tabs-detail,
+  .detail-tabs & {
+    border-bottom-color: var(--hz-border);
+  }
+}
+
+// Bootstrap tab panes get a card-like surface after the tab bar.
+.tab-content,
+.tab-pane {
+  padding-top: var(--hz-space-md);
+}
+
+.tab-content > .tab-pane > .tab-content {
+  padding-top: 0;
+}
+
+// ------------------------------------------------------------- pills / nav
+.nav-pills {
+  > li > a {
+    padding: var(--hz-space-xs) var(--hz-space-md);
+    color: var(--hz-text);
+    border-radius: var(--hz-radius-pill);
+
+    &:hover,
+    &:focus {
+      color: var(--hz-text);
+      background-color: var(--hz-bg-hover);
+    }
+  }
+
+  > li.active > a,
+  > li.active > a:hover,
+  > li.active > a:focus {
+    color: var(--hz-text-on-brand);
+    background-color: var(--hz-color-brand);
+  }
+}
+
+.nav-stacked > li + li {
+  margin-top: 2px;
+}
+
+// Sub-navigation list inside a panel page ("Panel group" tabs)
+#subnav,
+.subnav {
+  .nav > li > a {
+    color: var(--hz-text-subtle);
+
+    &:hover,
+    &:focus { color: var(--hz-text); }
+  }
+}
+
+// ------------------------------------------------------------ breadcrumbs
+.breadcrumb,
+.page-breadcrumb {
+  margin: var(--hz-space-md) 0 0;
+  padding: 0;
+  background-color: transparent;
+  border-radius: 0;
+
+  > li {
+    color: var(--hz-text-subtle);
+    font-size: var(--hz-font-size-sm);
+
+    > a {
+      color: var(--hz-text-subtle);
+
+      &:hover,
+      &:focus { color: var(--hz-text-link); }
+    }
+
+    + li::before {
+      content: "/";
+      padding: 0 var(--hz-space-sm);
+      color: var(--hz-border-strong);
+    }
+  }
+
+  > .active {
+    color: var(--hz-text);
+    font-weight: var(--hz-font-weight-bold);
+  }
+
+  .breadcrumb-item-truncate {
+    display: inline-block;
+    max-width: 15em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+}
+
+// -------------------------------------------------------------- dropdowns
+.dropdown-menu {
+  padding: var(--hz-space-xs) 0;
+  margin-top: var(--hz-space-xs);
+  font-size: var(--hz-font-size-md);
+  color: var(--hz-text);
+  background-color: var(--hz-bg-raised);
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-radius: var(--hz-radius-control);
+  box-shadow: var(--hz-shadow-md);
+
+  > li > a,
+  > li > .btn,
+  > .dropdown-item {
+    padding: var(--hz-space-xs) var(--hz-space-md);
+    color: var(--hz-text);
+    font-weight: var(--hz-font-weight-normal);
+    white-space: nowrap;
+
+    .fa, .glyphicon {
+      width: 1.25em;
+      color: var(--hz-icon-subtle);
+      text-align: center;
+    }
+
+    &:hover,
+    &:focus {
+      color: var(--hz-text);
+      background-color: var(--hz-bg-hover);
+      text-decoration: none;
+
+      .fa, .glyphicon { color: var(--hz-icon); }
+    }
+  }
+
+  > .active > a,
+  > .active > a:hover,
+  > .active > a:focus {
+    color: var(--hz-text-on-brand);
+    background-color: var(--hz-color-brand);
+
+    .fa, .glyphicon { color: var(--hz-text-on-brand); }
+  }
+
+  > .disabled > a,
+  > .disabled > a:hover {
+    color: var(--hz-text-disabled);
+    background-color: transparent;
+  }
+
+  .divider {
+    margin: var(--hz-space-xs) 0;
+    background-color: var(--hz-border);
+  }
+
+  .dropdown-header {
+    padding: var(--hz-space-xs) var(--hz-space-md);
+    font-size: var(--hz-font-size-sm);
+    font-weight: var(--hz-font-weight-bold);
+    color: var(--hz-text-subtle);
+  }
+
+  &.dropdown-menu-right {
+    // Keep long action menus inside the viewport on narrow screens.
+    max-width: calc(100vw - 2 * var(--hz-space-md));
+    overflow-x: auto;
+  }
+}
+
+// Search field dropdowns in table toolbars keep the control look.
+.table_search .dropdown-menu,
+.table_filter .dropdown-menu {
+  min-width: 14em;
+}
+
+// The "selection menu" groups used by the project/theme/context pickers.
+.selection-menu {
+  .dropdown-header {
+    color: var(--hz-text-subtle);
+  }
+
+  .dropdown-selected-icon {
+    visibility: hidden;
+    color: var(--hz-text-link);
+  }
+
+  .dropdown-selected .dropdown-selected-icon,
+  .dropdown-selected-icon:not(.fa-check) {
+    visibility: visible;
+  }
+}
+
+.dropdown-selected.disabled {
+  color: var(--hz-text);
+  font-weight: var(--hz-font-weight-bold);
+  opacity: 1;
+}
+
+// Caret used by Bootstrap dropdowns is drawn by Font Awesome in Horizon; keep
+// it in the icon colour instead of the inherited text colour.
+.dropdown-toggle > .fa-caret-down {
+  color: var(--hz-icon-subtle);
+}
+
+// ------------------------------------------------------------ panel title
+.panel-title {
+  font-family: var(--hz-font-family-heading);
+  font-weight: var(--hz-font-weight-heading);
+
+  a {
+    color: var(--hz-text);
+
+    &:hover,
+    &:focus { color: var(--hz-text-link); }
+  }
+}

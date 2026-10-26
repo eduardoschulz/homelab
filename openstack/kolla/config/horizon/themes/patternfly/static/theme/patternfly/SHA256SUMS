@@ -1,0 +1,15 @@
+ad58f7fcae1bb271807d629e3d7bf370be17b13436c1753720db1f389d8cc114  ./assets/fonts/RedHatDisplay/RedHatDisplayVF-Italic.woff2
+69dca56dda2a2b067dee3e910323c97e54b8544f90f3d1c2192b5a37c0eb1ec3  ./assets/fonts/RedHatDisplay/RedHatDisplayVF.woff2
+d5d585590a2439bbb5429863b2c11bc76512bfb37e60fc5696462e1866bfc2c1  ./assets/fonts/RedHatMono/RedHatMonoVF-Italic.woff2
+54145e1e268b1c5359966336a6b6b12a5dfa046e493d3b4f2dc620c5edd12b62  ./assets/fonts/RedHatMono/RedHatMonoVF.woff2
+97b89f470394820fd11c803b65c7272fe193e179adea956e0ac3495e290c6dd4  ./assets/fonts/RedHatText/RedHatTextVF-Italic.woff2
+1a5c9a8a88447c5b171ae99dab5daa4c1d49e3502db0fdc0da65d59fc5603feb  ./assets/fonts/RedHatText/RedHatTextVF.woff2
+f419ad7a4477f36ce73c74a23dce784150ca38fa5075a8e06109709cbb716903  ./assets/fonts/webfonts/fa-solid-900.woff2
+a738f3d9b2717f4e4eba8f61f250dc0fd633e02e199047175ce3496c1b7cc10d  ./assets/images/Felt-Bkg-Generic-Dark.svg
+74faba5b186f4da7a48c97585ec71cd31488ba07602415d818f612aef4d072f9  ./assets/images/Felt-Bkg-Generic-Light.svg
+07b9c2803dfaed92bceccef71fac48314e11ca7eb0cbfc8e61abf2566df05362  ./assets/images/PF-Bkg-Generic-Dark.svg
+e0ae2cdd852850958ae6b19e4f24f213a9ed66471bba75d8b2251bc8775da13c  ./assets/images/PF-Bkg-Generic-Light.svg
+322295638da2105dffff0eb18ee10ccffcac38888778b7b1b4624772d513e65d  ./assets/pficon/pf-v6-pficon.woff2
+c465bc4d771bba09b70259264b080759c8a72d40b98e8fee27aa426e333e21ca  ./js/theme-mode.js
+e0f55831ff3e47fc1cec8b2038fcd56a20c20a8169e4794da6d275444ca5c209  ./patternfly-base-no-globals.css
+4d22facffcd5cccd574e070bbd59ce6d19fd1792e80e9e23d797631225bb1a9d  ./patternfly-charts.css

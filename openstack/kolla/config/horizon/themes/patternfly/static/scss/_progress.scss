@@ -1,0 +1,70 @@
+// Progress bars, loading indicators, and quota/usage meters
+
+.progress {
+  height: .5rem;
+  margin-bottom: var(--hz-space-sm);
+  overflow: hidden;
+  background-color: var(--hz-bg-subtle);
+  border-radius: var(--hz-radius-pill);
+  box-shadow: inset 0 0 0 1px var(--hz-border);
+}
+
+.progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: var(--hz-font-size-sm);
+  color: var(--hz-text-on-brand);
+  background-color: var(--hz-color-brand);
+  box-shadow: none;
+  transition: width .3s ease;
+}
+
+.progress-bar-success { background-color: var(--hz-color-success); }
+.progress-bar-info { background-color: var(--hz-color-info); }
+.progress-bar-warning { background-color: var(--hz-color-warning); color: var(--hz-on-warning); }
+.progress-bar-danger { background-color: var(--hz-color-danger); }
+
+// Text label printed next to a progress bar (Horizon's `.progress-text`)
+.progress-text {
+  font-size: var(--hz-font-size-sm);
+  color: var(--hz-text-subtle);
+
+  .progress-bar-text {
+    color: var(--hz-text);
+    font-weight: var(--hz-font-weight-bold);
+  }
+}
+
+// Indeterminate bar used by the top loading bar
+.horizon-loading-bar .progress {
+  height: 3px;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+// File upload progress inside a form
+.file-upload .progress {
+  margin-top: var(--hz-space-xs);
+}
+
+// Spinners: Horizon uses small gif/svg spinners in tables and modals
+.spinner,
+.loading-indicator {
+  color: var(--hz-text-subtle);
+}
+
+// Quota bar in the resource overview panels
+.quota-dynamic,
+.quota-progress {
+  .progress {
+    height: .75rem;
+  }
+
+  .quota-progress-value {
+    font-size: var(--hz-font-size-sm);
+    color: var(--hz-text-subtle);
+  }
+}

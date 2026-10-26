@@ -1,0 +1,112 @@
+// Modals, workflows, and the launch-instance wizard shell
+
+.modal-content {
+  background-color: var(--hz-bg-raised);
+  color: var(--hz-text);
+  border: 0;
+  border-radius: var(--hz-radius-medium);
+  box-shadow: var(--hz-shadow-lg);
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: var(--hz-space-md);
+  color: var(--hz-text);
+  border-bottom: var(--hz-border-width) solid var(--hz-border);
+
+  .modal-title {
+    font-family: var(--hz-font-family-heading);
+    font-size: var(--pf-t--global--font--size--heading--h2);
+    font-weight: var(--hz-font-weight-heading);
+    line-height: var(--hz-line-height-heading);
+    color: var(--hz-text);
+  }
+
+  .close {
+    color: var(--hz-icon);
+    opacity: 1;
+    text-shadow: none;
+
+    &:hover,
+    &:focus {
+      color: var(--hz-icon);
+      opacity: .75;
+    }
+  }
+}
+
+.modal-body {
+  padding: var(--hz-space-md);
+  color: var(--hz-text);
+
+  // Wizard/step descriptions rendered above a form
+  .step-description {
+    color: var(--hz-text-subtle);
+    width: 100%;
+  }
+
+  textarea { resize: vertical; }
+
+  h1, h2, h3, h4, h5, h6 { margin-top: 0; }
+}
+
+.modal-footer {
+  padding: var(--hz-space-md);
+  border-top: var(--hz-border-width) solid var(--hz-border);
+  text-align: right;
+
+  .btn {
+    margin: 0 0 0 var(--hz-space-sm);
+  }
+
+  // Workflow footers wrap their buttons in a Bootstrap grid row; the first
+  // button must not be pushed away from the left edge of that row.
+  .row .btn:first-child {
+    margin-left: 0;
+  }
+}
+
+.modal-backdrop {
+  background-color: var(--hz-bg-backdrop);
+  opacity: .5;
+
+  &.in { opacity: .5; }
+}
+
+// Horizon's spinner shown while a modal loads its content
+.modal-progress-loader {
+  color: var(--hz-text-subtle);
+}
+
+// Horizon uses `.modal-xs` / `.modal-xl` in addition to Bootstrap's sizes.
+@media (min-width: 768px) {
+  .modal-xs { width: 300px; }
+}
+
+@media (min-width: 992px) {
+  .modal-xl { width: 95vw; }
+}
+
+// --------------------------------------------------------------- dashboard
+// The embedded serial/VNC console iframe and the "help" panel inside modals
+.modal-body iframe {
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-radius: var(--hz-radius-control);
+  background-color: var(--hz-bg-sunken);
+}
+
+// Confirm dialogs rendered by Horizon's client-side template
+[hz-modal] .modal-body,
+client-side-confirm .modal-body {
+  color: var(--hz-text);
+}
+
+// Nested help panel (`hz-help-panel`) inside a modal
+.help-panel,
+.hz-help-panel {
+  color: var(--hz-text);
+  background-color: var(--hz-bg-subtle);
+  border-left: var(--hz-border-width-strong) solid var(--hz-border-brand);
+  border-radius: var(--hz-radius-small);
+  padding: var(--hz-space-sm) var(--hz-space-md);
+}

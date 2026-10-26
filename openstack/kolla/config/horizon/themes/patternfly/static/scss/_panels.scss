@@ -1,0 +1,160 @@
+// Panels, list groups, cards and well-like content containers
+
+.panel {
+  margin-bottom: var(--hz-space-md);
+  background-color: var(--hz-bg-page);
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-radius: var(--hz-radius-control);
+  box-shadow: none;
+  color: var(--hz-text);
+
+  > .panel-heading {
+    padding: var(--hz-space-sm) var(--hz-space-md);
+    color: var(--hz-text);
+    background-color: var(--hz-bg-subtle);
+    border-bottom: var(--hz-border-width) solid var(--hz-border);
+    border-radius: calc(var(--hz-radius-control) - var(--hz-border-width))
+      calc(var(--hz-radius-control) - var(--hz-border-width)) 0 0;
+  }
+
+  > .panel-body {
+    padding: var(--hz-space-md);
+  }
+
+  > .panel-footer {
+    padding: var(--hz-space-sm) var(--hz-space-md);
+    background-color: var(--hz-bg-subtle);
+    border-top: var(--hz-border-width) solid var(--hz-border);
+    border-radius: 0 0 calc(var(--hz-radius-control) - var(--hz-border-width))
+      calc(var(--hz-radius-control) - var(--hz-border-width));
+  }
+
+  > .table,
+  > .table-responsive > .table {
+    margin-bottom: 0;
+  }
+}
+
+.panel-default {
+  border-color: var(--hz-border);
+
+  > .panel-heading { color: var(--hz-text); }
+}
+
+.panel-primary {
+  border-color: var(--hz-border-brand);
+
+  > .panel-heading {
+    color: var(--hz-text-on-brand);
+    background-color: var(--hz-color-brand);
+    border-color: var(--hz-border-brand);
+  }
+}
+
+.panel-success {
+  border-color: var(--hz-border-success);
+
+  > .panel-heading {
+    color: var(--hz-text-success);
+    background-color: var(--hz-bg-subtle);
+    border-bottom-color: var(--hz-border-success);
+  }
+}
+
+.panel-info {
+  border-color: var(--hz-border-info);
+
+  > .panel-heading {
+    color: var(--hz-text-info);
+    background-color: var(--hz-bg-subtle);
+    border-bottom-color: var(--hz-border-info);
+  }
+}
+
+.panel-warning {
+  border-color: var(--hz-border-warning);
+
+  > .panel-heading {
+    color: var(--hz-text-warning);
+    background-color: var(--hz-bg-subtle);
+    border-bottom-color: var(--hz-border-warning);
+  }
+}
+
+.panel-danger {
+  border-color: var(--hz-border-danger);
+
+  > .panel-heading {
+    color: var(--hz-text-danger);
+    background-color: var(--hz-bg-subtle);
+    border-bottom-color: var(--hz-border-danger);
+  }
+}
+
+// ------------------------------------------------------------ list groups
+.list-group {
+  border-radius: var(--hz-radius-control);
+}
+
+.list-group-item {
+  padding: var(--hz-space-sm) var(--hz-space-md);
+  color: var(--hz-text);
+  background-color: var(--hz-bg-page);
+  border: var(--hz-border-width) solid var(--hz-border);
+
+  &:hover,
+  &:focus {
+    color: var(--hz-text);
+    background-color: var(--hz-bg-hover);
+  }
+
+  &.active,
+  &.active:hover,
+  &.active:focus {
+    color: var(--hz-text-on-brand);
+    background-color: var(--hz-color-brand);
+    border-color: var(--hz-color-brand);
+  }
+
+  &.disabled,
+  &.disabled:hover {
+    color: var(--hz-text-disabled);
+    background-color: var(--hz-bg-disabled);
+  }
+
+  & + .list-group-item {
+    border-top: 0;
+  }
+}
+
+// Property lists used by detail panels ("Image ID: ...")
+.hz-resource-property-list,
+dl.hz-property-list {
+  margin-bottom: 0;
+
+  dt {
+    color: var(--hz-text-subtle);
+    font-weight: var(--hz-font-weight-bold);
+  }
+
+  dd {
+    color: var(--hz-text);
+    word-break: break-word;
+  }
+}
+
+// Card-like surface used by usage/overview widgets
+.card,
+hz-card,
+.overview-card {
+  background-color: var(--hz-bg-page);
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-radius: var(--hz-radius-control);
+  color: var(--hz-text);
+}
+
+// Horizon's "resource panel" header in the detail pages
+hz-resource-panel .panel-heading,
+.resource-panel .panel-heading {
+  border-bottom-color: var(--hz-border);
+}

@@ -1,0 +1,133 @@
+// Workflows (launch instance, create volume, ...) and the Angular wizard
+
+.workflow {
+  .modal-body > .nav-pills {
+    padding-bottom: var(--hz-space-md);
+    border-bottom: var(--hz-border-width) solid var(--hz-border);
+    margin-bottom: var(--hz-space-md);
+    gap: var(--hz-space-xs);
+
+    > li > a {
+      display: flex;
+      align-items: center;
+      gap: var(--hz-space-xs);
+      padding: var(--hz-space-xs) var(--hz-space-md);
+      color: var(--hz-text-subtle);
+      font-weight: var(--hz-font-weight-bold);
+
+      &:hover,
+      &:focus {
+        color: var(--hz-text);
+        background-color: var(--hz-bg-hover);
+        text-decoration: none;
+      }
+    }
+
+    > li.active > a,
+    > li.active > a:hover,
+    > li.active > a:focus {
+      color: var(--hz-text-on-brand);
+      background-color: var(--hz-color-brand);
+    }
+
+    // A step with a validation error gets the danger colour even when it is
+    // the active step, so the user can see where the problem is.
+    > li.error > a {
+      box-shadow: inset 0 0 0 1px var(--hz-border-danger);
+      color: var(--hz-text-danger);
+    }
+
+    > li.error.active > a {
+      color: var(--hz-text-on-brand);
+      background-color: var(--hz-color-danger);
+      box-shadow: none;
+    }
+
+    .hz-icon-required {
+      color: var(--hz-text-danger);
+      font-size: .75em;
+    }
+  }
+
+  fieldset {
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+
+  .modal-footer {
+    .row { width: 100%; }
+
+    .button-previous,
+    .button-next,
+    .button-final,
+    .cancel {
+      margin-left: var(--hz-space-sm);
+    }
+
+    // Horizon hides the previous/next buttons with inline styles while a
+    // wizard step is loading; the flex layout keeps the remaining buttons
+    // aligned to the end.
+    .btn[style*="none"] { display: none !important; }
+  }
+
+  // Help/text column next to the form fields of a step
+  .modal-body > .row > div:last-child {
+    color: var(--hz-text-subtle);
+  }
+}
+
+// ---------------------------------------------------------- Angular wizard
+.ng-wizard {
+  .wizard-navigation {
+    padding-right: var(--hz-space-md);
+  }
+
+  .wizard-nav {
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+
+    .nav-pills > li {
+      margin-bottom: 2px;
+
+      > a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--hz-space-sm);
+        padding: var(--hz-space-xs) var(--hz-space-sm);
+        color: var(--hz-text);
+        border-radius: var(--hz-radius-control);
+
+        &:hover,
+        &:focus {
+          color: var(--hz-text);
+          background-color: var(--hz-bg-hover);
+          text-decoration: none;
+        }
+      }
+
+      &.active > a {
+        color: var(--hz-text-on-brand);
+        background-color: var(--hz-color-brand);
+      }
+
+      // Steps that cannot be visited yet
+      &.disabled > a,
+      &[disabled] > a {
+        color: var(--hz-text-disabled);
+      }
+    }
+  }
+
+  .wizard-nav-toggle {
+    float: none;
+    margin-bottom: var(--hz-space-xs);
+    border-color: var(--hz-border-control);
+  }
+
+  .error-message {
+    margin-bottom: var(--hz-space-md);
+  }
+}

@@ -1,0 +1,356 @@
+// Third-party widgets and Angular Horizon components that are not plain
+// Bootstrap markup: horizon select, datepicker, magic search bar, log viewers,
+// trees, transfer tables, topology SVGs.
+
+// ------------------------------------------------- Horizon `themable-select`
+// The wrapper itself carries `.form-control` (see
+// horizon/common/fields/_themable_select.html) so it must not draw a control
+// border around the inner button.
+.themable-select.form-control {
+  height: auto;
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+
+  > select {
+    display: none;
+  }
+}
+
+// ----------------------------------------------------------- datepicker
+// bootstrap-datepicker 1.3 (`datepicker3.css`) + Horizon overrides.
+.datepicker {
+  z-index: 1070 !important;
+  padding: var(--hz-space-xs);
+  color: var(--hz-text);
+  background-color: var(--hz-bg-raised);
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-radius: var(--hz-radius-control);
+  box-shadow: var(--hz-shadow-md);
+
+  table {
+    border-collapse: separate;
+    border-spacing: 1px;
+
+    tr td,
+    tr th {
+      color: var(--hz-text);
+      border: 0;
+      border-radius: var(--hz-radius-small);
+    }
+
+    tr td.old,
+    tr td.new,
+    tr td.disabled {
+      color: var(--hz-text-disabled);
+    }
+
+    tr td.day:hover,
+    tr td span:hover,
+    tr th:hover {
+      color: var(--hz-text);
+      background-color: var(--hz-bg-hover);
+    }
+
+    tr td.today,
+    tr td.today:hover {
+      color: var(--hz-text-link);
+      background-color: var(--hz-bg-subtle);
+      box-shadow: inset 0 0 0 1px var(--hz-border-brand);
+    }
+
+    tr td.active,
+    tr td.active:hover,
+    tr td.active.disabled,
+    tr td span.active,
+    tr td span.active:hover {
+      color: var(--hz-text-on-brand);
+      background-color: var(--hz-color-brand);
+      text-shadow: none;
+    }
+
+    tr th.datepicker-switch,
+    tr th.prev,
+    tr th.next {
+      color: var(--hz-text-subtle);
+      background-color: transparent;
+
+      &:hover {
+        color: var(--hz-text-link);
+        background-color: var(--hz-bg-hover);
+      }
+    }
+  }
+
+  .datepicker-days .dow {
+    color: var(--hz-text-subtle);
+    font-weight: var(--hz-font-weight-bold);
+  }
+
+  .datepicker-months .month,
+  .datepicker-years .year {
+    color: var(--hz-text);
+  }
+
+  &.dropdown-menu {
+    padding: var(--hz-space-xs);
+  }
+}
+
+.datepicker-dropdown::before,
+.datepicker-dropdown::after {
+  display: none; // the arrow is a Bootstrap 2 artefact
+}
+
+.datepicker .datepicker-addon {
+  cursor: pointer;
+  color: var(--hz-icon-subtle);
+}
+
+// -------------------------------------------------- magic search / filter bar
+.hz-magic-search-bar,
+.magic-search {
+  .search-selected {
+    color: var(--hz-text);
+    background-color: var(--hz-bg-subtle);
+    border-radius: var(--hz-radius-pill);
+  }
+
+  .search-selected .item,
+  .search-selected .radius {
+    color: var(--hz-text);
+    background-color: transparent;
+  }
+
+  .fi-x,
+  .remove {
+    color: var(--hz-icon-subtle);
+
+    &:hover { color: var(--hz-icon); }
+  }
+
+  .facet-drop {
+    border: var(--hz-border-width) solid var(--hz-border);
+    border-radius: var(--hz-radius-control);
+    box-shadow: var(--hz-shadow-md);
+  }
+
+  .facet-drop .match,
+  .facet-drop li > a {
+    color: var(--hz-text);
+
+    &:hover,
+    &:focus {
+      color: var(--hz-text);
+      background-color: var(--hz-bg-hover);
+    }
+  }
+
+  .input-group-btn,
+  .input-group-addon {
+    background-color: var(--hz-bg-control);
+    border-color: var(--hz-border-control);
+    color: var(--hz-icon-subtle);
+  }
+
+  .input-group-btn .btn,
+  .search-bar .go {
+    color: var(--hz-icon-subtle);
+
+    &:hover { color: var(--hz-icon); }
+  }
+}
+
+// --------------------------------------------------------- logs and consoles
+pre.logs,
+.log-viewer,
+.log-output {
+  max-height: 32em;
+  overflow: auto;
+  padding: var(--hz-space-md);
+  font-family: var(--hz-font-family-mono);
+  font-size: var(--hz-font-size-sm);
+  line-height: 1.45;
+  color: var(--hz-text);
+  background-color: var(--hz-bg-sunken);
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-radius: var(--hz-radius-control);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+// The serial/VNC console is an iframe; give it a darker frame in dark mode.
+#console,
+.console-wrapper,
+.spice-console,
+.novnc-canvas {
+  background-color: var(--pf-t--global--color--nonstatus--gray--300);
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-radius: var(--hz-radius-control);
+}
+
+// "Inline edit" code fields (`.code-input` in Horizon)
+.code-input {
+  display: inline-block;
+  width: 100%;
+  color: var(--hz-text);
+  background-color: var(--hz-bg-code);
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-radius: var(--hz-radius-control);
+  padding: var(--hz-space-sm);
+  font-family: var(--hz-font-family-mono);
+  font-size: var(--hz-font-size-sm);
+}
+
+.contenteditable,
+[contenteditable="true"] {
+  color: var(--hz-text);
+  background-color: var(--hz-bg-control);
+  border-color: var(--hz-border-control) !important;
+
+  &:focus {
+    outline: 0;
+    border-color: var(--hz-border-brand) !important;
+    box-shadow: 0 0 0 1px var(--hz-border-brand);
+  }
+}
+
+// ------------------------------------------------------------ transfer table
+.transfer-table,
+.table-transfer {
+  .transfer-table-heading,
+  .transfer-heading {
+    color: var(--hz-text-subtle);
+    font-weight: var(--hz-font-weight-bold);
+  }
+
+  .transfer-table-arrow,
+  .transfer-controls .fa {
+    color: var(--hz-icon);
+
+    &[disabled] { color: var(--hz-text-disabled); }
+  }
+
+  .transfer-table-filter { margin-bottom: var(--hz-space-sm); }
+}
+
+// -------------------------------------------------------------- trees / metadata
+.metadata-tree,
+.metadata-tree-item,
+.tree,
+.hz-tree {
+  color: var(--hz-text);
+
+  .label-danger {
+    color: var(--hz-text-on-brand);
+    background-color: var(--hz-color-danger);
+  }
+
+  .node-selected,
+  .selected > a {
+    background-color: var(--hz-bg-selected);
+    color: var(--hz-text);
+  }
+
+  .fa { color: var(--hz-icon-subtle); }
+}
+
+// -------------------------------------------------------- resource browser
+.resource-browser,
+.rbrowser {
+  color: var(--hz-text);
+
+  .navigation,
+  .content {
+    background-color: var(--hz-bg-page);
+    border-color: var(--hz-border);
+  }
+
+  .navigation_table thead th,
+  .content_table thead th {
+    background-color: var(--hz-bg-table-header);
+    color: var(--hz-text-subtle);
+    border-bottom: var(--hz-border-width-strong) solid var(--hz-border);
+  }
+
+  .navigation_table tr.active td,
+  .content_table tr.selected td {
+    background-color: var(--hz-bg-selected);
+    color: var(--hz-text);
+  }
+
+  .navigation_table tr:hover td,
+  .content_table tr:hover td {
+    background-color: var(--hz-bg-table-hover);
+  }
+
+  .footer {
+    background-color: var(--hz-bg-subtle);
+    border-color: var(--hz-border);
+  }
+}
+
+// ---------------------------------------------------- network/resource topology
+.network-topology,
+.resource-topology {
+  background-color: var(--hz-bg-page);
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-radius: var(--hz-radius-control);
+
+  // d3 renders the labels as <text>
+  text {
+    fill: var(--hz-text);
+    font-family: var(--hz-font-family-body);
+    font-size: var(--hz-font-size-sm);
+  }
+
+  .node text,
+  .label text {
+    fill: var(--hz-text);
+  }
+
+  // SVG links/edges
+  path.link,
+  line.link {
+    stroke: var(--hz-border-strong);
+  }
+
+  .node rect,
+  .node circle {
+    fill: var(--hz-bg-raised);
+    stroke: var(--hz-border-strong);
+  }
+}
+
+// --------------------------------------------------------------- misc widgets
+// Horizon's help icon next to form fields
+.help-icon,
+.hz-help-icon {
+  color: var(--hz-icon-subtle);
+}
+
+// "No items" placeholders rendered by Angular directives
+.empty,
+.no-items {
+  color: var(--hz-text-subtle);
+}
+
+// Image thumbnails in the image table
+.table td img,
+.image-thumbnail {
+  border-radius: var(--hz-radius-small);
+  border: var(--hz-border-width) solid var(--hz-border);
+  background-color: var(--hz-bg-subtle);
+}
+
+// Modal wrapper appended to the body
+#modal_wrapper {
+  color: var(--hz-text);
+}
+
+// Dropdown "action" menus rendered inside a table cell must not be clipped
+.table-responsive,
+.table_fixed {
+  overflow: visible;
+}

@@ -1,0 +1,130 @@
+// Left sidebar: dashboard accordion, panel groups, panel links
+
+#sidebar {
+  background-color: var(--hz-bg-sidebar);
+  border-right: var(--hz-border-width) solid var(--hz-border);
+  color: var(--hz-text);
+}
+
+#sidebar-mask {
+  background-color: var(--hz-bg-inverse);
+  opacity: 0;
+
+  &.on-screen {
+    opacity: .5;
+  }
+}
+
+#sidebar-accordion {
+  width: var(--hz-sidebar-width);
+  padding: var(--hz-space-sm) var(--hz-space-sm) var(--hz-space-lg);
+  margin: 0;
+  list-style: none;
+
+  // Dashboard level
+  > li > a {
+    display: flex;
+    align-items: center;
+    gap: var(--hz-space-sm);
+    padding: var(--hz-space-sm) var(--hz-space-md);
+    margin-top: var(--hz-space-xs);
+    font-family: var(--hz-font-family-heading);
+    font-weight: var(--hz-font-weight-bold);
+    color: var(--hz-text);
+    border-radius: var(--hz-radius-control);
+    text-align: left;
+
+    &:hover,
+    &:focus {
+      color: var(--hz-text);
+      background-color: var(--hz-bg-hover);
+      text-decoration: none;
+    }
+  }
+
+  // Panel group level
+  .openstack-panel-group > a {
+    display: flex;
+    align-items: center;
+    gap: var(--hz-space-sm);
+    padding: var(--hz-space-xs) var(--hz-space-md);
+    margin-top: var(--hz-space-xs);
+    font-size: var(--hz-font-size-sm);
+    font-weight: var(--hz-font-weight-bold);
+    letter-spacing: .02em;
+    color: var(--hz-text-subtle);
+    text-transform: none;
+    border-radius: var(--hz-radius-control);
+    text-align: left;
+
+    &:hover,
+    &:focus {
+      color: var(--hz-text);
+      background-color: var(--hz-bg-hover);
+      text-decoration: none;
+    }
+  }
+
+  // Leaf panel links
+  .list-group-item {
+    display: block;
+    padding: var(--hz-space-xs) var(--hz-space-md) var(--hz-space-xs) var(--hz-space-lg);
+    margin: 1px 0;
+    font-size: var(--hz-font-size-md);
+    color: var(--hz-text);
+    background-color: transparent;
+    border: 0;
+    border-radius: var(--hz-radius-control);
+    text-align: left;
+    white-space: normal;
+
+    &:hover,
+    &:focus {
+      color: var(--hz-text);
+      background-color: var(--hz-bg-hover);
+      text-decoration: none;
+    }
+
+    &.active {
+      color: var(--hz-text-on-brand);
+      background-color: var(--hz-color-brand);
+      font-weight: var(--hz-font-weight-bold);
+
+      // PF uses a 3px leading indicator for selected nav items.
+      box-shadow: inset 3px 0 0 var(--pf-t--global--color--brand--clicked);
+    }
+  }
+
+  // Toggle chevrons
+  .openstack-toggle.fa {
+    margin-left: auto;
+    color: var(--hz-icon-subtle);
+    text-align: center;
+    transition: transform .15s ease;
+  }
+
+  .collapsed > .openstack-toggle.fa {
+    transform: rotate(-90deg);
+  }
+
+  .panel {
+    margin: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  // Horizon removes the outline on the accordion links because the focus ring
+  // was drawn on the whole list; keep a visible ring for keyboard users.
+  a:focus-visible {
+    outline: var(--pf-t--global--border--width--200) solid var(--pf-t--global--border--color--clicked);
+    outline-offset: -2px;
+  }
+}
+
+// Panel group heading inside the content area (`.page-header` siblings)
+.openstack-panel-group .panel-title {
+  font-family: var(--hz-font-family-heading);
+  color: var(--hz-text);
+}

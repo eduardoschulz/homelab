@@ -49,5 +49,7 @@ designate_ns_record:
   - "ns1.eci.eduardoschulz.com.br"
 
 horizon_custom_themes:
+  - name: patternfly
+    label: PatternFly
   - name: eci
     label: eci

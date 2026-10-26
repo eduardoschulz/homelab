@@ -1,0 +1,105 @@
+{% comment %} PatternFly 6 theme: user menu -------------------------------------------
+
+Overrides Horizon's `header/_user_menu.html` to add the appearance
+(light / dark / follow system) selector. Everything else is copied verbatim
+from `openstack_dashboard/templates/header/_user_menu.html`; re-sync this file
+when upgrading Horizon (docs/INSTALL.md).
+
+The selector is rendered as a radio group (role="menuitemradio") so screen
+readers announce the current choice. `js/theme-mode.js` binds the click handler,
+keeps `aria-checked` in sync and persists the choice.
+{% endcomment %}
+{% load i18n %}
+{% load themes %}
+
+<li class="dropdown user-menu">
+  <a data-toggle="dropdown" href="#" class="dropdown-toggle" role="button" aria-expanded="false">
+    <span class="fa fa-user"></span>
+    <span class="user-name">{{ request.user.username }}</span>
+    <span class="fa fa-caret-down"></span>
+  </a>
+  <ul id="editor_list" class="dropdown-menu dropdown-menu-right selection-menu">
+    <li>
+      <a href="{% url 'horizon:settings:user:index' %}" target="_self">
+        <span class="fa fa-cog"></span>
+        {% trans "Settings" %}
+      </a>
+    </li>
+    {% if HORIZON_CONFIG.bug_url %}
+      <li>
+        <a href="{{ HORIZON_CONFIG.bug_url }}" target="_blank">
+          <span class="fa fa-bug"></span>
+          {% trans "Report Bug" %}
+        </a>
+      </li>
+    {% endif %}
+    {% if HORIZON_CONFIG.help_url %}
+      <li>
+        <a href="{{ HORIZON_CONFIG.help_url }}" target="_blank">
+          <span class="fa fa-question-circle"></span>
+          {% trans "Help" %}
+        </a>
+      </li>
+    {% endif %}
+
+    {% for link in USER_MENU_LINKS %}
+      <li>
+        {% if link.external %}
+          <a href="{{ link.url }}">
+        {% else %}
+          <a href="{% url link.url %}">
+        {% endif %}
+
+        {% if link.icon_classes %}
+            <span class="fa {{ link.icon_classes | join:" "}}"></span>
+        {% else %}
+            <span class="fa fa-download"></span>
+        {% endif %}
+        {{ link.name }}
+        </a>
+
+      </li>
+    {% endfor %}
+
+    <li class="divider"></li>
+    <li class="theme-mode-picker" role="group" aria-label="{% trans 'Appearance' %}">
+      <span class="dropdown-header">{% trans "Appearance" %}</span>
+      <a class="theme-mode-item" href="#" role="menuitemradio" aria-checked="false"
+         data-theme-mode-set="light" data-theme-mode-label="{% trans 'Light' %}">
+        <span class="fa fa-sun theme-mode-icon" aria-hidden="true"></span>
+        <span class="theme-mode-label">{% trans "Light" %}</span>
+        <span class="fa fa-check theme-mode-check" aria-hidden="true"></span>
+      </a>
+      <a class="theme-mode-item" href="#" role="menuitemradio" aria-checked="false"
+         data-theme-mode-set="dark" data-theme-mode-label="{% trans 'Dark' %}">
+        <span class="fa fa-moon theme-mode-icon" aria-hidden="true"></span>
+        <span class="theme-mode-label">{% trans "Dark" %}</span>
+        <span class="fa fa-check theme-mode-check" aria-hidden="true"></span>
+      </a>
+      <a class="theme-mode-item" href="#" role="menuitemradio" aria-checked="false"
+         data-theme-mode-set="system" data-theme-mode-label="{% trans 'Follow system' %}">
+        <span class="fa fa-desktop theme-mode-icon" aria-hidden="true"></span>
+        <span class="theme-mode-label">{% trans "Follow system" %}</span>
+        <span class="fa fa-check theme-mode-check" aria-hidden="true"></span>
+      </a>
+    </li>
+
+    {% themes as available_themes %}
+    {% if available_themes and available_themes|length > 1 %}
+      <li class="divider"></li>
+      <li>
+        {% include 'header/_theme_list.html' %}
+      </li>
+    {% endif %}
+    <li class="divider"></li>
+    <li>
+      <form method="post" action="{{ LOGOUT_URL }}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-link" target="_self">
+          <span class="fa fa-sign-out"></span>
+          {% trans "Sign Out" %}
+        </button>
+      </form>
+    </li>
+  </ul>
+</li>

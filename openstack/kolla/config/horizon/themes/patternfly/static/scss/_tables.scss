@@ -1,0 +1,249 @@
+// Tables: data tables (Angular hz-table and legacy Django tables), table
+// toolbars (search / filters / actions), row selection, pagination.
+
+.table,
+[hz-table] table {
+  margin-bottom: var(--hz-space-md);
+  background-color: transparent;
+  border-collapse: separate;
+  border-spacing: 0;
+  color: var(--hz-text);
+}
+
+.table {
+  > thead > tr > th,
+  > thead > tr > td {
+    padding: var(--hz-space-sm) var(--hz-space-md);
+    font-family: var(--hz-font-family-heading);
+    font-size: var(--hz-font-size-sm);
+    font-weight: var(--hz-font-weight-bold);
+    letter-spacing: .01em;
+    color: var(--hz-text-subtle);
+    vertical-align: middle;
+    background-color: var(--hz-bg-table-header);
+    border: 0;
+    border-bottom: var(--hz-border-width-strong) solid var(--hz-border);
+    white-space: nowrap;
+  }
+
+  > tbody > tr > td,
+  > tbody > tr > th,
+  > tfoot > tr > td,
+  > tfoot > tr > th {
+    padding: var(--hz-space-sm) var(--hz-space-md);
+    vertical-align: middle;
+    border: 0;
+    border-bottom: var(--hz-border-width) solid var(--hz-border);
+  }
+
+  // Bootstrap draws a top border on the first body row; Horizon tables have a
+  // header background instead.
+  > tbody + tbody {
+    border-top: 0;
+  }
+
+  > caption {
+    color: var(--hz-text-subtle);
+  }
+
+  > tbody > tr {
+    background-color: var(--hz-bg-page);
+
+    &:hover > td,
+    &:hover > th {
+      background-color: var(--hz-bg-table-hover);
+    }
+
+    &.selected > td,
+    &.selected > th {
+      background-color: var(--hz-bg-selected);
+    }
+
+    // Row states set by Horizon's table actions and by inline editing.
+    > td.loading {
+      background-color: var(--hz-bg-subtle);
+    }
+
+    > td.success {
+      background-color: var(--hz-bg-selected);
+    }
+
+    &.deleted > td,
+    &.terminated > td {
+      color: var(--hz-text-disabled);
+    }
+  }
+
+  // Striping: Horizon's datatable adds .odd/.even explicitly because hidden
+  // rows make nth-child unreliable.
+  &.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: var(--hz-bg-stripe);
+  }
+
+  &.table-striped.datatable > tbody > tr {
+    &.odd > td { background-color: var(--hz-bg-stripe); }
+    &.even > td { background-color: transparent; }
+
+    &.odd:hover > td,
+    &.even:hover > td {
+      background-color: var(--hz-bg-table-hover);
+    }
+  }
+
+  .multi_select_column,
+  .actions_column {
+    width: 1%;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .actions_column .btn-group > .btn {
+    padding: var(--hz-space-xs) var(--hz-space-sm);
+  }
+
+  .empty,
+  td.empty {
+    color: var(--hz-text-subtle);
+    text-align: center;
+  }
+
+  .nowrap-col { white-space: nowrap; }
+
+  td.word-break { word-break: break-all; }
+}
+
+// Sort indicators
+.tablesorter-header.sortable { cursor: pointer; }
+
+.tablesorter-header-inner { display: inline; }
+
+.tablesorter-headerAsc,
+.tablesorter-headerDesc {
+  color: var(--hz-text);
+
+  .table-sort-indicator { color: var(--hz-text-link); }
+}
+
+// Expandable detail rows (hz-table)
+[hz-table] {
+  .detail-row > td {
+    padding: var(--hz-space-md);
+    background-color: var(--hz-bg-subtle);
+  }
+
+  .expander .fa {
+    color: var(--hz-icon-subtle);
+
+    &:hover { color: var(--hz-icon); }
+  }
+
+  .no-rows-help {
+    color: var(--hz-text-subtle);
+    font-style: italic;
+    text-align: center;
+  }
+
+  .invalid { color: var(--hz-text-warning); }
+}
+
+// ------------------------------------------------------------ table toolbars
+.table_header,
+.table-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--hz-space-sm);
+  min-height: auto;
+  padding: var(--hz-space-sm) 0;
+
+  h3 {
+    margin: 0;
+    font-size: var(--pf-t--global--font--size--heading--h3);
+  }
+
+  // Horizon floats these on the right of the table title.
+  .table_actions {
+    margin-left: auto;
+  }
+}
+
+.table_actions,
+.table-filter,
+.table_search,
+.table_filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--hz-space-sm);
+}
+
+.table_search .form-control,
+.table_filter .form-control,
+.table-filter .form-control {
+  min-width: 16em;
+}
+
+.table_actions .btn,
+.table_search .btn,
+.table-filter .btn {
+  white-space: nowrap;
+}
+
+// ------------------------------------------------------------- pagination
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin: var(--hz-space-sm) 0;
+
+  > li {
+    > a,
+    > span {
+      padding: var(--hz-space-xs) var(--hz-space-sm);
+      min-width: 2.25em;
+      color: var(--hz-text-link);
+      background-color: transparent;
+      border: var(--hz-border-width) solid var(--hz-border);
+      border-radius: var(--hz-radius-control);
+      text-align: center;
+    }
+
+    > a:hover,
+    > a:focus {
+      color: var(--hz-text-link-hover);
+      background-color: var(--hz-bg-hover);
+      border-color: var(--hz-border-strong);
+    }
+
+    &.active > a,
+    &.active > span,
+    &.active > a:hover,
+    &.active > a:focus {
+      color: var(--hz-text-on-brand);
+      background-color: var(--hz-color-brand);
+      border-color: var(--hz-color-brand);
+    }
+
+    &.disabled > a,
+    &.disabled > span,
+    &.disabled > a:hover {
+      color: var(--hz-text-disabled);
+      background-color: transparent;
+      border-color: var(--hz-border-disabled);
+    }
+  }
+}
+
+// Table footer where Horizon prints "Displaying N items"
+.table-footer,
+.table_footer {
+  color: var(--hz-text-subtle);
+  font-size: var(--hz-font-size-sm);
+}
+
+// Selection column checkbox alignment (Bootstrap 3 has no checkbox rhythm).
+.table td > input[type="checkbox"],
+.table th > input[type="checkbox"] {
+  margin: 0;
+  vertical-align: middle;
+}

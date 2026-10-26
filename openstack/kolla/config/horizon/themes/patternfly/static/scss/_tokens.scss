@@ -1,0 +1,157 @@
+// PatternFly 6 theme for Horizon -- semantic token layer
+//
+// Everything in this file is a CSS custom property. No hex values are declared
+// here: each --hz-* alias points at a PatternFly 6 design token, which means
+// the whole theme follows `html.pf-v6-theme-dark` for free.
+//
+// Only two classes of override live here:
+//   1. aliases (HZ_CONTRACT -> PF token) so component partials never have to
+//      know which PF token represents e.g. "table header background",
+//   2. patches for tokens whose PF semantic does not exactly match the
+//      Horizon UI (documented inline).
+//
+// Component partials must only use var(--hz-*) / var(--pf-t--global--*).
+
+:root {
+  // ---------------------------------------------------------------- typography
+  --hz-font-family-body: var(--pf-t--global--font--family--body);
+  --hz-font-family-heading: var(--pf-t--global--font--family--heading);
+  --hz-font-family-mono: var(--pf-t--global--font--family--mono);
+
+  --hz-font-size-sm: var(--pf-t--global--font--size--body--sm);   // 12px
+  --hz-font-size-md: var(--pf-t--global--font--size--body--default); // 14px
+  --hz-font-size-lg: var(--pf-t--global--font--size--body--lg);   // 16px
+  --hz-font-weight-normal: var(--pf-t--global--font--weight--body--default);
+  --hz-font-weight-bold: var(--pf-t--global--font--weight--body--bold);
+  --hz-font-weight-heading: var(--pf-t--global--font--weight--heading--default);
+
+  --hz-line-height-body: var(--pf-t--global--font--line-height--body);
+  --hz-line-height-heading: var(--pf-t--global--font--line-height--heading);
+
+  // ------------------------------------------------------------------ spacing
+  --hz-space-xs: var(--pf-t--global--spacer--xs);   //  4px
+  --hz-space-sm: var(--pf-t--global--spacer--sm);   //  8px
+  --hz-space-md: var(--pf-t--global--spacer--md);   // 16px
+  --hz-space-lg: var(--pf-t--global--spacer--lg);   // 24px
+  --hz-space-2xl: var(--pf-t--global--spacer--2xl); // 48px
+
+  // ------------------------------------------------------------------- radius
+  --hz-radius-small: var(--pf-t--global--border--radius--tiny);            //  4px
+  --hz-radius-control: var(--pf-t--global--border--radius--control--form-element); // 6px
+  --hz-radius-medium: var(--pf-t--global--border--radius--medium);         // 16px
+  --hz-radius-pill: var(--pf-t--global--border--radius--pill);             // 999px
+  --hz-border-width: var(--pf-t--global--border--width--regular);
+  --hz-border-width-strong: var(--pf-t--global--border--width--strong);
+
+  // ------------------------------------------------------------------- shadow
+  --hz-shadow-md: var(--pf-t--global--box-shadow--md);
+  --hz-shadow-lg: var(--pf-t--global--box-shadow--lg);
+
+  // -------------------------------------------------------------- brand colors
+  --hz-color-brand: var(--pf-t--global--color--brand--default);
+  --hz-color-brand-hover: var(--pf-t--global--color--brand--hover);
+  --hz-color-brand-clicked: var(--pf-t--global--color--brand--clicked);
+
+  // ----------------------------------------------------------------- surfaces
+  --hz-bg-page: var(--pf-t--global--background--color--primary--default);
+  --hz-bg-subtle: var(--pf-t--global--background--color--secondary--default);
+  --hz-bg-raised: var(--pf-t--global--background--color--floating--default);
+  --hz-bg-sunken: var(--pf-t--global--background--color--tertiary--default);
+  --hz-bg-inverse: var(--pf-t--global--background--color--inverse--default);
+  --hz-bg-disabled: var(--pf-t--global--background--color--disabled--default);
+  --hz-bg-hover: var(--pf-t--global--background--color--secondary--hover);
+  --hz-bg-clicked: var(--pf-t--global--background--color--secondary--clicked);
+  // Selected rows/items use a neutral hover-activated surface: PF's highlight
+  // tokens are yellows that do not have a dark-mode counterpart.
+  --hz-bg-selected: var(--pf-t--global--background--color--secondary--clicked);
+  --hz-bg-backdrop: var(--pf-t--global--background--color--backdrop--default);
+  --hz-bg-stripe: var(--pf-t--global--background--color--striped--row--default);
+  --hz-bg-control: var(--pf-t--global--background--color--control--default);
+  --hz-bg-control-readonly: var(--pf-t--global--background--color--control--read-only);
+
+  // Horizon-specific surfaces that PF does not name directly.
+  --hz-bg-navbar: var(--pf-t--global--background--color--primary--default);
+  --hz-bg-sidebar: var(--pf-t--global--background--color--secondary--default);
+  --hz-bg-table-header: var(--pf-t--global--background--color--secondary--default);
+  --hz-bg-table-hover: var(--pf-t--global--background--color--secondary--hover);
+  --hz-bg-code: var(--pf-t--global--background--color--secondary--default);
+
+  // --------------------------------------------------------------------- text
+  --hz-text: var(--pf-t--global--text--color--regular);
+  --hz-text-subtle: var(--pf-t--global--text--color--subtle);
+  --hz-text-disabled: var(--pf-t--global--text--color--disabled);
+  --hz-text-link: var(--pf-t--global--text--color--link--default);
+  --hz-text-link-hover: var(--pf-t--global--text--color--link--hover);
+  --hz-text-link-visited: var(--pf-t--global--text--color--link--visited);
+  --hz-text-on-brand: var(--pf-t--global--text--color--on-brand--default);
+  --hz-text-on-inverse: var(--pf-t--global--text--color--inverse);
+  --hz-icon: var(--pf-t--global--icon--color--regular);
+  --hz-icon-subtle: var(--pf-t--global--icon--color--subtle);
+
+  // ------------------------------------------------------------------- borders
+  --hz-border: var(--pf-t--global--border--color--default);
+  --hz-border-strong: var(--pf-t--global--border--color--200);
+  --hz-border-control: var(--pf-t--global--border--color--control--default);
+  --hz-border-disabled: var(--pf-t--global--border--color--disabled);
+  --hz-border-brand: var(--pf-t--global--border--color--brand--default);
+
+  // -------------------------------------------------------------------- status
+  --hz-color-success: var(--pf-t--global--color--status--success--default);
+  --hz-color-danger: var(--pf-t--global--color--status--danger--default);
+  --hz-color-warning: var(--pf-t--global--color--status--warning--default);
+  --hz-color-info: var(--pf-t--global--color--status--info--default);
+
+  --hz-text-success: var(--pf-t--global--text--color--status--success--default);
+  --hz-text-danger: var(--pf-t--global--text--color--status--danger--default);
+  // Light mode: PF's warning status colour is a bright yellow, unusable as
+  // text on a white surface, so warning copy uses the regular text colour and
+  // relies on the yellow accent border/icon. Dark mode re-enables yellow text
+  // in the override block at the bottom of this file.
+  --hz-text-warning: var(--hz-text);
+  --hz-text-info: var(--pf-t--global--text--color--status--info--default);
+
+  // Text placed on a solid warning (yellow) surface, in *both* modes: the
+  // yellow does not change between light and dark, so the label must not
+  // either.
+  --hz-on-warning: var(--pf-t--color--gray--95);
+
+  --hz-border-success: var(--pf-t--global--border--color--status--success--default);
+  --hz-border-danger: var(--pf-t--global--border--color--status--danger--default);
+  --hz-border-warning: var(--pf-t--global--border--color--status--warning--default);
+  --hz-border-info: var(--pf-t--global--border--color--status--info--default);
+
+  // -------------------------------------------------------------------- charts
+  // --pf-t--chart--* comes from the vendored patternfly-charts.css and already
+  // flips with the dark theme class.
+  --hz-chart-1: var(--pf-t--chart--color--blue--300);
+  --hz-chart-2: var(--pf-t--chart--color--teal--300);
+  --hz-chart-3: var(--pf-t--chart--color--purple--300);
+  --hz-chart-4: var(--pf-t--chart--color--orange--300);
+  --hz-chart-5: var(--pf-t--chart--color--green--300);
+  --hz-chart-6: var(--pf-t--chart--color--red-orange--300);
+  --hz-chart-7: var(--pf-t--chart--color--yellow--300);
+  --hz-chart-8: var(--pf-t--chart--color--black--300);
+  --hz-chart-axis: var(--pf-t--global--border--color--default);
+  --hz-chart-grid: var(--pf-t--global--background--color--secondary--default);
+  --hz-chart-label: var(--pf-t--global--text--color--subtle);
+
+  // ------------------------------------------------------------------- layout
+  // Keep in sync with $navbar-height / $sidebar-width in _variables.scss.
+  --hz-navbar-height: 48px;
+  --hz-sidebar-width: 232px;
+
+  // Native widgets (scrollbars, form controls, calendar popups) follow the mode.
+  color-scheme: light;
+}
+
+html.pf-v6-theme-dark {
+  color-scheme: dark;
+
+  // PF keeps `--pf-t--global--background--color--tertiary--default` very light
+  // in dark mode for tinted panels; Horizon uses it for code/log surfaces,
+  // which need to be darker than the page instead of lighter.
+  --hz-bg-sunken: var(--pf-t--global--background--color--200);
+
+  // Yellow is legible on the dark page background (well above 4.5:1).
+  --hz-text-warning: var(--pf-t--global--color--status--warning--default);
+}

@@ -1,0 +1,116 @@
+// Login / splash page
+
+body#splash {
+  background-color: var(--hz-bg-subtle);
+  color: var(--hz-text);
+  height: auto;
+  min-height: 100%;
+}
+
+#splash {
+  .login {
+    margin-top: var(--hz-space-2xl);
+    margin-bottom: var(--hz-space-2xl);
+  }
+
+  .panel {
+    background-color: var(--hz-bg-raised);
+    border: var(--hz-border-width) solid var(--hz-border);
+    border-radius: var(--hz-radius-medium);
+    box-shadow: var(--hz-shadow-lg);
+    overflow: hidden;
+  }
+
+  .panel-heading {
+    padding: var(--hz-space-lg) var(--hz-space-lg) var(--hz-space-sm);
+    background-color: transparent;
+    border-bottom: 0;
+    text-align: center;
+  }
+
+  .panel-body {
+    padding: var(--hz-space-lg);
+  }
+
+  .login-title {
+    margin: 0;
+    font-family: var(--hz-font-family-heading);
+    font-size: var(--pf-t--global--font--size--heading--h2);
+    font-weight: var(--hz-font-weight-heading);
+    color: var(--hz-text);
+  }
+
+  .splash-logo {
+    display: block;
+    max-width: 60%;
+    max-height: 72px;
+    margin: 0 auto var(--hz-space-md);
+    // Logo files are single-colour SVGs; PF masthead branding follows the
+    // foreground colour in dark mode.
+    filter: none;
+  }
+
+  .form-group {
+    margin-bottom: var(--hz-space-md);
+  }
+
+  .help_text,
+  .hz-icon-required {
+    display: none;
+  }
+
+  ul.errorlist {
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .fake_credentials {
+    display: none;
+  }
+
+  .login-footer,
+  #footer {
+    color: var(--hz-text-subtle);
+    background-color: transparent;
+    border: 0;
+    text-align: center;
+    padding: var(--hz-space-md) 0;
+    font-size: var(--hz-font-size-sm);
+  }
+
+  // "Log in" is the only primary action on the page.
+  .btn-primary {
+    width: 100%;
+    --hz-btn-padding-block: var(--hz-space-sm);
+  }
+
+  .dropdown-menu {
+    max-height: 20em;
+    overflow-y: auto;
+  }
+
+  // Domain selector shown above the form
+  .panel-body > .form-group:first-child .themable-select,
+  .themable-select.form-control {
+    width: 100%;
+  }
+}
+
+// The login page in a modal (session expiry from inside the dashboard)
+.login-modal,
+.modal-body .login {
+  margin-top: 0;
+
+  .panel {
+    box-shadow: none;
+    border: 0;
+  }
+}
+
+// Splash logo inversion in dark mode lives in scss/_dark.scss together with the
+// navbar logo.
+
+// Keyboard/High-contrast friendly footer link
+#splash a {
+  color: var(--hz-text-link);
+}

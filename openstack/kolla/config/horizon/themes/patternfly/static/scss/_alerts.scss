@@ -1,0 +1,136 @@
+// Alerts, Horizon messages, and toast notifications
+//
+// PF6 alert anatomy: neutral (raised) surface, 1px border, a thick leading
+// status accent and status-coloured title text. Tinted backgrounds are avoided
+// because PF has no dark-aware tinted status surface.
+
+.alert {
+  padding: var(--hz-space-md);
+  color: var(--hz-text);
+  background-color: var(--hz-bg-raised);
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-left-width: 3px;
+  border-radius: var(--hz-radius-control);
+
+  > p,
+  > ul {
+    margin-bottom: 0;
+  }
+
+  strong {
+    font-weight: var(--hz-font-weight-bold);
+  }
+
+  .close {
+    color: inherit;
+    opacity: .8;
+    text-shadow: none;
+
+    &:hover,
+    &:focus {
+      color: inherit;
+      opacity: 1;
+    }
+  }
+
+  a {
+    font-weight: var(--hz-font-weight-bold);
+    text-decoration: underline;
+  }
+}
+
+.alert-success {
+  color: var(--hz-text-success);
+  border-left-color: var(--hz-border-success);
+
+  strong { color: var(--hz-text-success); }
+}
+
+.alert-info {
+  color: var(--hz-text-info);
+  border-left-color: var(--hz-border-info);
+
+  strong { color: var(--hz-text-info); }
+}
+
+.alert-warning {
+  color: var(--hz-text-warning);
+  border-left-color: var(--hz-border-warning);
+
+  strong { color: var(--hz-text-warning); }
+}
+
+.alert-danger {
+  color: var(--hz-text-danger);
+  border-left-color: var(--hz-border-danger);
+
+  strong { color: var(--hz-text-danger); }
+
+  // Error bodies contain stack traces / API payloads; keep them readable.
+  pre, code {
+    color: var(--hz-text);
+  }
+}
+
+// Legacy `.alert-default` used by Horizon's message list
+.alert-default {
+  color: var(--hz-text);
+  border-left-color: var(--hz-border-strong);
+}
+
+// -------------------------------------------------------- Horizon messages
+// The message container is fixed to the top-right of the viewport and can grow
+// to several stacked alerts, so it needs its own scroll container in short
+// viewports.
+.messages {
+  top: calc(var(--hz-navbar-height) + var(--hz-space-sm));
+  right: var(--hz-space-md);
+  width: 24em;
+  max-width: calc(100vw - 2 * var(--hz-space-md));
+  max-height: calc(100vh - var(--hz-navbar-height) - 2 * var(--hz-space-md));
+  overflow-y: auto;
+  padding-top: 0;
+
+  .alert {
+    box-shadow: var(--hz-shadow-md);
+    margin-bottom: var(--hz-space-sm);
+  }
+
+  .javascript-disabled {
+    color: var(--hz-text-danger);
+    border-left-color: var(--hz-border-danger);
+  }
+}
+
+// Inline error details expander inside an alert
+.alert .collapse {
+  margin-top: var(--hz-space-xs);
+  font-family: var(--hz-font-family-mono);
+  font-size: var(--hz-font-size-sm);
+  white-space: pre-wrap;
+}
+
+// Angular toast notifications (`<toast>` component)
+.toast-pf,
+.message {
+  color: var(--hz-text);
+  background-color: var(--hz-bg-raised);
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-radius: var(--hz-radius-control);
+  box-shadow: var(--hz-shadow-md);
+}
+
+// Quota / usage warnings shown above tables
+.quota-warning,
+.quota-heading {
+  color: var(--hz-text-warning);
+}
+
+.inline-alert {
+  padding: var(--hz-space-sm) var(--hz-space-md);
+  color: var(--hz-text-info);
+  background-color: var(--hz-bg-raised);
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-left: 3px solid var(--hz-border-info);
+  border-radius: var(--hz-radius-control);
+}

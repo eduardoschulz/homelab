@@ -1,0 +1,239 @@
+// Top navigation bar, project/domain selector, user menu
+
+$hz-navbar-border: var(--hz-border-width) solid var(--hz-border);
+
+.topbar {
+  .navbar {
+    margin-bottom: 0;
+    border: 0;
+    border-bottom: $hz-navbar-border;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  // Header overflow ("More" menu) entries are block-level in Horizon.
+  .navbar-nav .header-overflow ul li {
+    white-space: nowrap;
+    padding: var(--hz-space-xs) var(--hz-space-md);
+  }
+}
+
+.navbar-default {
+  background-color: var(--hz-bg-navbar);
+  color: var(--hz-text);
+  min-height: var(--hz-navbar-height);
+
+  .navbar-brand,
+  .navbar-text {
+    color: var(--hz-text);
+  }
+
+  .navbar-brand:hover,
+  .navbar-brand:focus {
+    color: var(--hz-text-link-hover);
+  }
+
+  .navbar-nav > li > a {
+    color: var(--hz-text);
+    line-height: calc(var(--hz-navbar-height) - 2 * var(--hz-space-sm));
+    padding-top: var(--hz-space-sm);
+    padding-bottom: var(--hz-space-sm);
+
+    &:hover,
+    &:focus {
+      color: var(--hz-text-link-hover);
+      background-color: var(--hz-bg-hover);
+    }
+  }
+
+  .navbar-nav > .open > a,
+  .navbar-nav > .open > a:hover,
+  .navbar-nav > .open > a:focus {
+    color: var(--hz-text);
+    background-color: var(--hz-bg-clicked);
+    box-shadow: inset 0 -3px 0 var(--hz-color-brand);
+  }
+
+  .navbar-nav > .active > a,
+  .navbar-nav > .active > a:hover,
+  .navbar-nav > .active > a:focus {
+    color: var(--hz-text);
+    background-color: var(--hz-bg-hover);
+  }
+
+  .navbar-nav > .disabled > a {
+    color: var(--hz-text-disabled);
+  }
+
+  .navbar-toggle {
+    border-color: var(--hz-border-control);
+    border-radius: var(--hz-radius-control);
+    margin-top: calc((var(--hz-navbar-height) - 34px) / 2);
+    margin-bottom: calc((var(--hz-navbar-height) - 34px) / 2);
+
+    .icon-bar {
+      background-color: var(--hz-icon);
+      border-radius: 1px;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: var(--hz-bg-hover);
+    }
+  }
+}
+
+// Logo: PF masthead branding is `--pf-t--global--spacer--lg` away from the edge.
+.navbar-header .navbar-brand {
+  line-height: var(--hz-navbar-height);
+  font-size: 0;
+  padding: 0 var(--hz-space-md);
+
+  img {
+    height: calc(var(--hz-navbar-height) - 2 * var(--hz-space-sm));
+    width: auto;
+    vertical-align: middle;
+  }
+}
+
+// ------------------------------------------------------- context (project) menu
+// Horizon renders "<domain> / <project>" inside the toggle; the delimiter is
+// styled by `.context-delimiter`.
+.context-delimiter {
+  color: var(--hz-text-subtle);
+  font-size: var(--hz-font-size-sm);
+  padding: 0 var(--hz-space-xs);
+  vertical-align: middle;
+}
+
+// `show_overview` prints the current scope name; keep it from wrapping.
+.dropdown-toggle > .context-overview {
+  display: inline-block;
+  max-width: 24em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+
+.context-selection {
+  min-width: 22em;
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-radius: var(--hz-radius-control);
+  box-shadow: var(--hz-shadow-md);
+
+  > li > a,
+  > li > .dropdown-header {
+    padding: var(--hz-space-xs) var(--hz-space-md);
+  }
+
+  .dropdown-header {
+    font-size: var(--hz-font-size-sm);
+    font-weight: var(--hz-font-weight-bold);
+    color: var(--hz-text-subtle);
+    text-transform: none;
+  }
+
+  // Nested project/domain lists use `.selection-menu` groups.
+  .selection-menu .dropdown-header {
+    padding-top: var(--hz-space-sm);
+  }
+
+  li.active > a,
+  li.selected > a {
+    color: var(--hz-text-on-brand);
+    background-color: var(--hz-color-brand);
+  }
+}
+
+@media (min-width: 768px) {
+  .context-selection {
+    max-height: calc(99vh - var(--hz-navbar-height));
+    overflow-y: auto;
+  }
+}
+
+// ------------------------------------------------------------------ user menu
+.user-menu {
+  > a > .fa {
+    color: var(--hz-icon);
+  }
+
+  .user-name {
+    margin: 0 var(--hz-space-xs);
+    font-weight: var(--hz-font-weight-bold);
+  }
+
+  .dropdown-menu {
+    min-width: 16em;
+
+    .btn-link {
+      display: block;
+      width: 100%;
+      padding: var(--hz-space-xs) var(--hz-space-md);
+      color: var(--hz-text);
+      text-align: left;
+      text-decoration: none;
+      border: 0;
+      border-radius: 0;
+
+      &:hover,
+      &:focus {
+        color: var(--hz-text);
+        background-color: var(--hz-bg-hover);
+      }
+    }
+
+    form {
+      margin: 0;
+    }
+  }
+}
+
+// ----------------------------------------------------------- theme mode toggle
+// Rendered inside the user menu by templates/header/_user_menu.html.
+.theme-mode-picker {
+  padding: 0;
+
+  .dropdown-header {
+    padding: var(--hz-space-xs) var(--hz-space-md);
+  }
+}
+
+.theme-mode-item {
+  display: flex;
+  align-items: center;
+  gap: var(--hz-space-sm);
+  padding: var(--hz-space-xs) var(--hz-space-md);
+  color: var(--hz-text);
+
+  &:hover,
+  &:focus {
+    color: var(--hz-text);
+    background-color: var(--hz-bg-hover);
+    text-decoration: none;
+  }
+
+  .theme-mode-check {
+    width: 1em;
+    color: var(--hz-text-link);
+    visibility: hidden;
+  }
+
+  &[aria-checked="true"] {
+    font-weight: var(--hz-font-weight-bold);
+
+    .theme-mode-check {
+      visibility: visible;
+    }
+  }
+}
+
+// The header's own compact "More"/region pickers.
+.header-overflow .dropdown-menu,
+#region_selector,
+.keystone-provider-selector {
+  border: var(--hz-border-width) solid var(--hz-border);
+  border-radius: var(--hz-radius-control);
+  box-shadow: var(--hz-shadow-md);
+}
