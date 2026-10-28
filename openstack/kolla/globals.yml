@@ -38,7 +38,7 @@ enable_ceilometer: true
 enable_cloudkitty: true
 
 # extra services
-enable_mistral: true
+enable_mistral: false
 enable_trove: true
 
 #extra extra
