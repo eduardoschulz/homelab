@@ -9,6 +9,7 @@ enable_openstack_core: true
 # networking
 network_interface: "eno1"
 neutron_external_interface: "eno2"
+enable_neutron_provider_networks: true
 
 enable_haproxy: false
 enable_proxysql: false
